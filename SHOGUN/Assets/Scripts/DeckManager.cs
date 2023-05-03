@@ -34,34 +34,28 @@ public class DeckManager : MonoBehaviour
 
     public Card DrawTopCard()
     {
-        if (_deck.Count <= 0) return null;
+        if (_deck.Count <= 0)
+        {
+            ShuffleDeck();
+        }
 
         Card cardOnTop = _deck[0];
         _deck.Remove(cardOnTop);
         _deckAmountText.text = _deck.Count.ToString();
+        _usedCardsAmountText.text = _usedCards.Count.ToString();
 
         return cardOnTop;
     }
 
-    public void ShuffleButton()
-    {
-        if (_usedCards.Count > 0)
-        {
-            foreach (Card usedCard in _usedCards)
-            {
-                _deck.Add(usedCard);
-            }
-            _usedCards.Clear();
-        }
-
-        _deckAmountText.text = _deck.Count.ToString();
-        _usedCardsAmountText.text = _usedCards.Count.ToString();
-
-        ShuffleDeck();
-    }
-
     private void ShuffleDeck()
     {
+        foreach (Card usedCard in _usedCards)
+        {
+            _deck.Add(usedCard);
+        }
+
+        _usedCards.Clear();
+
         for (int i = 0; i < _deck.Count - 1; i++)
         {
             Card temporaryCard = _deck[i];

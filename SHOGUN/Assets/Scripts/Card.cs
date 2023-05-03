@@ -7,7 +7,7 @@ using System;
 public class Card : MonoBehaviour, IPointerDownHandler
 {
     [Header("Settings")]
-    [SerializeField] private int _value;
+    [SerializeField] public int _value;
 
     [Header("To Attach")]
     [SerializeField] private TMP_Text _cardText;
@@ -15,6 +15,7 @@ public class Card : MonoBehaviour, IPointerDownHandler
 
     public static event Action<Card, int> OnCardPlayed;
 
+    private CombatManager _combatManager;
     private RectTransform _recTransform;
     private Vector2 _startPosition;
     private int _slotIndex = -1;
@@ -23,6 +24,7 @@ public class Card : MonoBehaviour, IPointerDownHandler
     {
         HandManager.OnCardDrawn += CheckIfDrawn;
 
+        _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
         _recTransform = GetComponent<RectTransform>();
         _startPosition = _recTransform.anchoredPosition;
 
@@ -44,15 +46,15 @@ public class Card : MonoBehaviour, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         //card clicked
+        //Debug.Log(_slotIndex);
         OnCardPlayed?.Invoke(this, _slotIndex);
-        EnemyTest enemyTest = (EnemyTest)FindObjectOfType(typeof(EnemyTest));
-        enemyTest.TakeDamege(_value);
+        _combatManager.PlayCard(_value);
         _recTransform.anchoredPosition = _startPosition;
     }
 
     private void CheckIfDrawn(Card drawnCard, int slotInHandIndex)
     {
-        if (drawnCard != this) return;
+        if (drawnCard != this) return;   
         _slotIndex = slotInHandIndex;
     }
 }

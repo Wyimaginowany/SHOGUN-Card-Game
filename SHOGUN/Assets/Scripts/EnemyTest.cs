@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,11 +8,12 @@ public class EnemyTest : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private int _maxHealth;
+    [SerializeField] private int _damage;
 
     [Header("To Attach")]
     [SerializeField] private TMP_Text _healthText;
-    [SerializeField] private MeshRenderer _bodyMesh;
-    [SerializeField] private MeshRenderer _noseMesh;
+
+    public static event Action<EnemyTest> OnEnemyDeath;
 
     private int _currentHealth;
 
@@ -21,22 +23,21 @@ public class EnemyTest : MonoBehaviour
         _healthText.text = _currentHealth.ToString();
     }
 
-    public void TakeDamege(int damage)
+    public void TakeDamage(int damage)
     {
         _currentHealth -= damage;
 
         if (_currentHealth <= 0)
         {
-            _currentHealth = (int)Random.Range(30, 60);
-            _bodyMesh.material.color = new Color(Random.Range(0f, 1f),
-                              Random.Range(0f, 1f),
-                              Random.Range(0f, 1f));
-
-            _noseMesh.material.color = new Color(Random.Range(0f, 1f),
-                  Random.Range(0f, 1f),
-                  Random.Range(0f, 1f));
+            OnEnemyDeath?.Invoke(this);
+            Destroy(gameObject);
         }
 
         _healthText.text = _currentHealth.ToString();
+    }
+
+    public void HandleTurn()
+    {
+        Debug.Log("Deal" + _damage + "to player");
     }
 }
