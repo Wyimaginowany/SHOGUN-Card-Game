@@ -46,7 +46,11 @@ public class Card : MonoBehaviour, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         //card clicked
-        //Debug.Log(_slotIndex);
+        PlayCard();
+    }
+
+    private void PlayCard()
+    {
         OnCardPlayed?.Invoke(this, _slotIndex);
         _combatManager.PlayCard(_value);
         _recTransform.anchoredPosition = _startPosition;

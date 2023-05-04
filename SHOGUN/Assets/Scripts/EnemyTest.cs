@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -15,10 +13,13 @@ public class EnemyTest : MonoBehaviour
 
     public static event Action<EnemyTest> OnEnemyDeath;
 
+    private PlayerHealth _playerHealth;
     private int _currentHealth;
 
     private void Start()
     {
+        _playerHealth = (PlayerHealth)FindObjectOfType(typeof(PlayerHealth));
+
         _currentHealth = _maxHealth;
         _healthText.text = _currentHealth.ToString();
     }
@@ -38,6 +39,6 @@ public class EnemyTest : MonoBehaviour
 
     public void HandleTurn()
     {
-        Debug.Log("Deal" + _damage + "to player");
+        _playerHealth.TakeDamage(_damage);
     }
 }
