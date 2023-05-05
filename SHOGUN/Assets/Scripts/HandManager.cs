@@ -15,33 +15,34 @@ public class HandManager : MonoBehaviour
     private void Start()
     {
         _deckManager = GetComponent<DeckManager>();
+
+        CombatManager.OnPlayerTurnStart += HandlePlayerTurnStart;
         Card.OnCardPlayed += RemoveFromHand;
     }
 
     private void OnDestroy()
     {
+        CombatManager.OnPlayerTurnStart -= HandlePlayerTurnStart;
         Card.OnCardPlayed -= RemoveFromHand;
     }
-
-    public void DrawCardButton()
+    private void HandlePlayerTurnStart()
     {
-        if (_hand.Count >= _cardSlots.Length) return;
+        DrawFullHand();
+    }
 
-        Card drawnCard = _deckManager.DrawTopCard();
-        if (drawnCard == null) return;
-        
+    private void DrawFullHand()
+    {
         for (int i = 0; i < _cardSlots.Length; i++)
         {
-            if (_cardSlots[i].activeSelf)
-            {
-                _hand.Add(drawnCard);
+            if (!_cardSlots[i].activeSelf) continue;
+            Card drawnCard = _deckManager.DrawTopCard();
 
-                drawnCard.gameObject.transform.position = _cardSlots[i].transform.position;
-                _cardSlots[i].SetActive(false);
+            _hand.Add(drawnCard);
 
-                OnCardDrawn?.Invoke(drawnCard, i);
-                break;
-            }
+            drawnCard.gameObject.transform.position = _cardSlots[i].transform.position;
+            _cardSlots[i].SetActive(false);
+
+            OnCardDrawn?.Invoke(drawnCard, i);
         }
     }
 
@@ -49,5 +50,10 @@ public class HandManager : MonoBehaviour
     {
         _hand.Remove(cardPlayed);
         _cardSlots[cardPlayerSlotIndex].SetActive(true);
+    }
+
+    public void StartButton()
+    {
+        DrawFullHand();
     }
 }
