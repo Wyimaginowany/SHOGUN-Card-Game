@@ -1,24 +1,37 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
+    [Header("Settings")]
+    [SerializeField] private int _maxMana = 5;
+
+    [Header("To Attach")]
     [SerializeField] private EnemyTest[] _enemies;
     [SerializeField] private Transform[] _spawnPoints;
+    [SerializeField] private TMP_Text _manaAmountText;
 
     public static event Action OnPlayerTurnStart;
     public static event Action OnPlayerTurnEnd;
 
     private List<EnemyTest> _aliveEnemies = new List<EnemyTest>();
 
+    private int _currentMana;
+
     private void Start()
     {
+        Card.OnCardPlayed += HandleCardPlayed;
         EnemyTest.OnEnemyDeath += HandleEnemyDeath;
+
+        _currentMana = _maxMana;
+        _manaAmountText.text = _currentMana.ToString();
     }
 
     private void OnDestroy()
     {
+        Card.OnCardPlayed -= HandleCardPlayed;
         EnemyTest.OnEnemyDeath -= HandleEnemyDeath;
     }
 
@@ -57,11 +70,24 @@ public class CombatManager : MonoBehaviour
             enemy.HandleTurn();
         }
 
+        //enemy turn end
         OnPlayerTurnStart?.Invoke();
+
+        _currentMana = _maxMana;
+        _manaAmountText.text = _currentMana.ToString();
     }
 
-    public void PlayCard(int damage)
+    public void HandleCardPlayed(Card cardPlayed, int slotIndex)
     {
-        _aliveEnemies[0].TakeDamage(damage);
+        //cards will have own targets later
+        _currentMana -= cardPlayed.GetCardCost();
+        _manaAmountText.text = _currentMana.ToString();
+        _aliveEnemies[0].TakeDamage(cardPlayed._value);
+    }
+
+    public bool HaveEnoughMana(int cardCost)
+    {
+        if (cardCost > _currentMana) return false;      
+        return true;
     }
 }
