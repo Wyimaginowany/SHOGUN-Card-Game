@@ -10,15 +10,22 @@ public class EnemyTest : MonoBehaviour
 
     [Header("To Attach")]
     [SerializeField] private TMP_Text _healthText;
+    [SerializeField] private AnimatorOverrideController _overrideController;
 
     public static event Action<EnemyTest> OnEnemyDeath;
 
+    private Animator _animator;
+    private CombatManager _combatManager;
     private PlayerHealth _playerHealth;
     private int _currentHealth;
 
     private void Start()
     {
+        _animator = GetComponent<Animator>();
+        _animator.runtimeAnimatorController = _overrideController;
+
         _playerHealth = (PlayerHealth)FindObjectOfType(typeof(PlayerHealth));
+        _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
 
         _currentHealth = _maxHealth;
         _healthText.text = _currentHealth.ToString();
@@ -39,6 +46,16 @@ public class EnemyTest : MonoBehaviour
 
     public void HandleTurn()
     {
+        _animator.SetTrigger("attack");
+    }
+
+    private void AttackAnimationEvent()
+    {
         _playerHealth.TakeDamage(_damage);
+    }
+
+    private void EndAttackAnimationEvent()
+    {
+        _combatManager.NextEnemyTurn();
     }
 }

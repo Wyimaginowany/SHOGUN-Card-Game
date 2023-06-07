@@ -7,10 +7,13 @@ using System;
 public class Card : MonoBehaviour, IPointerDownHandler
 {
     [Header("Settings")]
+    //public for combatManager, cards will have own targets later
     [SerializeField] public int _value;
+    [SerializeField] private int _cardCost;
 
     [Header("To Attach")]
     [SerializeField] private TMP_Text _cardText;
+    [SerializeField] private TMP_Text _cardCostText;
     [SerializeField] private RawImage _cardColorImage;
 
     public static event Action<Card, int> OnCardPlayed;
@@ -22,9 +25,10 @@ public class Card : MonoBehaviour, IPointerDownHandler
 
     void Start()
     {
+        _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
+
         HandManager.OnCardDrawn += CheckIfDrawn;
 
-        _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
         _recTransform = GetComponent<RectTransform>();
         _startPosition = _recTransform.anchoredPosition;
 
@@ -38,6 +42,7 @@ public class Card : MonoBehaviour, IPointerDownHandler
     private void SetupCard()
     {
         _cardText.text = _value.ToString();
+        _cardCostText.text = _cardCost.ToString();
         _cardColorImage.color = new Color(UnityEngine.Random.Range(0f, 1f),
                                           UnityEngine.Random.Range(0f, 1f),
                                           UnityEngine.Random.Range(0f, 1f));
@@ -46,14 +51,16 @@ public class Card : MonoBehaviour, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         //card clicked
+        if (!_combatManager.HaveEnoughMana(_cardCost)) return;
         PlayCard();
     }
 
     private void PlayCard()
     {
         OnCardPlayed?.Invoke(this, _slotIndex);
-        _combatManager.PlayCard(_value);
         _recTransform.anchoredPosition = _startPosition;
+
+        //card effect here
     }
 
     private void CheckIfDrawn(Card drawnCard, int slotInHandIndex)
@@ -61,4 +68,10 @@ public class Card : MonoBehaviour, IPointerDownHandler
         if (drawnCard != this) return;   
         _slotIndex = slotInHandIndex;
     }
+
+    public int GetCardCost()
+    {
+        return _cardCost;
+    }
+
 }
