@@ -17,8 +17,10 @@ public class CombatManager : MonoBehaviour
     public static event Action OnPlayerTurnEnd;
 
     private List<EnemyTest> _aliveEnemies = new List<EnemyTest>();
+    private EnemyTest[] _enemyTurnAliveEnemies;
 
     private int _currentMana;
+    private int _enemyOrderIndex = 0;
 
     private void Start()
     {
@@ -54,27 +56,33 @@ public class CombatManager : MonoBehaviour
                                               _spawnPoints[i].position,
                                               Quaternion.identity);
             _aliveEnemies.Add(newEnemy.GetComponent<EnemyTest>());
-        } 
+        }
     }
 
     public void EndTurnButton()
     {
+        _enemyOrderIndex = 0;
+        _enemyTurnAliveEnemies = _aliveEnemies.ToArray();
+
         OnPlayerTurnEnd?.Invoke();
-        HandleEnemyTurn();
+        NextEnemyTurn();
     }
 
-    private void HandleEnemyTurn()
+    public void NextEnemyTurn()
     {
-        foreach(EnemyTest enemy in _aliveEnemies)
+        if (_enemyOrderIndex == _aliveEnemies.Count)
         {
-            enemy.HandleTurn();
+            OnPlayerTurnStart?.Invoke();
+
+            _currentMana = _maxMana;
+            _manaAmountText.text = _currentMana.ToString();
+
+            return;
         }
 
-        //enemy turn end
-        OnPlayerTurnStart?.Invoke();
+        _enemyTurnAliveEnemies[_enemyOrderIndex].HandleTurn();
 
-        _currentMana = _maxMana;
-        _manaAmountText.text = _currentMana.ToString();
+        _enemyOrderIndex++;
     }
 
     public void HandleCardPlayed(Card cardPlayed, int slotIndex)

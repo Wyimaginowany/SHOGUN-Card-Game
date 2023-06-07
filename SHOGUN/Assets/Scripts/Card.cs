@@ -25,7 +25,7 @@ public class Card : MonoBehaviour, IPointerDownHandler
 
     void Start()
     {
-        _combatManager = GameObject.FindObjectOfType<CombatManager>();
+        _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
 
         HandManager.OnCardDrawn += CheckIfDrawn;
 
