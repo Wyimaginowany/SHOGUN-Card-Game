@@ -1,77 +1,123 @@
-using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Card : MonoBehaviour, IPointerDownHandler
+public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    [Header("Settings")]
-    //public for combatManager, cards will have own targets later
-    [SerializeField] public int _value;
-    [SerializeField] private int _cardCost;
-
     [Header("To Attach")]
-    [SerializeField] private TMP_Text _cardText;
-    [SerializeField] private TMP_Text _cardCostText;
-    [SerializeField] private RawImage _cardColorImage;
-
-    public static event Action<Card, int> OnCardPlayed;
+    [SerializeField] private CardScriptableObject _cardData;
 
     private CombatManager _combatManager;
-    private RectTransform _recTransform;
-    private Vector2 _startPosition;
+    private Vector3 _startingPosition;
+    private Vector3 _positionBeforeDrag;
     private int _slotIndex = -1;
 
-    void Start()
+    public static event Action<Card, int> OnCardPlayed;
+    public static event Action<Card, int> OnCardThrownAway;
+
+    private void Start()
     {
         _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
 
         HandManager.OnCardDrawn += CheckIfDrawn;
 
-        _recTransform = GetComponent<RectTransform>();
-        _startPosition = _recTransform.anchoredPosition;
-
-        SetupCard();
+        _startingPosition = transform.position;
     }
+
     private void OnDestroy()
     {
         HandManager.OnCardDrawn -= CheckIfDrawn;
     }
 
-    private void SetupCard()
+    public void OnBeginDrag(PointerEventData eventData)
     {
-        _cardText.text = _value.ToString();
-        _cardCostText.text = _cardCost.ToString();
-        _cardColorImage.color = new Color(UnityEngine.Random.Range(0f, 1f),
-                                          UnityEngine.Random.Range(0f, 1f),
-                                          UnityEngine.Random.Range(0f, 1f));
+        _positionBeforeDrag = transform.position;
+        transform.SetAsLastSibling();
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnDrag(PointerEventData eventData)
     {
-        //card clicked
-        if (!_combatManager.HaveEnoughMana(_cardCost)) return;
-        PlayCard();
+        transform.position = Input.mousePosition;
     }
 
-    private void PlayCard()
+    public void OnEndDrag(PointerEventData eventData)
     {
-        OnCardPlayed?.Invoke(this, _slotIndex);
-        _recTransform.anchoredPosition = _startPosition;
+        List<CardDropArea> possibleDropAreas = GetDropAreas();
 
-        //card effect here
+        if (possibleDropAreas.Count == 0)
+        {
+            ReturnCardToHand();
+            return;
+        }
+
+        foreach (CardDropArea dropArea in possibleDropAreas)
+        {
+            if (dropArea.GetDropArea() == PossibleAreas.PlayArea)
+            {
+                if (!_combatManager.HaveEnoughMana(_cardData.Cost))
+                {
+                    ReturnCardToHand();
+                    return;
+                }
+
+                OnCardPlayed?.Invoke(this, _slotIndex);
+                transform.position = _startingPosition;
+
+                return;
+            }
+            if (dropArea.GetDropArea() == PossibleAreas.ThrowOutArea)
+            {
+                OnCardThrownAway?.Invoke(this, _slotIndex);
+                transform.position = _startingPosition;
+
+                return;
+            }
+
+            ReturnCardToHand();
+        }
+
+    }
+
+    private void ReturnCardToHand()
+    {
+        transform.position = _positionBeforeDrag;
+    }
+
+    private List<CardDropArea> GetDropAreas()
+    {
+        List<CardDropArea> allDropAreas = new List<CardDropArea>();
+
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+        pointerEventData.position = Input.mousePosition;
+
+        List<RaycastResult> raycastResultsList = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, raycastResultsList);
+
+        for (int i = 0; i < raycastResultsList.Count; i++)
+        {
+            if (raycastResultsList[i].gameObject.GetComponent<CardDropArea>() != null)
+            {
+                allDropAreas.Add(raycastResultsList[i].gameObject.GetComponent<CardDropArea>());
+            }
+        }
+
+        return allDropAreas;
     }
 
     private void CheckIfDrawn(Card drawnCard, int slotInHandIndex)
     {
-        if (drawnCard != this) return;   
+        if (drawnCard != this) return;
         _slotIndex = slotInHandIndex;
     }
 
     public int GetCardCost()
     {
-        return _cardCost;
+        return _cardData.Cost;
     }
 
+    public CardScriptableObject GetCardData()
+    {
+        return _cardData;
+    }
 }

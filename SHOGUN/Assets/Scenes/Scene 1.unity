@@ -905,7 +905,7 @@ RectTransform:
   - {fileID: 1570423432}
   - {fileID: 1554732348}
   m_Father: {fileID: 1279984491}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1019,12 +1019,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: _value
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: _cardCost
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 477ff7fe2194f974495f23b69148d830, type: 2}
     - target: {fileID: 5540808907217309691, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1113,6 +1117,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card placeholder (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _value
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _cardCost
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _orginalParent
+      value: 
+      objectReference: {fileID: 543127265}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
 --- !u!224 &727324663 stripped
@@ -1367,6 +1383,93 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &867643964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 867643965}
+  - component: {fileID: 867643968}
+  - component: {fileID: 867643967}
+  - component: {fileID: 867643966}
+  m_Layer: 5
+  m_Name: Card Return Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &867643965
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867643964}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1279984491}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -736, y: 173}
+  m_SizeDelta: {x: 222.918, y: 295.665}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &867643966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867643964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7104751efd716448616dd249691167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _area: 1
+--- !u!114 &867643967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867643964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0.2011559, b: 1, a: 0.44705883}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &867643968
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867643964}
+  m_CullTransparentMesh: 1
 --- !u!1 &909248218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1511,12 +1614,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: _value
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: _cardCost
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: b6d0eb6abf3c0a441943d874cf1d28c3, type: 2}
     - target: {fileID: 5540808907217309691, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1605,6 +1712,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card placeholder (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _value
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _cardCost
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _orginalParent
+      value: 
+      objectReference: {fileID: 543127265}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
 --- !u!224 &919133242 stripped
@@ -1669,12 +1788,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: _value
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: _cardCost
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 616c5dbd1324f8f41b0bc84a4377676f, type: 2}
     - target: {fileID: 5540808907217309691, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1763,6 +1886,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card placeholder (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _value
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _cardCost
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _orginalParent
+      value: 
+      objectReference: {fileID: 543127265}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
 --- !u!224 &1040059736 stripped
@@ -2098,12 +2233,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: _value
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: _cardCost
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: ee2e6461c0d499d418bf38c09043367b, type: 2}
     - target: {fileID: 5540808907217309691, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2192,6 +2331,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card placeholder (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _value
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _cardCost
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _orginalParent
+      value: 
+      objectReference: {fileID: 543127265}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
 --- !u!224 &1182581557 stripped
@@ -2326,8 +2477,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 471711076}
-  - {fileID: 543127265}
   - {fileID: 2075425205}
+  - {fileID: 543127265}
+  - {fileID: 1807464704}
+  - {fileID: 867643965}
   m_Father: {fileID: 865706757}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2447,12 +2600,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: _value
-      value: 9
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: _cardCost
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 94a8b0bdb931c404e8ef947094e9be8c, type: 2}
     - target: {fileID: 5540808907217309691, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2541,6 +2698,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card placeholder (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _value
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _cardCost
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _orginalParent
+      value: 
+      objectReference: {fileID: 543127265}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
 --- !u!1 &1337891619
@@ -2760,12 +2929,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: _value
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: _cardCost
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: db8ba5cc458ec014ba41e1d6986e333b, type: 2}
     - target: {fileID: 5540808907217309691, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2854,6 +3027,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card placeholder (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _cardCost
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _orginalParent
+      value: 
+      objectReference: {fileID: 543127265}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
 --- !u!224 &1450561975 stripped
@@ -2881,12 +3066,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: _value
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: _cardCost
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: d25a5e5017686bb49a8c0a71449d49e9, type: 2}
     - target: {fileID: 5540808907217309691, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2975,6 +3164,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card placeholder (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _value
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _cardCost
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _orginalParent
+      value: 
+      objectReference: {fileID: 543127265}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
 --- !u!224 &1464892812 stripped
@@ -3153,12 +3354,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: _value
-      value: 8
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: _cardCost
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: e1286fe6013d81246825dc558d165d49, type: 2}
     - target: {fileID: 5540808907217309691, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3247,6 +3452,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card placeholder (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _value
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _cardCost
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _orginalParent
+      value: 
+      objectReference: {fileID: 543127265}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
 --- !u!224 &1570423432 stripped
@@ -3575,6 +3792,93 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1762758684}
+  m_CullTransparentMesh: 1
+--- !u!1 &1807464703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1807464704}
+  - component: {fileID: 1807464707}
+  - component: {fileID: 1807464706}
+  - component: {fileID: 1807464705}
+  m_Layer: 5
+  m_Name: Card Play Area
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1807464704
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807464703}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1279984491}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 173}
+  m_SizeDelta: {x: 792.99, y: 431.4}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1807464705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807464703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7104751efd716448616dd249691167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _area: 0
+--- !u!114 &1807464706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807464703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.17726506, b: 0, a: 0.54509807}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!222 &1807464707
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807464703}
   m_CullTransparentMesh: 1
 --- !u!1 &1829131017
 GameObject:
@@ -3915,7 +4219,7 @@ RectTransform:
   - {fileID: 247554019}
   - {fileID: 337784515}
   m_Father: {fileID: 1279984491}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3935,8 +4239,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: _cardCost
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2134073876338103732, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 36d4f4088fa42e642aca4e7adf9b8f2e, type: 2}
     - target: {fileID: 5540808907217309691, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4037,6 +4345,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card placeholder
       objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _cardCost
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5940061018954008313, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
+      propertyPath: _orginalParent
+      value: 
+      objectReference: {fileID: 543127265}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dcf02293d2f1d94597cc58f1de0f6ab, type: 3}
 --- !u!114 &5540808907071051952 stripped

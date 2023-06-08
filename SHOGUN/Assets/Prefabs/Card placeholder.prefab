@@ -84,6 +84,7 @@ GameObject:
   - component: {fileID: 5540808907217309691}
   - component: {fileID: 5540808907217309689}
   - component: {fileID: 2134073876338103732}
+  - component: {fileID: 7135092486313523858}
   m_Layer: 5
   m_Name: Card placeholder
   m_TagString: Untagged
@@ -133,6 +134,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f0dc4fec54706c43ba914196ce27c94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _value: 0
+  _cardCost: 0
+--- !u!114 &7135092486313523858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5540808907217309692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 427b863415eacb14696350aa33398e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _value: 0
