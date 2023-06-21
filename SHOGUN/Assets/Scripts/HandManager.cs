@@ -18,12 +18,14 @@ public class HandManager : MonoBehaviour
 
         CombatManager.OnPlayerTurnStart += HandlePlayerTurnStart;
         Card.OnCardPlayed += RemoveFromHand;
+        Card.OnCardThrownAway += RemoveFromHand;
     }
 
     private void OnDestroy()
     {
         CombatManager.OnPlayerTurnStart -= HandlePlayerTurnStart;
         Card.OnCardPlayed -= RemoveFromHand;
+        Card.OnCardThrownAway -= RemoveFromHand;
     }
     private void HandlePlayerTurnStart()
     {

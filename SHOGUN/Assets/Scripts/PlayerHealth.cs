@@ -29,9 +29,24 @@ public class PlayerHealth : MonoBehaviour
         _healthAmountText.text = _currentHealth.ToString();
     }
 
+    public void HealPlayer(int healAmount)
+    {
+        if (_currentHealth + healAmount > _maxHealth)
+        {
+            _currentHealth = _maxHealth;
+        }
+        else
+        {
+            _currentHealth += healAmount;
+        }
+        _healthAmountText.text = _currentHealth.ToString();
+    }
+
     private void HandlePlayerDeath()
     {
         Debug.Log("Player has died. Returning player to full health");
         _currentHealth = _maxHealth;
     }
+
+
 }

@@ -15,7 +15,10 @@ public class DeckManager : MonoBehaviour
 
     private void Start()
     {
-        Card.OnCardPlayed += HandleCardPlayed;
+        Card.OnCardPlayed += HandleCardUsed;
+        Card.OnCardThrownAway += HandleCardUsed;
+
+        ShuffleDeck();
 
         _deckAmountText.text = _deck.Count.ToString();
         _usedCardsAmountText.text = _usedCards.Count.ToString();
@@ -23,10 +26,11 @@ public class DeckManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        Card.OnCardPlayed -= HandleCardPlayed;
+        Card.OnCardPlayed -= HandleCardUsed;
+        Card.OnCardThrownAway -= HandleCardUsed;
     }
 
-    private void HandleCardPlayed(Card playedCard, int x)
+    private void HandleCardUsed(Card playedCard, int x)
     {
         _usedCards.Add(playedCard);
         _usedCardsAmountText.text = _usedCards.Count.ToString();
