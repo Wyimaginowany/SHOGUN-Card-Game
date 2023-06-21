@@ -141,7 +141,8 @@ GameObject:
   - component: {fileID: 5374627676133394781}
   - component: {fileID: 5374627676133394721}
   - component: {fileID: -8814948691952438419}
-  m_Layer: 0
+  - component: {fileID: 2030031810446316442}
+  m_Layer: 6
   m_Name: Enemy 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,6 +203,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!136 &2030031810446316442
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5374627676133394782}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.6962535
+  m_Height: 2.235568
+  m_Direction: 1
+  m_Center: {x: -0.0049076676, y: 0.004907608, z: -0.022084594}
 --- !u!1 &5374627676247125350
 GameObject:
   m_ObjectHideFlags: 0

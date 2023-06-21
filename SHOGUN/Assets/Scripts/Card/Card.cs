@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [Header("To Attach")]
-    [SerializeField] private CardScriptableObject _cardData;
+    [SerializeField] protected CardScriptableObject _cardData;
 
-    private CombatManager _combatManager;
-    private Vector3 _startingPosition;
-    private Vector3 _positionBeforeDrag;
-    private int _slotIndex = -1;
+    protected CombatManager _combatManager;
+    protected Vector3 _startingPosition;
+    protected Vector3 _positionBeforeDrag;
+    protected int _slotIndex = -1;
 
     public static event Action<Card, int> OnCardPlayed;
     public static event Action<Card, int> OnCardThrownAway;
 
-    private void Start()
+    protected virtual void Start()
     {
         _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
 
@@ -32,61 +32,52 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        BeginDragging();
+    }
+    public void OnDrag(PointerEventData eventData)
+    {
+        OnBeeingDragged();
+    }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        EndDragging();
+    }
+
+    protected virtual void BeginDragging()
+    {
         _positionBeforeDrag = transform.position;
         transform.SetAsLastSibling();
     }
-
-    public void OnDrag(PointerEventData eventData)
+    protected virtual void OnBeeingDragged()
     {
         transform.position = Input.mousePosition;
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    protected virtual void EndDragging()
     {
-        List<CardDropArea> possibleDropAreas = GetDropAreas();
-
-        if (possibleDropAreas.Count == 0)
-        {
-            ReturnCardToHand();
-            return;
-        }
-
-        foreach (CardDropArea dropArea in possibleDropAreas)
-        {
-            if (dropArea.GetDropArea() == PossibleAreas.PlayArea)
-            {
-                if (!_combatManager.HaveEnoughMana(_cardData.Cost))
-                {
-                    ReturnCardToHand();
-                    return;
-                }
-
-                OnCardPlayed?.Invoke(this, _slotIndex);
-                transform.position = _startingPosition;
-
-                return;
-            }
-            if (dropArea.GetDropArea() == PossibleAreas.ThrowOutArea)
-            {
-                OnCardThrownAway?.Invoke(this, _slotIndex);
-                transform.position = _startingPosition;
-
-                return;
-            }
-
-            ReturnCardToHand();
-        }
-
+        ReturnCardToHand();
     }
 
-    private void ReturnCardToHand()
+    protected void PlayCard()
+    {
+        OnCardPlayed?.Invoke(this, _slotIndex);
+        transform.position = _startingPosition;
+    }
+
+    protected void ShuffleCardIntoDeck()
+    {
+        OnCardThrownAway?.Invoke(this, _slotIndex);
+        transform.position = _startingPosition;
+    }
+
+    protected void ReturnCardToHand()
     {
         transform.position = _positionBeforeDrag;
     }
 
-    private List<CardDropArea> GetDropAreas()
+    protected List<PossibleAreas> GetDropAreas()
     {
-        List<CardDropArea> allDropAreas = new List<CardDropArea>();
+        List<PossibleAreas> allDropAreas = new List<PossibleAreas>();
 
         PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
         pointerEventData.position = Input.mousePosition;
@@ -98,7 +89,9 @@ public class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         {
             if (raycastResultsList[i].gameObject.GetComponent<CardDropArea>() != null)
             {
-                allDropAreas.Add(raycastResultsList[i].gameObject.GetComponent<CardDropArea>());
+                if (allDropAreas.Contains(raycastResultsList[i].gameObject.GetComponent<CardDropArea>().GetDropArea())) continue;
+
+                allDropAreas.Add(raycastResultsList[i].gameObject.GetComponent<CardDropArea>().GetDropArea());
             }
         }
 

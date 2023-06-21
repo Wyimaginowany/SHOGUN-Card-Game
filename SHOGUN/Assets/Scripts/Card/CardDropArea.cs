@@ -12,4 +12,4 @@ public class CardDropArea : MonoBehaviour
     }
 }
 
-public enum PossibleAreas { PlayArea, ThrowOutArea};
+public enum PossibleAreas { PlayArea, ThrowOutArea, SnapArea, AimArea};

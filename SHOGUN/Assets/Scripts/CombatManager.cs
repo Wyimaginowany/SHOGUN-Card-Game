@@ -90,12 +90,22 @@ public class CombatManager : MonoBehaviour
         //cards will have own targets later
         _currentMana -= cardPlayed.GetCardCost();
         _manaAmountText.text = _currentMana.ToString();
-        _aliveEnemies[0].TakeDamage(cardPlayed.GetCardData().Value);
     }
 
     public bool HaveEnoughMana(int cardCost)
     {
         if (cardCost > _currentMana) return false;      
         return true;
+    }
+
+    public void DealDamageToAllEnemies(int damage)
+    {
+        EnemyTest[] currentlyAliveEnemies = _aliveEnemies.ToArray();
+
+        foreach (EnemyTest enemy in currentlyAliveEnemies)
+        {
+            enemy.TakeDamage(damage);
+        }
+
     }
 }

@@ -18,6 +18,8 @@ public class DeckManager : MonoBehaviour
         Card.OnCardPlayed += HandleCardUsed;
         Card.OnCardThrownAway += HandleCardUsed;
 
+        ShuffleDeck();
+
         _deckAmountText.text = _deck.Count.ToString();
         _usedCardsAmountText.text = _usedCards.Count.ToString();
     }

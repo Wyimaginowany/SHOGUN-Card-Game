@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 5374627675992553477}
   - component: {fileID: 5374627675992553482}
   - component: {fileID: 5374627675992553483}
-  - component: {fileID: 5374627675992553476}
   m_Layer: 0
   m_Name: Nose
   m_TagString: Untagged
@@ -117,19 +116,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5374627675992553476
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5374627675992553478}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5374627676133394782
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,7 +127,8 @@ GameObject:
   - component: {fileID: 5374627676133394781}
   - component: {fileID: 5374627676133394721}
   - component: {fileID: 4821913815513089153}
-  m_Layer: 0
+  - component: {fileID: 6556832477496956534}
+  m_Layer: 6
   m_Name: Enemy 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,6 +189,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!136 &6556832477496956534
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5374627676133394782}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.08
+  m_Height: 2.43
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5374627676247125350
 GameObject:
   m_ObjectHideFlags: 0

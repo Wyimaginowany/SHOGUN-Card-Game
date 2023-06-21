@@ -23,8 +23,8 @@ public class CardVisual : MonoBehaviour
     {
         _cardText.text = _cardData.Value.ToString();
         _cardCostText.text = _cardData.Cost.ToString();
-        _cardColorImage.color = new Color(Random.Range(0f, 1f),
-                                          Random.Range(0f, 1f),
-                                          Random.Range(0f, 1f));
+        //_cardColorImage.color = new Color(Random.Range(0f, 1f),
+                                          //Random.Range(0f, 1f),
+                                          //Random.Range(0f, 1f));
     }
 }
