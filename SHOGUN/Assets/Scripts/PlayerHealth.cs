@@ -8,6 +8,9 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("To attach")]
     [SerializeField] private TMP_Text _healthAmountText;
+    [SerializeField] private TMP_Text _damageText;
+    [SerializeField] private Animator _popupAnimator;
+    
 
     private int _currentHealth;
 
@@ -19,6 +22,11 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        Debug.Log("adssadasda");
+        _damageText.text = "-"+damage.ToString();
+        _popupAnimator.SetTrigger("Take-damage");
+
+        
         _currentHealth -= damage;
 
         if (_currentHealth <= 0)
@@ -33,12 +41,17 @@ public class PlayerHealth : MonoBehaviour
     {
         if (_currentHealth + healAmount > _maxHealth)
         {
+            _damageText.text = "+"+(_maxHealth - _currentHealth).ToString();
+            _popupAnimator.SetTrigger("Heal-self");
             _currentHealth = _maxHealth;
         }
         else
         {
+            _damageText.text = "+"+(healAmount).ToString();
+            
             _currentHealth += healAmount;
         }
+        _popupAnimator.SetTrigger("Heal-self");
         _healthAmountText.text = _currentHealth.ToString();
     }
 
