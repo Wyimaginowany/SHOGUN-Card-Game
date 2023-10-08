@@ -4,36 +4,13 @@ using UnityEngine;
 
 public static class MenuManager
 {
-    public static bool IsInitialised { get; private set; }
-    public static GameObject mainMenu, settingsMenu, achievementsMenu;
-   public static void Init()
+   public static GameObject canvas = GameObject.Find("Canvas");
+   public static GameObject mainMenu = canvas.transform.Find("MainMenu").gameObject;
+   public static GameObject achievementsMenu = canvas.transform.Find("AchievementsMenu").gameObject;
+   public static GameObject settingsMenu = canvas.transform.Find("SettingsMenu").gameObject;
+
+    public static void setActiveView(GameObject canva)
     {
-        GameObject canvas = GameObject.Find("Canvas");
-        mainMenu = canvas.transform.Find("MainMenu").gameObject;
-        achievementsMenu = canvas.transform.Find("AchievementsMenu").gameObject;
-        settingsMenu = canvas.transform.Find("SettingsMenu").gameObject;
-
-        IsInitialised = true;
-    }
-
-    public static void OpenMenu(Menu menu, GameObject callingMenu)
-    {
-        if (!IsInitialised) {
-            Init();
-        }
-        switch (menu)
-        {
-            case Menu.MAIN_MENU:
-                mainMenu.SetActive(true);
-                break;
-            case Menu.ACHIEVEMENTS:
-                achievementsMenu.SetActive(true);
-                break;
-            case Menu.SETTINGS:
-                settingsMenu.SetActive(true);
-                break;
-        }
-
-        callingMenu.SetActive(false);
+        canva.SetActive(true);
     }
 }
