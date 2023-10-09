@@ -110,4 +110,9 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         _rectTransform.anchoredPosition = newPosition;
     }
+
+    public void SetNewHandRotation(Vector3 newRotation)
+    {
+        _rectTransform.rotation = Quaternion.Euler(newRotation.x, newRotation.y, newRotation.z);
+    }
 }
