@@ -11,6 +11,8 @@ public class HandManager : MonoBehaviour
     [SerializeField] private int _startMaxHandSize = 4;
     [SerializeField] private float _cardsInHandPositionY = 90f;
     [SerializeField] private float _spaceBetweenCards = 100f;
+    [SerializeField] private float _maxSpaceBetweenCards = 100f;
+    [SerializeField] private float _minSpaceBetweenCards = 0f;
     [SerializeField] private float _spaceBetweenCardsGrowFactor = 0.5f;
 
 
@@ -58,16 +60,15 @@ public class HandManager : MonoBehaviour
     {
         _hand.Remove(cardPlayed);
         UpdateCardsPosition(_hand.Count);
-        //_cardSlots[cardPlayerSlotIndex].SetActive(true);
-        //foreach card set new position and rotation
     }
 
     private void UpdateCardsPosition(int newCardsAmount)
     {
         for (int i = 0; i < _hand.Count; i++)
         {
-            //_middlePositionX - (((_singleCardSize / 2) * (_hand.Count - 1)) - (2 * i * (_singleCardSize / 2)))
-            float cardNewPositionX = _middlePositionX - (((_spaceBetweenCards / (_hand.Count * _spaceBetweenCardsGrowFactor)) * (_hand.Count - 1)) - (2 * i * (_spaceBetweenCards / (_hand.Count * _spaceBetweenCardsGrowFactor))));
+            float spaceFactor =  Mathf.Clamp(1 /(_hand.Count * _spaceBetweenCardsGrowFactor), _minSpaceBetweenCards, _maxSpaceBetweenCards);
+            Debug.Log(spaceFactor);
+            float cardNewPositionX = _middlePositionX + (_spaceBetweenCards * (2 * i - _hand.Count + 1) / (1 / spaceFactor));
             Vector2 newCardPosition = new Vector2(cardNewPositionX, _cardsInHandPositionY);
 
             _hand[i].gameObject.transform.SetSiblingIndex(i);
