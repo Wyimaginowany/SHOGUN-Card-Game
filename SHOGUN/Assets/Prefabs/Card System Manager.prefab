@@ -1838,12 +1838,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _handCardsParent: {fileID: 6422126486012263388}
-  _startMaxHandSize: 10
-  _cardsInHandPositionY: 90
+  _startMaxHandSize: 20
+  _middlePositionY: 100
+  _positionPerCardAmplitudeY: 3.5
   _spaceBetweenCards: 600
   _maxSpaceBetweenCards: 0.15
   _minSpaceBetweenCards: 0
   _spaceBetweenCardsGrowFactor: 1.5
+  _rotationPerCard: 1
   _hand: []
 --- !u!114 &6422126485985898726
 MonoBehaviour:
