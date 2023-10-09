@@ -8,12 +8,13 @@ public class HandManager : MonoBehaviour
     [SerializeField] private Transform _handCardsParent;
     [Space(15)]
     [Header("Position Settings")]
-    [SerializeField] private int _startMaxHandSize = 4;
-    [SerializeField] private float _cardsInHandPositionY = 90f;
-    [SerializeField] private float _spaceBetweenCards = 100f;
-    [SerializeField] private float _maxSpaceBetweenCards = 100f;
+    [SerializeField] private int _startMaxHandSize = 10;
+    [SerializeField] private float _middlePositionY = 100f;
+    [SerializeField] private float _positionPerCardAmplitudeY = 3.5f;
+    [SerializeField] private float _spaceBetweenCards = 600f;
+    [SerializeField] private float _maxSpaceBetweenCards = 0.15f;
     [SerializeField] private float _minSpaceBetweenCards = 0f;
-    [SerializeField] private float _spaceBetweenCardsGrowFactor = 0.5f;
+    [SerializeField] private float _spaceBetweenCardsGrowFactor = 1.5f;
     [Space(15)]
     [Header("Rotation Settings")]
     [SerializeField] private float _rotationPerCard = 1f;
@@ -69,39 +70,47 @@ public class HandManager : MonoBehaviour
 
     private void UpdateCardsPosition(int newCardsAmount)
     {
+        bool isEvenNumber = newCardsAmount % 2 == 0;
+        int halfDeckAmount = Mathf.FloorToInt(newCardsAmount / 2);
+
         for (int i = 0; i < newCardsAmount; i++)
         {
             float spaceFactor =  Mathf.Clamp(1 /(_hand.Count * _spaceBetweenCardsGrowFactor), _minSpaceBetweenCards, _maxSpaceBetweenCards);
             float cardNewPositionX = _middlePositionX + (_spaceBetweenCards * (2 * i - _hand.Count + 1) / (1 / spaceFactor));
-            Vector2 newCardPosition = new Vector2(cardNewPositionX, _cardsInHandPositionY);
+            float cardNewPositionY = (i - halfDeckAmount) * _positionPerCardAmplitudeY;
+
+            if (i == halfDeckAmount)
+            {
+                if (isEvenNumber) cardNewPositionY = (halfDeckAmount - 1 - i) * _positionPerCardAmplitudeY;
+                else cardNewPositionY = 0;
+            }
+
+            if (i > halfDeckAmount)
+            {
+                if (isEvenNumber) cardNewPositionY = (halfDeckAmount - 1 - i) * _positionPerCardAmplitudeY;
+                else cardNewPositionY = (halfDeckAmount - i) * _positionPerCardAmplitudeY;
+            }            
+
+            Vector2 newCardPosition = new Vector2(cardNewPositionX, _middlePositionY + cardNewPositionY);
 
             _hand[i].gameObject.transform.SetSiblingIndex(i);
             _hand[i].SetNewHandPosition(newCardPosition);
         }
-        Debug.Log("cards in hand:" + _hand.Count);
     }
 
     private void UpdateCardsRotation(int newCardsAmount)
     {
         bool isEvenNumber = newCardsAmount % 2 == 0;
-        int cardIndex = Mathf.FloorToInt(newCardsAmount / 2);
+        int halfDeckAmount = Mathf.FloorToInt(newCardsAmount / 2);
 
         for (int i = 0; i < newCardsAmount; i++)
         {
             if (isEvenNumber && Mathf.FloorToInt(newCardsAmount / 2) - i == 0)
             {
-                cardIndex--;
+                halfDeckAmount--;
             }
-            Vector3 newCardRotation = new Vector3(0f, 0f, (cardIndex - i) * _rotationPerCard);
+            Vector3 newCardRotation = new Vector3(0f, 0f, (halfDeckAmount - i) * _rotationPerCard);
             _hand[i].SetNewHandRotation(newCardRotation);
-        }
-    }
-
-    private void Test(int handSize)
-    {
-        for (int i = 0; i < handSize; i++)
-        {
-            Debug.Log(i + " " + (-(((_spaceBetweenCards / 2) * (handSize - 1)) - (2 * i * (_spaceBetweenCards / 2)))));
         }
     }
 
