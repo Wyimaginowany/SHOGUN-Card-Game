@@ -11,23 +11,19 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     protected CombatManager _combatManager;
     protected Vector3 _startingPosition;
     protected Vector3 _positionBeforeDrag;
-    protected int _slotIndex = -1;
 
-    public static event Action<Card, int> OnCardPlayed;
-    public static event Action<Card, int> OnCardThrownAway;
+    public static event Action<Card> OnCardPlayed;
+    public static event Action<Card> OnCardThrownAway;
+
+    private RectTransform _rectTransform;
+    private int _childIndexBeforeDrag = 0;
 
     protected virtual void Start()
     {
         _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
 
-        HandManager.OnCardDrawn += CheckIfDrawn;
-
         _startingPosition = transform.position;
-    }
-
-    private void OnDestroy()
-    {
-        HandManager.OnCardDrawn -= CheckIfDrawn;
+        _rectTransform = GetComponent<RectTransform>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -46,6 +42,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     protected virtual void BeginDragging()
     {
         _positionBeforeDrag = transform.position;
+        _childIndexBeforeDrag = transform.GetSiblingIndex();
         transform.SetAsLastSibling();
     }
     protected virtual void OnBeeingDragged()
@@ -60,18 +57,19 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     protected void PlayCard()
     {
-        OnCardPlayed?.Invoke(this, _slotIndex);
+        OnCardPlayed?.Invoke(this);
         transform.position = _startingPosition;
     }
 
     protected void ShuffleCardIntoDeck()
     {
-        OnCardThrownAway?.Invoke(this, _slotIndex);
+        OnCardThrownAway?.Invoke(this);
         transform.position = _startingPosition;
     }
 
     protected void ReturnCardToHand()
     {
+        transform.SetSiblingIndex(_childIndexBeforeDrag);
         transform.position = _positionBeforeDrag;
     }
 
@@ -98,12 +96,6 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         return allDropAreas;
     }
 
-    private void CheckIfDrawn(Card drawnCard, int slotInHandIndex)
-    {
-        if (drawnCard != this) return;
-        _slotIndex = slotInHandIndex;
-    }
-
     public int GetCardCost()
     {
         return _cardData.Cost;
@@ -112,5 +104,15 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public CardScriptableObject GetCardData()
     {
         return _cardData;
+    }
+
+    public void SetNewHandPosition(Vector2 newPosition)
+    {
+        _rectTransform.anchoredPosition = newPosition;
+    }
+
+    public void SetNewHandRotation(Vector3 newRotation)
+    {
+        _rectTransform.rotation = Quaternion.Euler(newRotation.x, newRotation.y, newRotation.z);
     }
 }

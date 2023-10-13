@@ -85,7 +85,7 @@ public class CombatManager : MonoBehaviour
         _enemyOrderIndex++;
     }
 
-    public void HandleCardPlayed(Card cardPlayed, int slotIndex)
+    public void HandleCardPlayed(Card cardPlayed)
     {
         //cards will have own targets later
         _currentMana -= cardPlayed.GetCardCost();

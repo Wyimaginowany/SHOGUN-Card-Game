@@ -30,7 +30,7 @@ public class DeckManager : MonoBehaviour
         Card.OnCardThrownAway -= HandleCardUsed;
     }
 
-    private void HandleCardUsed(Card playedCard, int x)
+    private void HandleCardUsed(Card playedCard)
     {
         _usedCards.Add(playedCard);
         _usedCardsAmountText.text = _usedCards.Count.ToString();
