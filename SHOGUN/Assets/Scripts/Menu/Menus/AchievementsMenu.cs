@@ -1,12 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AchievementsMenu : MonoBehaviour
 {
-    public void OnClick_Back()
+    private Button backButton;
+    public void Awake()
     {
-        MenuManager.OpenMenu(Menu.MAIN_MENU, gameObject);
+        backButton = GameObject.Find("BackButton").gameObject.GetComponent<Button>();
+
+        backButton.onClick.AddListener(() =>
+        {
+            MenuManager.setActiveView(MenuManager.mainMenu);
+        });
     }
 
 }
