@@ -10,6 +10,8 @@ public class EnemyTest : MonoBehaviour
 
     [Header("To Attach")]
     [SerializeField] private TMP_Text _healthText;
+    [SerializeField] private TMP_Text _damageText;
+    [SerializeField] private Animator _popupAnimator;
     [SerializeField] private AnimatorOverrideController _overrideController;
 
     public static event Action<EnemyTest> OnEnemyDeath;
@@ -33,6 +35,9 @@ public class EnemyTest : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        _damageText.text = "-"+damage.ToString();
+        _popupAnimator.SetTrigger("Take-damage");
+        
         _currentHealth -= damage;
 
         if (_currentHealth <= 0)
