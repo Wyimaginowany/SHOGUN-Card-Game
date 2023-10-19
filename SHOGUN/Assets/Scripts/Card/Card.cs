@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("To Attach")]
     [SerializeField] protected CardScriptableObject _cardData;
@@ -14,6 +14,9 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public static event Action<Card> OnCardPlayed;
     public static event Action<Card> OnCardThrownAway;
+    public static event Action<Card> OnCardMouseHoverStart;
+    public static event Action<Card> OnCardMouseHoverEnd;
+
 
     private RectTransform _rectTransform;
     private int _childIndexBeforeDrag = 0;
@@ -26,17 +29,18 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _rectTransform = GetComponent<RectTransform>();
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    protected virtual void OnPointerEnter()
     {
-        BeginDragging();
+        //_cardHoverVisual.SetActive(true);
+        OnCardMouseHoverStart?.Invoke(this);
+        Debug.Log("value: " + _cardData.Value + " Cost: " + _cardData.Cost);
     }
-    public void OnDrag(PointerEventData eventData)
+
+    protected virtual void OnPointerExit()
     {
-        OnBeeingDragged();
-    }
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        EndDragging();
+        //_cardHoverVisual.SetActive(false);
+        OnCardMouseHoverEnd?.Invoke(this);
+        Debug.Log("Exit value: " + _cardData.Value + " Cost: " + _cardData.Cost);
     }
 
     protected virtual void BeginDragging()
@@ -115,4 +119,30 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         _rectTransform.rotation = Quaternion.Euler(newRotation.x, newRotation.y, newRotation.z);
     }
+
+    #region Interface Methods
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        OnPointerEnter();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        OnPointerExit();
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        BeginDragging();
+    }
+    public void OnDrag(PointerEventData eventData)
+    {
+        OnBeeingDragged();
+    }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        EndDragging();
+    }
+    #endregion
 }

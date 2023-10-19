@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HandManager : MonoBehaviour
 {
     [Header("To Attach")]
     [SerializeField] private Transform _handCardsParent;
+    [SerializeField] private Transform _cardVisualPrefab;
+    [SerializeField] private Transform _hiddenCardsPoint;
     [Space(15)]
-    [Header("Position Settings")]
+    [Header("Hand Settings")]
     [SerializeField] private int _startMaxHandSize = 10;
     [SerializeField] private float _middlePositionY = 100f;
     [SerializeField] private float _positionPerCardAmplitudeY = 3.5f;
@@ -15,16 +19,20 @@ public class HandManager : MonoBehaviour
     [SerializeField] private float _maxSpaceBetweenCards = 0.15f;
     [SerializeField] private float _minSpaceBetweenCards = 0f;
     [SerializeField] private float _spaceBetweenCardsGrowFactor = 1.5f;
-    [Space(15)]
-    [Header("Rotation Settings")]
     [SerializeField] private float _rotationPerCard = 1f;
-
+    [Space(10)]
+    [Header("Card Hover Settings")]
+    [SerializeField] private float _cardVisualOffsetY = 0f;
+    [SerializeField] private TMP_Text _cardText;
+    [SerializeField] private TMP_Text _cardCostText;
+    [SerializeField] private RawImage _cardColorImage;
 
     [SerializeField] private List<Card> _hand = new List<Card>(); //serialize to see in editor remove later
     private float _middlePositionX;
     private DeckManager _deckManager;
     private RectTransform _rectTransform;
     private int _currentMaxHandSize;
+    private int _hoverCounter = 0;
 
 
     private void Start()
@@ -37,6 +45,8 @@ public class HandManager : MonoBehaviour
         CombatManager.OnPlayerTurnStart += HandlePlayerTurnStart;
         Card.OnCardPlayed += RemoveFromHand;
         Card.OnCardThrownAway += RemoveFromHand;
+        Card.OnCardMouseHoverStart += CardMouseHoverStart;
+        Card.OnCardMouseHoverEnd += CardMouseHoverEnd;
     }
 
     private void OnDestroy()
@@ -44,7 +54,36 @@ public class HandManager : MonoBehaviour
         CombatManager.OnPlayerTurnStart -= HandlePlayerTurnStart;
         Card.OnCardPlayed -= RemoveFromHand;
         Card.OnCardThrownAway -= RemoveFromHand;
+        Card.OnCardMouseHoverStart -= CardMouseHoverStart;
+        Card.OnCardMouseHoverEnd -= CardMouseHoverEnd;
     }
+
+    private void CardMouseHoverStart(Card card)
+    {
+        _hoverCounter++;
+        SetupCardVisual(card.GetCardData());
+        Vector3 cardVisualNewPosition = new Vector3(card.transform.position.x,
+                                                    card.transform.position.y + _cardVisualOffsetY,
+                                                    card.transform.position.z);
+
+        _cardVisualPrefab.position = cardVisualNewPosition;
+    }
+
+    private void SetupCardVisual(CardScriptableObject cardData)
+    {
+        _cardText.text = cardData.Value.ToString();
+        _cardCostText.text = cardData.Cost.ToString();
+        _cardColorImage.color = cardData.CardColor;
+    }
+
+    private void CardMouseHoverEnd(Card card)
+    {
+        _hoverCounter--;
+        if (_hoverCounter < 0) return;
+
+        _cardVisualPrefab.position = _hiddenCardsPoint.position;
+    }
+
     private void HandlePlayerTurnStart()
     {
         DrawFullHand();
