@@ -9,18 +9,28 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [SerializeField] protected CardScriptableObject _cardData;
 
     protected CombatManager _combatManager;
+    protected CanvasGroup _cardVisualCanvasGroup;
     protected Vector3 _startingPosition;
     protected Vector3 _positionBeforeDrag;
 
     public static event Action<Card> OnCardPlayed;
     public static event Action<Card> OnCardThrownAway;
+<<<<<<< HEAD
+    public static event Action<Card> OnCardMouseHoverStart;
+    public static event Action<Card> OnCardMouseHoverEnd;
+    public static event Action OnBeginDragging;
+    public static event Action OnEndDragging;
+=======
+>>>>>>> parent of b30b749 (commit)
 
     private RectTransform _rectTransform;
     private int _childIndexBeforeDrag = 0;
+    private Quaternion _lastHandRotation;
 
     protected virtual void Start()
     {
         _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
+        _cardVisualCanvasGroup = GetComponentInChildren<CanvasGroup>();
 
         _startingPosition = transform.position;
         _rectTransform = GetComponent<RectTransform>();
@@ -28,19 +38,36 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+<<<<<<< HEAD
+        //_cardHoverVisual.SetActive(true);
+        OnCardMouseHoverStart?.Invoke(this);
+        _cardVisualCanvasGroup.alpha = 0;
+        Debug.Log("value: " + _cardData.Value + " Cost: " + _cardData.Cost);
+=======
         BeginDragging();
+>>>>>>> parent of b30b749 (commit)
     }
     public void OnDrag(PointerEventData eventData)
     {
+<<<<<<< HEAD
+        //_cardHoverVisual.SetActive(false);
+        OnCardMouseHoverEnd?.Invoke(this);
+        _cardVisualCanvasGroup.alpha = 1;
+        Debug.Log("Exit value: " + _cardData.Value + " Cost: " + _cardData.Cost);
+=======
         OnBeeingDragged();
     }
     public void OnEndDrag(PointerEventData eventData)
     {
         EndDragging();
+>>>>>>> parent of b30b749 (commit)
     }
 
     protected virtual void BeginDragging()
     {
+        OnBeginDragging?.Invoke();
+        transform.rotation = Quaternion.Euler(Vector3.zero);
+        _cardVisualCanvasGroup.alpha = 1;
         _positionBeforeDrag = transform.position;
         _childIndexBeforeDrag = transform.GetSiblingIndex();
         transform.SetAsLastSibling();
@@ -52,7 +79,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     protected virtual void EndDragging()
     {
-        ReturnCardToHand();
+        OnEndDragging?.Invoke();
     }
 
     protected void PlayCard()
@@ -70,6 +97,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     protected void ReturnCardToHand()
     {
         transform.SetSiblingIndex(_childIndexBeforeDrag);
+        _rectTransform.rotation = _lastHandRotation;
         transform.position = _positionBeforeDrag;
     }
 
@@ -113,6 +141,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void SetNewHandRotation(Vector3 newRotation)
     {
+        _lastHandRotation = Quaternion.Euler(newRotation);
         _rectTransform.rotation = Quaternion.Euler(newRotation.x, newRotation.y, newRotation.z);
     }
 }

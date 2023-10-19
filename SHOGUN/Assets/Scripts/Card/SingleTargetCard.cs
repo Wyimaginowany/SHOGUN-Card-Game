@@ -7,7 +7,6 @@ public class SingleTargetCard : Card
 {
     [SerializeField] private LayerMask _enemyLayer;
     [SerializeField] private LayerMask _groundLayer;
-    [SerializeField] private GameObject _cardVisual;
 
     private LineRendererController _lineRendererController;
 
@@ -34,7 +33,7 @@ public class SingleTargetCard : Card
         {
             _lineRendererController.StartDrawing();
 
-            _cardVisual.SetActive(false);
+            _cardVisualCanvasGroup.alpha = 0;
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -55,13 +54,14 @@ public class SingleTargetCard : Card
             return;
         }
 
-        _cardVisual.SetActive(true);
+        _cardVisualCanvasGroup.alpha = 1;
         _lineRendererController.StopDrawing();
         transform.position = Input.mousePosition;
     }
 
     protected override void EndDragging()
     {
+        base.EndDragging();
         List<PossibleAreas> possibleDropAreas = GetDropAreas();
 
         _lineRendererController.StopDrawing();
@@ -74,7 +74,7 @@ public class SingleTargetCard : Card
 
         if (!_combatManager.HaveEnoughMana(_cardData.Cost))
         {
-            _cardVisual.SetActive(true);
+            _cardVisualCanvasGroup.alpha = 1;
             ReturnCardToHand();
             return;
         }
@@ -87,12 +87,12 @@ public class SingleTargetCard : Card
             if (Physics.Raycast(ray, out targetEnemyHit, Mathf.Infinity, _enemyLayer))
             {
                 targetEnemyHit.collider.GetComponent<EnemyTest>().TakeDamage(_cardData.Value);
-                _cardVisual.SetActive(true);
+                _cardVisualCanvasGroup.alpha = 1;
                 PlayCard();
                 return;
             }
         }
-        _cardVisual.SetActive(true);
+        _cardVisualCanvasGroup.alpha = 1;
         ReturnCardToHand();
     }
 }

@@ -25,6 +25,11 @@ public class HandManager : MonoBehaviour
     private DeckManager _deckManager;
     private RectTransform _rectTransform;
     private int _currentMaxHandSize;
+<<<<<<< HEAD
+    private int _hoverCounter = 0;
+    private bool _isDraggingDragged = false;
+=======
+>>>>>>> parent of b30b749 (commit)
 
 
     private void Start()
@@ -37,6 +42,13 @@ public class HandManager : MonoBehaviour
         CombatManager.OnPlayerTurnStart += HandlePlayerTurnStart;
         Card.OnCardPlayed += RemoveFromHand;
         Card.OnCardThrownAway += RemoveFromHand;
+<<<<<<< HEAD
+        Card.OnCardMouseHoverStart += CardMouseHoverStart;
+        Card.OnCardMouseHoverEnd += CardMouseHoverEnd;
+        Card.OnBeginDragging += CardBeginDrag;
+        Card.OnEndDragging += CardEndDragging;
+=======
+>>>>>>> parent of b30b749 (commit)
     }
 
     private void OnDestroy()
@@ -44,7 +56,54 @@ public class HandManager : MonoBehaviour
         CombatManager.OnPlayerTurnStart -= HandlePlayerTurnStart;
         Card.OnCardPlayed -= RemoveFromHand;
         Card.OnCardThrownAway -= RemoveFromHand;
+<<<<<<< HEAD
+        Card.OnCardMouseHoverStart -= CardMouseHoverStart;
+        Card.OnCardMouseHoverEnd -= CardMouseHoverEnd;
+        Card.OnBeginDragging -= CardBeginDrag;
+        Card.OnEndDragging -= CardEndDragging;
     }
+
+    private void CardEndDragging()
+    {
+        _isDraggingDragged = false;
+    }
+
+    private void CardBeginDrag()
+    {
+        _isDraggingDragged = true;
+        _cardVisualPrefab.position = _hiddenCardsPoint.position;
+    }
+
+    private void CardMouseHoverStart(Card card)
+    {
+        if (_isDraggingDragged) return;
+        _hoverCounter++;
+        SetupCardVisual(card.GetCardData());
+        Vector3 cardVisualNewPosition = new Vector3(card.transform.position.x,
+                                                    card.transform.position.y + _cardVisualOffsetY,
+                                                    card.transform.position.z);
+
+        _cardVisualPrefab.position = cardVisualNewPosition;
+    }
+
+    private void SetupCardVisual(CardScriptableObject cardData)
+    {
+        _cardText.text = cardData.Value.ToString();
+        _cardCostText.text = cardData.Cost.ToString();
+        _cardColorImage.color = cardData.CardColor;
+    }
+
+    private void CardMouseHoverEnd(Card card)
+    {
+        _hoverCounter--;
+        if (_hoverCounter > 0) return;
+
+        _cardVisualPrefab.position = _hiddenCardsPoint.position;
+    }
+
+=======
+    }
+>>>>>>> parent of b30b749 (commit)
     private void HandlePlayerTurnStart()
     {
         DrawFullHand();
