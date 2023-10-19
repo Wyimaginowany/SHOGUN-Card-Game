@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -7,9 +8,10 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private int _maxHealth = 100;
 
     [Header("To attach")]
-    [SerializeField] private TMP_Text _healthAmountText;
     [SerializeField] private TMP_Text _damageText;
     [SerializeField] private Animator _popupAnimator;
+    [SerializeField] private TMP_Text _healthbarAmountText;
+    [SerializeField] private Slider _healthbarSlider;
     
 
     private int _currentHealth;
@@ -17,7 +19,9 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         _currentHealth = _maxHealth;
-        _healthAmountText.text = _currentHealth.ToString();
+
+        _healthbarAmountText.text = _currentHealth.ToString() + "/" + _maxHealth.ToString();
+        _healthbarSlider.value=1;
     }
 
     public void TakeDamage(int damage)
@@ -33,8 +37,7 @@ public class PlayerHealth : MonoBehaviour
         {
             HandlePlayerDeath();
         }
-
-        _healthAmountText.text = _currentHealth.ToString();
+        UpdateHealthbar();
     }
 
     public void HealPlayer(int healAmount)
@@ -52,7 +55,14 @@ public class PlayerHealth : MonoBehaviour
             _currentHealth += healAmount;
         }
         _popupAnimator.SetTrigger("Heal-self");
-        _healthAmountText.text = _currentHealth.ToString();
+        UpdateHealthbar();
+
+        
+    }
+
+    private void UpdateHealthbar(){
+        _healthbarAmountText.text = _currentHealth.ToString() + "/" + _maxHealth.ToString();
+        _healthbarSlider.value= ((float) _currentHealth) / ((float)_maxHealth);
     }
 
     private void HandlePlayerDeath()

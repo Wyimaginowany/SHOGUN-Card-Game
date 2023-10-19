@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyTest : MonoBehaviour
 {
@@ -9,10 +10,12 @@ public class EnemyTest : MonoBehaviour
     [SerializeField] private int _damage;
 
     [Header("To Attach")]
-    [SerializeField] private TMP_Text _healthText;
     [SerializeField] private TMP_Text _damageText;
     [SerializeField] private Animator _popupAnimator;
     [SerializeField] private AnimatorOverrideController _overrideController;
+    
+    [SerializeField] private TMP_Text _healthbarAmountText;
+    [SerializeField] private Slider _healthbarSlider;
 
     public static event Action<EnemyTest> OnEnemyDeath;
 
@@ -30,7 +33,8 @@ public class EnemyTest : MonoBehaviour
         _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
 
         _currentHealth = _maxHealth;
-        _healthText.text = _currentHealth.ToString();
+        _healthbarAmountText.text = _currentHealth.ToString() + "/" + _maxHealth.ToString();
+        _healthbarSlider.value=1;
     }
 
     public void TakeDamage(int damage)
@@ -46,7 +50,8 @@ public class EnemyTest : MonoBehaviour
             Destroy(gameObject);
         }
 
-        _healthText.text = _currentHealth.ToString();
+        _healthbarAmountText.text = _currentHealth.ToString() + "/" + _maxHealth.ToString();
+        _healthbarSlider.value= ((float) _currentHealth) / ((float)_maxHealth);
     }
 
     public void HandleTurn()
