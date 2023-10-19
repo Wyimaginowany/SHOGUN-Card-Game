@@ -1,17 +1,13 @@
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HandManager : MonoBehaviour
 {
     [Header("To Attach")]
     [SerializeField] private Transform _handCardsParent;
-    [SerializeField] private Transform _cardVisualPrefab;
-    [SerializeField] private Transform _hiddenCardsPoint;
     [Space(15)]
-    [Header("Hand Settings")]
+    [Header("Position Settings")]
     [SerializeField] private int _startMaxHandSize = 10;
     [SerializeField] private float _middlePositionY = 100f;
     [SerializeField] private float _positionPerCardAmplitudeY = 3.5f;
@@ -19,20 +15,21 @@ public class HandManager : MonoBehaviour
     [SerializeField] private float _maxSpaceBetweenCards = 0.15f;
     [SerializeField] private float _minSpaceBetweenCards = 0f;
     [SerializeField] private float _spaceBetweenCardsGrowFactor = 1.5f;
+    [Space(15)]
+    [Header("Rotation Settings")]
     [SerializeField] private float _rotationPerCard = 1f;
-    [Space(10)]
-    [Header("Card Hover Settings")]
-    [SerializeField] private float _cardVisualOffsetY = 0f;
-    [SerializeField] private TMP_Text _cardText;
-    [SerializeField] private TMP_Text _cardCostText;
-    [SerializeField] private RawImage _cardColorImage;
+
 
     [SerializeField] private List<Card> _hand = new List<Card>(); //serialize to see in editor remove later
     private float _middlePositionX;
     private DeckManager _deckManager;
     private RectTransform _rectTransform;
     private int _currentMaxHandSize;
+<<<<<<< HEAD
     private int _hoverCounter = 0;
+    private bool _isDraggingDragged = false;
+=======
+>>>>>>> parent of b30b749 (commit)
 
 
     private void Start()
@@ -45,8 +42,13 @@ public class HandManager : MonoBehaviour
         CombatManager.OnPlayerTurnStart += HandlePlayerTurnStart;
         Card.OnCardPlayed += RemoveFromHand;
         Card.OnCardThrownAway += RemoveFromHand;
+<<<<<<< HEAD
         Card.OnCardMouseHoverStart += CardMouseHoverStart;
         Card.OnCardMouseHoverEnd += CardMouseHoverEnd;
+        Card.OnBeginDragging += CardBeginDrag;
+        Card.OnEndDragging += CardEndDragging;
+=======
+>>>>>>> parent of b30b749 (commit)
     }
 
     private void OnDestroy()
@@ -54,12 +56,27 @@ public class HandManager : MonoBehaviour
         CombatManager.OnPlayerTurnStart -= HandlePlayerTurnStart;
         Card.OnCardPlayed -= RemoveFromHand;
         Card.OnCardThrownAway -= RemoveFromHand;
+<<<<<<< HEAD
         Card.OnCardMouseHoverStart -= CardMouseHoverStart;
         Card.OnCardMouseHoverEnd -= CardMouseHoverEnd;
+        Card.OnBeginDragging -= CardBeginDrag;
+        Card.OnEndDragging -= CardEndDragging;
+    }
+
+    private void CardEndDragging()
+    {
+        _isDraggingDragged = false;
+    }
+
+    private void CardBeginDrag()
+    {
+        _isDraggingDragged = true;
+        _cardVisualPrefab.position = _hiddenCardsPoint.position;
     }
 
     private void CardMouseHoverStart(Card card)
     {
+        if (_isDraggingDragged) return;
         _hoverCounter++;
         SetupCardVisual(card.GetCardData());
         Vector3 cardVisualNewPosition = new Vector3(card.transform.position.x,
@@ -79,11 +96,14 @@ public class HandManager : MonoBehaviour
     private void CardMouseHoverEnd(Card card)
     {
         _hoverCounter--;
-        if (_hoverCounter < 0) return;
+        if (_hoverCounter > 0) return;
 
         _cardVisualPrefab.position = _hiddenCardsPoint.position;
     }
 
+=======
+    }
+>>>>>>> parent of b30b749 (commit)
     private void HandlePlayerTurnStart()
     {
         DrawFullHand();

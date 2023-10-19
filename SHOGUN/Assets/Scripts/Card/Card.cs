@@ -3,48 +3,71 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
+public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [Header("To Attach")]
     [SerializeField] protected CardScriptableObject _cardData;
 
     protected CombatManager _combatManager;
+    protected CanvasGroup _cardVisualCanvasGroup;
     protected Vector3 _startingPosition;
     protected Vector3 _positionBeforeDrag;
 
     public static event Action<Card> OnCardPlayed;
     public static event Action<Card> OnCardThrownAway;
+<<<<<<< HEAD
     public static event Action<Card> OnCardMouseHoverStart;
     public static event Action<Card> OnCardMouseHoverEnd;
-
+    public static event Action OnBeginDragging;
+    public static event Action OnEndDragging;
+=======
+>>>>>>> parent of b30b749 (commit)
 
     private RectTransform _rectTransform;
     private int _childIndexBeforeDrag = 0;
+    private Quaternion _lastHandRotation;
 
     protected virtual void Start()
     {
         _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
+        _cardVisualCanvasGroup = GetComponentInChildren<CanvasGroup>();
 
         _startingPosition = transform.position;
         _rectTransform = GetComponent<RectTransform>();
     }
 
-    protected virtual void OnPointerEnter()
+    public void OnBeginDrag(PointerEventData eventData)
     {
+<<<<<<< HEAD
         //_cardHoverVisual.SetActive(true);
         OnCardMouseHoverStart?.Invoke(this);
+        _cardVisualCanvasGroup.alpha = 0;
         Debug.Log("value: " + _cardData.Value + " Cost: " + _cardData.Cost);
+=======
+        BeginDragging();
+>>>>>>> parent of b30b749 (commit)
     }
-
-    protected virtual void OnPointerExit()
+    public void OnDrag(PointerEventData eventData)
     {
+<<<<<<< HEAD
         //_cardHoverVisual.SetActive(false);
         OnCardMouseHoverEnd?.Invoke(this);
+        _cardVisualCanvasGroup.alpha = 1;
         Debug.Log("Exit value: " + _cardData.Value + " Cost: " + _cardData.Cost);
+=======
+        OnBeeingDragged();
+    }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        EndDragging();
+>>>>>>> parent of b30b749 (commit)
     }
 
     protected virtual void BeginDragging()
     {
+        OnBeginDragging?.Invoke();
+        transform.rotation = Quaternion.Euler(Vector3.zero);
+        _cardVisualCanvasGroup.alpha = 1;
         _positionBeforeDrag = transform.position;
         _childIndexBeforeDrag = transform.GetSiblingIndex();
         transform.SetAsLastSibling();
@@ -56,7 +79,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     protected virtual void EndDragging()
     {
-        ReturnCardToHand();
+        OnEndDragging?.Invoke();
     }
 
     protected void PlayCard()
@@ -74,6 +97,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     protected void ReturnCardToHand()
     {
         transform.SetSiblingIndex(_childIndexBeforeDrag);
+        _rectTransform.rotation = _lastHandRotation;
         transform.position = _positionBeforeDrag;
     }
 
@@ -117,32 +141,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void SetNewHandRotation(Vector3 newRotation)
     {
+        _lastHandRotation = Quaternion.Euler(newRotation);
         _rectTransform.rotation = Quaternion.Euler(newRotation.x, newRotation.y, newRotation.z);
     }
-
-    #region Interface Methods
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        OnPointerEnter();
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        OnPointerExit();
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        BeginDragging();
-    }
-    public void OnDrag(PointerEventData eventData)
-    {
-        OnBeeingDragged();
-    }
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        EndDragging();
-    }
-    #endregion
 }

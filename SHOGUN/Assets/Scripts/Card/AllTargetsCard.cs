@@ -21,6 +21,7 @@ public class AllTargetsCard : Card
 
     protected override void EndDragging()
     {
+        base.EndDragging();
         List<PossibleAreas> possibleDropAreas = GetDropAreas();
 
         if (possibleDropAreas.Contains(PossibleAreas.ThrowOutArea))

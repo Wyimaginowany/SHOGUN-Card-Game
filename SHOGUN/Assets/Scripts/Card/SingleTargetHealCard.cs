@@ -6,7 +6,6 @@ public class SingleTargetHealCard : Card
 {
     [SerializeField] private LayerMask _playerLayer;
     [SerializeField] private LayerMask _groundLayer;
-    [SerializeField] private GameObject _cardVisual;
 
     private LineRendererController _lineRendererController;
 
@@ -34,7 +33,7 @@ public class SingleTargetHealCard : Card
         {
             _lineRendererController.StartDrawing();
 
-            _cardVisual.SetActive(false);
+            _cardVisualCanvasGroup.alpha = 0;
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -55,13 +54,14 @@ public class SingleTargetHealCard : Card
             return;
         }
 
-        _cardVisual.SetActive(true);
+        _cardVisualCanvasGroup.alpha = 1;
         _lineRendererController.StopDrawing();
         transform.position = Input.mousePosition;
     }
 
     protected override void EndDragging()
     {
+        base.EndDragging();
         List<PossibleAreas> possibleDropAreas = GetDropAreas();
 
         _lineRendererController.StopDrawing();
@@ -74,7 +74,7 @@ public class SingleTargetHealCard : Card
 
         if (!_combatManager.HaveEnoughMana(_cardData.Cost))
         {
-            _cardVisual.SetActive(true);
+            _cardVisualCanvasGroup.alpha = 1;
             ReturnCardToHand();
             return;
         }
@@ -87,12 +87,12 @@ public class SingleTargetHealCard : Card
             if (Physics.Raycast(ray, out targetPlayerHit, Mathf.Infinity, _playerLayer))
             {
                 targetPlayerHit.collider.GetComponent<PlayerHealth>().HealPlayer(_cardData.Value);
-                _cardVisual.SetActive(true);
+                _cardVisualCanvasGroup.alpha = 1;
                 PlayCard();
                 return;
             }
         }
-        _cardVisual.SetActive(true);
+        _cardVisualCanvasGroup.alpha = 1;
         ReturnCardToHand();
     }
 
