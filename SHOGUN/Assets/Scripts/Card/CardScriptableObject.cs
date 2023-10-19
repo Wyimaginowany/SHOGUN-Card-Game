@@ -5,4 +5,5 @@ public class CardScriptableObject : ScriptableObject
 {
     public int Value = 1;
     public int Cost = 1;
+    public Color CardColor;
 }

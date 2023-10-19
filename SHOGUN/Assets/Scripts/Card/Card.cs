@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("To Attach")]
     [SerializeField] protected CardScriptableObject _cardData;
@@ -15,13 +15,10 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public static event Action<Card> OnCardPlayed;
     public static event Action<Card> OnCardThrownAway;
-<<<<<<< HEAD
     public static event Action<Card> OnCardMouseHoverStart;
     public static event Action<Card> OnCardMouseHoverEnd;
     public static event Action OnBeginDragging;
     public static event Action OnEndDragging;
-=======
->>>>>>> parent of b30b749 (commit)
 
     private RectTransform _rectTransform;
     private int _childIndexBeforeDrag = 0;
@@ -34,33 +31,6 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         _startingPosition = transform.position;
         _rectTransform = GetComponent<RectTransform>();
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-<<<<<<< HEAD
-        //_cardHoverVisual.SetActive(true);
-        OnCardMouseHoverStart?.Invoke(this);
-        _cardVisualCanvasGroup.alpha = 0;
-        Debug.Log("value: " + _cardData.Value + " Cost: " + _cardData.Cost);
-=======
-        BeginDragging();
->>>>>>> parent of b30b749 (commit)
-    }
-    public void OnDrag(PointerEventData eventData)
-    {
-<<<<<<< HEAD
-        //_cardHoverVisual.SetActive(false);
-        OnCardMouseHoverEnd?.Invoke(this);
-        _cardVisualCanvasGroup.alpha = 1;
-        Debug.Log("Exit value: " + _cardData.Value + " Cost: " + _cardData.Cost);
-=======
-        OnBeeingDragged();
-    }
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        EndDragging();
->>>>>>> parent of b30b749 (commit)
     }
 
     protected virtual void BeginDragging()
@@ -144,4 +114,32 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _lastHandRotation = Quaternion.Euler(newRotation);
         _rectTransform.rotation = Quaternion.Euler(newRotation.x, newRotation.y, newRotation.z);
     }
+
+    #region InterfaceMethods
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        OnCardMouseHoverStart?.Invoke(this);
+        _cardVisualCanvasGroup.alpha = 0;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        OnCardMouseHoverEnd?.Invoke(this);
+        _cardVisualCanvasGroup.alpha = 1;
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        BeginDragging();
+    }
+    public void OnDrag(PointerEventData eventData)
+    {
+        OnBeeingDragged();
+    }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        EndDragging();
+    }
+    #endregion
+
 }
