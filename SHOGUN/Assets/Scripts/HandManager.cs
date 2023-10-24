@@ -6,9 +6,7 @@ using UnityEngine.UI;
 
 public class HandManager : MonoBehaviour
 {
-
     [Header("To Attach")]
-    [SerializeField] private Transform _handCardsParent;
     [SerializeField] private Transform _cardVisualPrefab;
     [SerializeField] private Transform _hiddenCardsPoint;
     [Space(15)]
@@ -23,7 +21,6 @@ public class HandManager : MonoBehaviour
     [SerializeField] private float _rotationPerCard = 1f;
     [Space(10)]
     [Header("Card Hover Settings")]
-    [SerializeField] private float _cardVisualOffsetY = 0f;
     [SerializeField] private TMP_Text _cardText;
     [SerializeField] private TMP_Text _cardCostText;
     [SerializeField] private RawImage _cardColorImage;
@@ -35,7 +32,7 @@ public class HandManager : MonoBehaviour
     private RectTransform _rectTransform;
     private int _currentMaxHandSize;
     private int _hoverCounter = 0;
-    private bool _isDraggingDragged = false;
+    private bool _isBeingDragged = false;
 
     private void Start()
     {
@@ -47,7 +44,7 @@ public class HandManager : MonoBehaviour
         CombatManager.OnPlayerTurnStart += HandlePlayerTurnStart;
         Card.OnCardPlayed += RemoveFromHand;
         Card.OnCardThrownAway += RemoveFromHand;
-        Card.OnCardMouseHoverStart += CardMouseHoverStart;
+        Card.OnCardMouseHoverStart += CardMouseHoverVisualStart;
         Card.OnCardMouseHoverEnd += CardMouseHoverEnd;
         Card.OnBeginDragging += CardBeginDrag;
         Card.OnEndDragging += CardEndDragging;
@@ -58,7 +55,7 @@ public class HandManager : MonoBehaviour
         CombatManager.OnPlayerTurnStart -= HandlePlayerTurnStart;
         Card.OnCardPlayed -= RemoveFromHand;
         Card.OnCardThrownAway -= RemoveFromHand;
-        Card.OnCardMouseHoverStart -= CardMouseHoverStart;
+        Card.OnCardMouseHoverStart -= CardMouseHoverVisualStart;
         Card.OnCardMouseHoverEnd -= CardMouseHoverEnd;
         Card.OnBeginDragging -= CardBeginDrag;
         Card.OnEndDragging -= CardEndDragging;
@@ -66,28 +63,28 @@ public class HandManager : MonoBehaviour
 
     private void CardEndDragging()
     {
-        _isDraggingDragged = false;
+        _isBeingDragged = false;
     }
 
     private void CardBeginDrag()
     {
-        _isDraggingDragged = true;
+        _isBeingDragged = true;
         _cardVisualPrefab.position = _hiddenCardsPoint.position;
     }
 
-    private void CardMouseHoverStart(Card card)
+    private void CardMouseHoverVisualStart(Card card, Transform cardVisualNewPosition)
     {
-        if (_isDraggingDragged) return;
-        _hoverCounter++;
-        SetupCardVisual(card.GetCardData());
-        Vector3 cardVisualNewPosition = new Vector3(card.transform.position.x,
-                                                    card.transform.position.y + _cardVisualOffsetY,
-                                                    card.transform.position.z);
+        if (_isBeingDragged) return;
 
-        _cardVisualPrefab.position = cardVisualNewPosition;
+        card.HideCard();
+        _hoverCounter++;
+        SetupCardHoverVisual(card.GetCardData());
+
+        _cardVisualPrefab.position = cardVisualNewPosition.position;
+        _cardVisualPrefab.rotation = cardVisualNewPosition.rotation;
     }
 
-    private void SetupCardVisual(CardScriptableObject cardData)
+    private void SetupCardHoverVisual(CardScriptableObject cardData)
     {
         _cardText.text = cardData.Value.ToString();
         _cardCostText.text = cardData.Cost.ToString();

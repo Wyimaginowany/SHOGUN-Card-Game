@@ -56,7 +56,6 @@ public class SingleTargetHealCard : Card
 
         _cardVisualCanvasGroup.alpha = 1;
         _lineRendererController.StopDrawing();
-        transform.position = Input.mousePosition;
     }
 
     protected override void EndDragging()

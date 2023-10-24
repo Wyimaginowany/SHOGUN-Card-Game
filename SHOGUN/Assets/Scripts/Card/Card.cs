@@ -5,70 +5,80 @@ using UnityEngine.EventSystems;
 
 public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    [Header("Settings")]
+    [SerializeField] private float _returnTransitionTime = 0.3f;
+    [SerializeField] private float _beginTransitionTime = 0.8f;
     [Header("To Attach")]
     [SerializeField] protected CardScriptableObject _cardData;
+    [SerializeField] private Transform _cardVisualDisplayPoint;
 
     protected CombatManager _combatManager;
     protected CanvasGroup _cardVisualCanvasGroup;
     protected Vector3 _startingPosition;
-    protected Vector3 _positionBeforeDrag;
 
     public static event Action<Card> OnCardPlayed;
     public static event Action<Card> OnCardThrownAway;
-    public static event Action<Card> OnCardMouseHoverStart;
+    public static event Action<Card, Transform> OnCardMouseHoverStart;
     public static event Action<Card> OnCardMouseHoverEnd;
     public static event Action OnBeginDragging;
     public static event Action OnEndDragging;
 
     private RectTransform _rectTransform;
-    private int _childIndexBeforeDrag = 0;
     private Quaternion _lastHandRotation;
+    private Vector2 _newCardPosition;
+    private float _timer = 0f;
+    private int _childIndexBeforeDrag = 0;
+    private bool _moveToNewHandPosition = false;
+    private bool _isBeingDragged = false;
 
     protected virtual void Start()
     {
         _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
         _cardVisualCanvasGroup = GetComponentInChildren<CanvasGroup>();
 
-        _startingPosition = transform.position;
         _rectTransform = GetComponent<RectTransform>();
+        _startingPosition = _rectTransform.anchoredPosition;
     }
 
     protected virtual void BeginDragging()
     {
-        OnBeginDragging?.Invoke();
         transform.rotation = Quaternion.Euler(Vector3.zero);
         _cardVisualCanvasGroup.alpha = 1;
-        _positionBeforeDrag = transform.position;
+        _isBeingDragged = true;
+        _timer = 0f;
         _childIndexBeforeDrag = transform.GetSiblingIndex();
         transform.SetAsLastSibling();
+        OnBeginDragging?.Invoke();
     }
     protected virtual void OnBeeingDragged()
     {
-        transform.position = Input.mousePosition;
+        //_cardVisualCanvasGroup.alpha = 1;
     }
 
     protected virtual void EndDragging()
     {
+        _isBeingDragged = false;
         OnEndDragging?.Invoke();
     }
 
     protected void PlayCard()
     {
         OnCardPlayed?.Invoke(this);
-        transform.position = _startingPosition;
+        _rectTransform.anchoredPosition = _startingPosition;
     }
 
     protected void ShuffleCardIntoDeck()
     {
         OnCardThrownAway?.Invoke(this);
-        transform.position = _startingPosition;
+        _rectTransform.anchoredPosition = _startingPosition;
     }
 
     protected void ReturnCardToHand()
     {
         transform.SetSiblingIndex(_childIndexBeforeDrag);
         _rectTransform.rotation = _lastHandRotation;
-        transform.position = _positionBeforeDrag;
+        _timer = 0;
+        _moveToNewHandPosition = true;
     }
 
     protected List<PossibleAreas> GetDropAreas()
@@ -104,9 +114,34 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         return _cardData;
     }
 
+    private void Update()
+    {
+        if (_moveToNewHandPosition)
+        {
+            _timer += Time.deltaTime;
+            float percentageComplete = _timer / _returnTransitionTime;
+            _rectTransform.anchoredPosition = Vector2.Lerp(_rectTransform.anchoredPosition, _newCardPosition, percentageComplete);
+
+            if (Vector2.Distance(_rectTransform.anchoredPosition, _newCardPosition) <= 0.1f)
+            {
+                _moveToNewHandPosition = false;
+            }
+        }
+
+        if (_isBeingDragged)
+        {
+            _timer += Time.deltaTime;
+            float percentageComplete = Mathf.Clamp(_timer / _beginTransitionTime, 0f, 1f);
+            
+            transform.position = Vector2.Lerp(transform.position, Input.mousePosition, percentageComplete);
+        }
+    }
+
     public void SetNewHandPosition(Vector2 newPosition)
     {
-        _rectTransform.anchoredPosition = newPosition;
+        _newCardPosition = newPosition;
+        _timer = 0;
+        _moveToNewHandPosition = true;
     }
 
     public void SetNewHandRotation(Vector3 newRotation)
@@ -115,11 +150,16 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _rectTransform.rotation = Quaternion.Euler(newRotation.x, newRotation.y, newRotation.z);
     }
 
+    public void HideCard()
+    {      
+        _cardVisualCanvasGroup.alpha = 0;
+    }
+
     #region InterfaceMethods
+
     public void OnPointerEnter(PointerEventData eventData)
     {
-        OnCardMouseHoverStart?.Invoke(this);
-        _cardVisualCanvasGroup.alpha = 0;
+        OnCardMouseHoverStart?.Invoke(this, _cardVisualDisplayPoint);     
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -140,6 +180,6 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         EndDragging();
     }
-    #endregion
 
+    #endregion
 }
