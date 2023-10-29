@@ -9,15 +9,14 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private int _maxMana = 5;
 
     [Header("To Attach")]
-    [SerializeField] private EnemyTest[] _enemies;
+    [SerializeField] private EnemyHealth[] _enemies;
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private TMP_Text _manaAmountText;
 
     public static event Action OnPlayerTurnStart;
     public static event Action OnPlayerTurnEnd;
 
-    private List<EnemyTest> _aliveEnemies = new List<EnemyTest>();
-    private EnemyTest[] _enemyTurnAliveEnemies;
+    private List<EnemyHealth> _aliveEnemies = new List<EnemyHealth>();
 
     private int _currentMana;
     private int _enemyOrderIndex = 0;
@@ -25,7 +24,7 @@ public class CombatManager : MonoBehaviour
     private void Start()
     {
         Card.OnCardPlayed += HandleCardPlayed;
-        EnemyTest.OnEnemyDeath += HandleEnemyDeath;
+        EnemyHealth.OnEnemyDeath += HandleEnemyDeath;
 
         _currentMana = _maxMana;
         _manaAmountText.text = _currentMana.ToString();
@@ -34,10 +33,10 @@ public class CombatManager : MonoBehaviour
     private void OnDestroy()
     {
         Card.OnCardPlayed -= HandleCardPlayed;
-        EnemyTest.OnEnemyDeath -= HandleEnemyDeath;
+        EnemyHealth.OnEnemyDeath -= HandleEnemyDeath;
     }
 
-    private void HandleEnemyDeath(EnemyTest deadEnemy)
+    private void HandleEnemyDeath(EnemyHealth deadEnemy)
     {
         _aliveEnemies.Remove(deadEnemy);
 
@@ -55,14 +54,14 @@ public class CombatManager : MonoBehaviour
             GameObject newEnemy = Instantiate(_enemies[UnityEngine.Random.Range(0, _enemies.Length)].gameObject,
                                               _spawnPoints[i].position,
                                               Quaternion.identity);
-            _aliveEnemies.Add(newEnemy.GetComponent<EnemyTest>());
+            _aliveEnemies.Add(newEnemy.GetComponent<EnemyHealth>());
         }
     }
 
     public void EndTurnButton()
     {
         _enemyOrderIndex = 0;
-        _enemyTurnAliveEnemies = _aliveEnemies.ToArray();
+
 
         OnPlayerTurnEnd?.Invoke();
         NextEnemyTurn();
@@ -80,7 +79,7 @@ public class CombatManager : MonoBehaviour
             return;
         }
 
-        _enemyTurnAliveEnemies[_enemyOrderIndex].HandleTurn();
+        _aliveEnemies[_enemyOrderIndex].GetComponent<EnemyCombat>().HandleTurn();
 
         _enemyOrderIndex++;
     }
@@ -100,9 +99,9 @@ public class CombatManager : MonoBehaviour
 
     public void DealDamageToAllEnemies(int damage)
     {
-        EnemyTest[] currentlyAliveEnemies = _aliveEnemies.ToArray();
+        EnemyHealth[] currentlyAliveEnemies = _aliveEnemies.ToArray();
 
-        foreach (EnemyTest enemy in currentlyAliveEnemies)
+        foreach (EnemyHealth enemy in currentlyAliveEnemies)
         {
             enemy.TakeDamage(damage);
         }

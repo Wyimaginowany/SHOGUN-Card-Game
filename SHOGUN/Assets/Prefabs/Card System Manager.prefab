@@ -1784,7 +1784,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6eaccabcefc804fb667f2399dd06ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _handCardsParent: {fileID: 0}
   _cardVisualPrefab: {fileID: 3963401418228218900}
   _hiddenCardsPoint: {fileID: 8927327222954449897}
   _startMaxHandSize: 10
@@ -1795,7 +1794,6 @@ MonoBehaviour:
   _minSpaceBetweenCards: 0
   _spaceBetweenCardsGrowFactor: 1.5
   _rotationPerCard: 1
-  _cardVisualOffsetY: 50
   _cardText: {fileID: 3841089829481697247}
   _cardCostText: {fileID: 8521126780133065626}
   _cardColorImage: {fileID: 339479666878485531}
@@ -1814,9 +1812,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxMana: 15
   _enemies:
-  - {fileID: 5374627676133394721, guid: 94f5cc37125b4a943bc792446c36e9d2, type: 3}
-  - {fileID: 5374627676133394721, guid: 229813f5fc01e0c469445ad39cd50738, type: 3}
-  - {fileID: 5374627676133394721, guid: bd12084f4670b8840919171a1d86b1ee, type: 3}
+  - {fileID: 5913106796917906721, guid: 94f5cc37125b4a943bc792446c36e9d2, type: 3}
+  - {fileID: 988380431254347671, guid: 229813f5fc01e0c469445ad39cd50738, type: 3}
+  - {fileID: 5713895848681078172, guid: bd12084f4670b8840919171a1d86b1ee, type: 3}
   _spawnPoints:
   - {fileID: 0}
   - {fileID: 0}

@@ -85,7 +85,7 @@ public class SingleTargetCard : Card
             RaycastHit targetEnemyHit;
             if (Physics.Raycast(ray, out targetEnemyHit, Mathf.Infinity, _enemyLayer))
             {
-                targetEnemyHit.collider.GetComponent<EnemyTest>().TakeDamage(_cardData.Value);
+                targetEnemyHit.collider.GetComponent<EnemyHealth>().TakeDamage(_cardData.Value);
                 _cardVisualCanvasGroup.alpha = 1;
                 PlayCard();
                 return;
