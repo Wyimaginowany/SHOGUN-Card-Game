@@ -20,6 +20,7 @@ public class CombatManager : MonoBehaviour
 
     private int _currentMana;
     private int _enemyOrderIndex = 0;
+    public int turnCounter;
 
     private void Start()
     {
@@ -28,6 +29,7 @@ public class CombatManager : MonoBehaviour
 
         _currentMana = _maxMana;
         _manaAmountText.text = _currentMana.ToString();
+        turnCounter = 0;
     }
 
     private void OnDestroy()
@@ -72,14 +74,15 @@ public class CombatManager : MonoBehaviour
         if (_enemyOrderIndex == _aliveEnemies.Count)
         {
             OnPlayerTurnStart?.Invoke();
-
+            
             _currentMana = _maxMana;
             _manaAmountText.text = _currentMana.ToString();
-
+            turnCounter++;
+            
             return;
         }
-
-        _aliveEnemies[_enemyOrderIndex].GetComponent<EnemyCombat>().HandleTurn();
+        //HandleTurn is protected now
+        //_aliveEnemies[_enemyOrderIndex].GetComponent<EnemyCombat>().HandleTurn();
 
         _enemyOrderIndex++;
     }
