@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class HandManager : MonoBehaviour
     [Header("To Attach")]
     [SerializeField] private Transform _cardVisualPrefab;
     [SerializeField] private Transform _hiddenCardsPoint;
+    [SerializeField] private RectTransform _drawCardDisplayPoint;
     [Space(15)]
     [Header("Hand Settings")]
     [SerializeField] private int _startMaxHandSize = 10;
@@ -19,6 +21,7 @@ public class HandManager : MonoBehaviour
     [SerializeField] private float _minSpaceBetweenCards = 0f;
     [SerializeField] private float _spaceBetweenCardsGrowFactor = 1.5f;
     [SerializeField] private float _rotationPerCard = 1f;
+    [SerializeField] private float _timeBeforeNextCardDraw = 0.7f;
     [Space(10)]
     [Header("Card Hover Settings")]
     [SerializeField] private TMP_Text _cardText;
@@ -75,6 +78,7 @@ public class HandManager : MonoBehaviour
     private void CardMouseHoverVisualStart(Card card, Transform cardVisualNewPosition)
     {
         if (_isBeingDragged) return;
+        if (!card.IsInHand()) return;
 
         card.HideCard();
         _hoverCounter++;
@@ -106,13 +110,21 @@ public class HandManager : MonoBehaviour
 
     private void DrawFullHand()
     {
+        StartCoroutine(drawCard(_timeBeforeNextCardDraw));
+    }
+
+    private IEnumerator drawCard(float timeBeforeNextCardDraw)
+    {
         for (int i = _hand.Count; i < _currentMaxHandSize; i++)
         {
             Card drawnCard = _deckManager.DrawTopCard();
+            drawnCard.DrawThisCard(_drawCardDisplayPoint.anchoredPosition);
+            yield return new WaitForSeconds(timeBeforeNextCardDraw);
+
             _hand.Add(drawnCard);
+            UpdateCardsPosition(_hand.Count);
+            UpdateCardsRotation(_hand.Count);
         }
-        UpdateCardsPosition(_hand.Count);
-        UpdateCardsRotation(_hand.Count);
     }
 
     private void RemoveFromHand(Card cardPlayed)
