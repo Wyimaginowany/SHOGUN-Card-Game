@@ -53,9 +53,10 @@ public class CombatManager : MonoBehaviour
 
         for (int i = 0; i < randomEnemiesAmount; i++)
         {
-            GameObject newEnemy = Instantiate(_enemies[UnityEngine.Random.Range(0, _enemies.Length)].gameObject,
+            GameObject newEnemy = Instantiate(_enemies[3].gameObject,
                                               _spawnPoints[i].position,
                                               Quaternion.identity);
+            
             _aliveEnemies.Add(newEnemy.GetComponent<EnemyHealth>());
         }
     }
@@ -82,7 +83,7 @@ public class CombatManager : MonoBehaviour
             return;
         }
         //HandleTurn is protected now
-        //_aliveEnemies[_enemyOrderIndex].GetComponent<EnemyCombat>().HandleTurn();
+        _aliveEnemies[_enemyOrderIndex].GetComponent<EnemyCombat>().HandleTurn();
 
         _enemyOrderIndex++;
     }

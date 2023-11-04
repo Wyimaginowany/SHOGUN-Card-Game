@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//public abstract class EnemyCombat
 public abstract class EnemyCombat : MonoBehaviour
 {
     [Header("Settings")]
@@ -16,7 +15,7 @@ public abstract class EnemyCombat : MonoBehaviour
     private CombatManager _combatManager;
     protected PlayerHealth playerHealth;
 
-    private void Start()
+    protected virtual void Start()
     {
         _animator = GetComponent<Animator>();
         _animator.runtimeAnimatorController = _overrideController;
@@ -25,16 +24,11 @@ public abstract class EnemyCombat : MonoBehaviour
         _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
         //_playerEffects = ...
     }
-
-
-    protected virtual void HandleTurn()
+    
+    public virtual void HandleTurn()
     {
         _animator.SetTrigger("attack");
     }
-    // public void HandleTurn()
-    // {
-    //     _animator.SetTrigger("attack");
-    // }
 
     private void AttackAnimationEvent()
     {

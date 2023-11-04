@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 public class PaperNinja : EnemyCombat
 {
-    private readonly Random _rnd = new();
     [SerializeField] private int _shurikenThrowCooldown;
     [SerializeField] private int _paperCutCooldown;
     [SerializeField] private int _vanishCooldown;
     
-    protected override void HandleTurn()
+    public override void HandleTurn()
     {
         List<string> availableAbilities = new List<string>();
         if (_shurikenThrowCooldown <= 0) availableAbilities.Add("ShurikenThrow");
@@ -20,7 +19,7 @@ public class PaperNinja : EnemyCombat
         _paperCutCooldown--;
         _vanishCooldown--;
         
-        int selectedIndex = _rnd.Next(availableAbilities.Count);
+        int selectedIndex = Random.Range(0, availableAbilities.Count);
         string selectedAbility = availableAbilities[selectedIndex];
         
         switch (selectedAbility)
@@ -39,14 +38,15 @@ public class PaperNinja : EnemyCombat
     
     private void ShurikenThrow()
     {
-        int damage = _rnd.Next(3, 4);
+        int damage = Random.Range(3, 4);
+        Debug.Log(playerHealth);
         playerHealth.TakeDamage(damage);
     }
 
     private void PaperCut()
     {
         int damage = 1;
-        int bleedStacks = _rnd.Next(2, 3);
+        int bleedStacks = Random.Range(2, 3);
         playerHealth.TakeDamage(damage);
         
         //TODO: playerEffect z bleedStacks

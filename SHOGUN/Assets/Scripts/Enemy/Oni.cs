@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 public class Oni : EnemyCombat
 {
-    private readonly Random _rnd = new();
     [SerializeField] private int _strongHitCooldown;
     [SerializeField] private int _stunAttackCooldown;
     [SerializeField] private int _buffDamageCooldown;
     [SerializeField] private int _berserkCooldown;
     
-    protected override void HandleTurn()
+    public override void HandleTurn()
     {
         List<string> availableAbilities = new List<string>();
         if (_strongHitCooldown <= 0) availableAbilities.Add("strongHit");
@@ -22,7 +21,7 @@ public class Oni : EnemyCombat
         _stunAttackCooldown--;
         _buffDamageCooldown--;
         
-        int selectedIndex = _rnd.Next(availableAbilities.Count);
+        int selectedIndex = Random.Range(0, availableAbilities.Count);
         string selectedAbility = availableAbilities[selectedIndex];
         
         switch (selectedAbility)
@@ -44,7 +43,7 @@ public class Oni : EnemyCombat
     
     private void StrongHit()
     {
-        int damage = _rnd.Next(12, 20);
+        int damage = Random.Range(12, 20);
         playerHealth.TakeDamage(damage);
 
         _strongHitCooldown = 2;
@@ -52,7 +51,7 @@ public class Oni : EnemyCombat
 
     private void StunAttack()
     {
-        int damage = _rnd.Next(6, 9);
+        int damage = Random.Range(6, 9);
         playerHealth.TakeDamage(damage);
         
         //TODO: stun if player doesnt have enough block to block all damage

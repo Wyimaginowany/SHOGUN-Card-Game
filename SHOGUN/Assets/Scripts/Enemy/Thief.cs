@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 public class Thief : EnemyCombat
 {
-    private readonly Random _rnd = new();
     [SerializeField] private int _basicAttackCooldown;
     [SerializeField] private int _comboAttackCooldown;
     [SerializeField] private int _blockActionCooldown;
@@ -13,23 +12,36 @@ public class Thief : EnemyCombat
     [SerializeField] private int _comboCounter = 1;
     [SerializeField] private double _damageMultiplier;
     
-    public enum BeltColor
-    {
-        White=100,
-        Orange=120,
-        Blue=140,
-        Yellow=160,
-        Green=180,
-        Brown=200,
-        Black=220
-    }
+    
+    // public enum BeltColor
+    // {
+    //     White=100,
+    //     Orange=120,
+    //     Blue=140,
+    //     Yellow=160,
+    //     Green=180,
+    //     Brown=200,
+    //     Black=220
+    // }
 
-    public Thief(BeltColor beltColor)
+    // public Thief(BeltColor beltColor)
+    // {
+    //     _damageMultiplier = (double) beltColor / 100;
+    // }
+
+    protected override void Start()
     {
-        _damageMultiplier = (double) beltColor / 100;
+        base.Start();
+        string[] beltColors = { "white", "orange", "blue", "yellow", "green", "brown", "black" };
+        int[] beltDamages = { 100, 120, 140, 160, 180, 200, 220 };
+        int randomIndex = Random.Range(0, beltColors.Length);
+        _damageMultiplier = (double) beltDamages[randomIndex] / 100;
+        Debug.Log(beltColors[randomIndex]);
+        
+        //TODO: SET ENEMY MODEL TO ACCORDING BELTCOLOR
     }
     
-    protected override void HandleTurn()
+    public override void HandleTurn()
     {
         List<string> availableAbilities = new List<string>();
         if (_basicAttackCooldown <= 0) availableAbilities.Add("basicAttack");
@@ -42,7 +54,7 @@ public class Thief : EnemyCombat
         _blockActionCooldown--;
         _buffBlockCooldown--;
         
-        int selectedIndex = _rnd.Next(availableAbilities.Count);
+        int selectedIndex = Random.Range(0, availableAbilities.Count);
         string selectedAbility = availableAbilities[selectedIndex];
         
         switch (selectedAbility)
@@ -64,13 +76,15 @@ public class Thief : EnemyCombat
     
     private void BasicAttack()
     {
-        int damage = (int) Math.Round(_rnd.Next(3, 5) * _damageMultiplier);
+        int damage = (int) Math.Round(Random.Range(3, 5) * _damageMultiplier);
+        Debug.Log(playerHealth);
         playerHealth.TakeDamage(damage);
     }
 
     private void ComboAttack()
     {
         int damage = (int) Math.Round(2 * _comboCounter * _damageMultiplier);
+        Debug.Log(playerHealth);
         playerHealth.TakeDamage(damage);
         
         _comboAttackCooldown = 1;
