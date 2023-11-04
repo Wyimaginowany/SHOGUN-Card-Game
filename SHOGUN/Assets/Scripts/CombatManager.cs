@@ -53,7 +53,7 @@ public class CombatManager : MonoBehaviour
 
         for (int i = 0; i < randomEnemiesAmount; i++)
         {
-            GameObject newEnemy = Instantiate(_enemies[3].gameObject,
+            GameObject newEnemy = Instantiate(_enemies[UnityEngine.Random.Range(3,5)].gameObject,
                                               _spawnPoints[i].position,
                                               Quaternion.identity);
             
