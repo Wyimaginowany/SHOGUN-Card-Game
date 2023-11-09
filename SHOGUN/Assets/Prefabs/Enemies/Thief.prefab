@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 988380431254347671}
   - component: {fileID: 4259602776806108146}
   m_Layer: 6
-  m_Name: Enemy 2
+  m_Name: Thief
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86fa13670df4c19439814b0f8ef1f50e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 15
+  _maxHealth: 20
   _damageText: {fileID: 3615952244504004739}
   _popupAnimator: {fileID: 7282155664421602750}
   _healthbarAmountText: {fileID: 262548898087709523}
@@ -215,11 +215,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 5374627676133394782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef381b336c39e824dacfe6c179d7dbe7, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fbd84d83ac844ecb251349a11e68540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 10
-  _overrideController: {fileID: 22100000, guid: 171170d7c2f11a342a5c7c0388027228, type: 2}
+  _damage: 0
+  _overrideController: {fileID: 22100000, guid: 9ff1f82b18f451f418ad66a1f63c071a, type: 2}
+  _basicAttackCooldown: 0
+  _comboAttackCooldown: 0
+  _blockActionCooldown: 0
+  _buffBlockCooldown: 0
+  _comboCounter: 1
+  _damageMultiplier: 0
 --- !u!1 &7823335539016324348
 GameObject:
   m_ObjectHideFlags: 0

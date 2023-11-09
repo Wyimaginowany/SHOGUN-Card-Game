@@ -43,6 +43,7 @@ public class Thief : EnemyCombat
     
     public override void HandleTurn()
     {
+        base.HandleTurn();
         List<string> availableAbilities = new List<string>();
         if (_basicAttackCooldown <= 0) availableAbilities.Add("basicAttack");
         if (_comboAttackCooldown <= 0) availableAbilities.Add("comboAttack");

@@ -10,6 +10,7 @@ public class PaperNinja : EnemyCombat
     
     public override void HandleTurn()
     {
+        base.HandleTurn();
         List<string> availableAbilities = new List<string>();
         if (_shurikenThrowCooldown <= 0) availableAbilities.Add("ShurikenThrow");
         if (_paperCutCooldown <= 0) availableAbilities.Add("PaperCut");

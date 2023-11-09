@@ -17,6 +17,7 @@ public class Oni : EnemyCombat
     }
     public override void HandleTurn()
     {
+        base.HandleTurn();
         List<string> availableAbilities = new List<string>();
         if (_strongHitCooldown <= 0) availableAbilities.Add("strongHit");
         if (_stunAttackCooldown <= 0) availableAbilities.Add("stunAttack");
@@ -49,6 +50,7 @@ public class Oni : EnemyCombat
     
     private void StrongHit()
     {
+        //_animator.SetTrigger("strongHit");
         int damage = Random.Range(12, 20);
         playerHealth.TakeDamage(damage);
 
