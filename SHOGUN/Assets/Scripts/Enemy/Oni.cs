@@ -8,7 +8,13 @@ public class Oni : EnemyCombat
     [SerializeField] private int _stunAttackCooldown;
     [SerializeField] private int _buffDamageCooldown;
     [SerializeField] private int _berserkCooldown;
+    private EnemyHealth _enemyHealth;
     
+    protected override void Start()
+    {
+        base.Start();
+        _enemyHealth = GetComponent<EnemyHealth>();
+    }
     public override void HandleTurn()
     {
         List<string> availableAbilities = new List<string>();
