@@ -26,6 +26,8 @@ public class SingleTargetShieldCard : Card
 
     protected override void OnBeeingDragged()
     {
+        base.OnBeeingDragged();
+
         List<PossibleAreas> possibleDropAreas = GetDropAreas();
 
 
@@ -59,6 +61,7 @@ public class SingleTargetShieldCard : Card
     protected override void EndDragging()
     {
         base.EndDragging();
+
         List<PossibleAreas> possibleDropAreas = GetDropAreas();
 
         _lineRendererController.StopDrawing();

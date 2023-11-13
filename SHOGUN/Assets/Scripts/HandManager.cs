@@ -37,6 +37,7 @@ public class HandManager : MonoBehaviour
     private int _currentMaxHandSize;
     private int _hoverCounter = 0;
     private bool _isBeingDragged = false;
+    private bool _fullHandDrawn = false;
 
     private void Start()
     {
@@ -47,6 +48,7 @@ public class HandManager : MonoBehaviour
         _combatManager = GetComponent<CombatManager>();
 
         CombatManager.OnPlayerTurnStart += HandlePlayerTurnStart;
+        CombatManager.OnPlayerTurnEnd += HandlePlayerTurnEnd;
         Card.OnCardPlayed += RemoveFromHand;
         Card.OnCardThrownAway += RemoveFromHand;
         Card.OnCardMouseHoverStart += CardMouseHoverVisualStart;
@@ -58,6 +60,7 @@ public class HandManager : MonoBehaviour
     private void OnDestroy()
     {
         CombatManager.OnPlayerTurnStart -= HandlePlayerTurnStart;
+        CombatManager.OnPlayerTurnEnd -= HandlePlayerTurnEnd;
         Card.OnCardPlayed -= RemoveFromHand;
         Card.OnCardThrownAway -= RemoveFromHand;
         Card.OnCardMouseHoverStart -= CardMouseHoverVisualStart;
@@ -81,6 +84,7 @@ public class HandManager : MonoBehaviour
     {
         if (_isBeingDragged) return;
         if (!card.IsInHand()) return;
+        if (!_fullHandDrawn) return;
 
         card.HideCard();
         _hoverCounter++;
@@ -107,7 +111,16 @@ public class HandManager : MonoBehaviour
 
     private void HandlePlayerTurnStart()
     {
+        _fullHandDrawn = false;
         DrawFullHand();
+    }
+
+    private void HandlePlayerTurnEnd()
+    {
+        foreach (Card card in _hand)
+        {
+            card._isInteractable = false;
+        }
     }
 
     private void DrawFullHand()
@@ -130,6 +143,11 @@ public class HandManager : MonoBehaviour
 
         //drawn all cards
         _combatManager.FullHandDrawn();
+        foreach (Card card in _hand)
+        {
+            card._isInteractable = true;
+        }
+        _fullHandDrawn = true;
     }
 
     private void RemoveFromHand(Card cardPlayed)
