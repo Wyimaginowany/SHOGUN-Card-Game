@@ -31,6 +31,7 @@ public class HandManager : MonoBehaviour
 
     [SerializeField] private List<Card> _hand = new List<Card>(); //serialize to see in editor remove later
     private float _middlePositionX;
+    private CombatManager _combatManager;
     private DeckManager _deckManager;
     private RectTransform _rectTransform;
     private int _currentMaxHandSize;
@@ -43,6 +44,7 @@ public class HandManager : MonoBehaviour
         _rectTransform = GetComponent<RectTransform>();
         _middlePositionX = _rectTransform.rect.width / 2;
         _currentMaxHandSize = _startMaxHandSize;
+        _combatManager = GetComponent<CombatManager>();
 
         CombatManager.OnPlayerTurnStart += HandlePlayerTurnStart;
         Card.OnCardPlayed += RemoveFromHand;
@@ -125,6 +127,9 @@ public class HandManager : MonoBehaviour
             UpdateCardsPosition(_hand.Count);
             UpdateCardsRotation(_hand.Count);
         }
+
+        //drawn all cards
+        _combatManager.FullHandDrawn();
     }
 
     private void RemoveFromHand(Card cardPlayed)
