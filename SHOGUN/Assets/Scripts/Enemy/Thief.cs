@@ -5,33 +5,30 @@ using Random = UnityEngine.Random;
 
 public class Thief : EnemyCombat
 {
-    [SerializeField] private int _basicAttackCooldown;
-    [SerializeField] private int _comboAttackCooldown;
-    [SerializeField] private int _blockActionCooldown;
-    [SerializeField] private int _buffBlockCooldown;
-    [SerializeField] private int _comboCounter = 1;
-    [SerializeField] private double _damageMultiplier;
+    [Header("Max Cooldowns")]
+    [SerializeField] private int _basicAttackMaxCD = 0;
+    [SerializeField] private int _comboAttackMaxCD = 1;
+    [SerializeField] private int _blockActionMaxCD = 1;
+    [SerializeField] private int _buffBlockMaxCD = 5;
+    [Header("Moves")]
+    [SerializeField] private int _basicAttackMinDmg = 3;
+    [SerializeField] private int _basicAttackMaxDmg = 5;
+    [SerializeField] private int _comboAttackMinDmg = 2;
+    [SerializeField] private int _blockActionValue = 5;
     
+    private int _basicAttackCooldown;
+    private int _comboAttackCooldown;
+    private int _blockActionCooldown;
+    private int _buffBlockCooldown;
+    private int _comboCounter = 1;
+    private double _damageMultiplier;
     
-    // public enum BeltColor
-    // {
-    //     White=100,
-    //     Orange=120,
-    //     Blue=140,
-    //     Yellow=160,
-    //     Green=180,
-    //     Brown=200,
-    //     Black=220
-    // }
-
-    // public Thief(BeltColor beltColor)
-    // {
-    //     _damageMultiplier = (double) beltColor / 100;
-    // }
+    private EnemyHealth _enemyHealth;
 
     protected override void Start()
     {
         base.Start();
+        _enemyHealth = GetComponent<EnemyHealth>();
         string[] beltColors = { "white", "orange", "blue", "yellow", "green", "brown", "black" };
         int[] beltDamages = { 100, 120, 140, 160, 180, 200, 220 };
         int randomIndex = Random.Range(0, beltColors.Length);
@@ -77,31 +74,37 @@ public class Thief : EnemyCombat
     
     private void BasicAttack()
     {
-        int damage = (int) Math.Round(Random.Range(3, 5) * _damageMultiplier);
-        Debug.Log(playerHealth);
+        int damage = (int) Math.Round(Random.Range(_basicAttackMinDmg, _basicAttackMaxDmg) * _damageMultiplier);
         playerHealth.TakeDamage(damage);
+
+        _basicAttackCooldown = _basicAttackMaxCD;
+        Debug.Log("basicAttack");
     }
 
     private void ComboAttack()
     {
-        int damage = (int) Math.Round(2 * _comboCounter * _damageMultiplier);
+        int damage = (int) Math.Round(_comboAttackMinDmg * _comboCounter * _damageMultiplier);
         Debug.Log(playerHealth);
         playerHealth.TakeDamage(damage);
         
-        _comboAttackCooldown = 1;
+        _comboAttackCooldown = _comboAttackMaxCD;
+        Debug.Log("comboAttack");
     }
 
     private void BlockAction()
     {
         //TODO: give 5 block
+        _enemyHealth.GiveShield(_blockActionValue);
 
-        _blockActionCooldown = 1;
+        _blockActionCooldown = _blockActionMaxCD;
+        Debug.Log("blockAction");
     }
 
     private void BuffBlock()
     {
         //TODO: block multi 150% for the rest of the combat
 
-        _buffBlockCooldown = 5;
+        _buffBlockCooldown = _buffBlockMaxCD;
+        Debug.Log("buffBlock");
     }
 }
