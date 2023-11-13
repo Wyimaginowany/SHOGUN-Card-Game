@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private int _maxHealth = 100;
 
     [Header("To attach")]
+    [SerializeField] private Animator _playerAnimator;
     [SerializeField] private TMP_Text _damageText;
     [SerializeField] private Animator _popupAnimator;
     [SerializeField] private TMP_Text _healthbarAmountText;
@@ -27,15 +28,18 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         Debug.Log("adssadasda");
+
         _damageText.text = "-"+damage.ToString();
         _popupAnimator.SetTrigger("Take-damage");
-
         
         _currentHealth -= damage;
-
+    
         if (_currentHealth <= 0)
         {
             HandlePlayerDeath();
+        }
+        else{
+            _playerAnimator.SetTrigger("Take-damage");
         }
         UpdateHealthbar();
     }
@@ -67,9 +71,8 @@ public class PlayerHealth : MonoBehaviour
 
     private void HandlePlayerDeath()
     {
+         _playerAnimator.SetTrigger("Death");
         Debug.Log("Player has died. Returning player to full health");
         _currentHealth = _maxHealth;
     }
-
-
 }
