@@ -4,9 +4,19 @@ using Random = UnityEngine.Random;
 
 public class PaperNinja : EnemyCombat
 {
-    [SerializeField] private int _shurikenThrowCooldown;
-    [SerializeField] private int _paperCutCooldown;
-    [SerializeField] private int _vanishCooldown;
+    [Header("Max Cooldowns")]
+    [SerializeField] private int _shurikenThrowMaxCD = 0;
+    [SerializeField] private int _paperCutMaxCD = 1;
+    [SerializeField] private int _vanishMaxCD = 1;
+    
+    [Header("Moves")]
+    [SerializeField] private int _shurikenThrowMinDmg = 3;
+    [SerializeField] private int _shurikenThrowMaxDmg = 4;
+    [SerializeField] private int _paperCutMinDmg = 1;
+    
+    private int _shurikenThrowCooldown;
+    private int _paperCutCooldown;
+    private int _vanishCooldown;
     
     public override void HandleTurn()
     {
@@ -39,26 +49,30 @@ public class PaperNinja : EnemyCombat
     
     private void ShurikenThrow()
     {
-        int damage = Random.Range(3, 4);
-        Debug.Log(playerHealth);
+        int damage = Random.Range(_shurikenThrowMinDmg, _shurikenThrowMaxDmg);
         playerHealth.TakeDamage(damage);
+
+        _shurikenThrowCooldown = _shurikenThrowMaxCD;
+        Debug.Log("shurikenThrow");
     }
 
     private void PaperCut()
     {
-        int damage = 1;
+        int damage = _paperCutMinDmg;
         int bleedStacks = Random.Range(2, 3);
         playerHealth.TakeDamage(damage);
         
         //TODO: playerEffect z bleedStacks
         
-        _paperCutCooldown = 1;
+        _paperCutCooldown = _paperCutMaxCD;
+        Debug.Log("PaperCut");
     }
 
     private void Vanish()
     {
         //TODO: nietykalnosc na 1 ture
 
-        _vanishCooldown = 5;
+        _vanishCooldown = _vanishMaxCD;
+        Debug.Log("vanish");
     }
 }

@@ -92,5 +92,10 @@ public class PlayerHealth : MonoBehaviour
         _currentHealth = _maxHealth;
     }
 
+    public int GetPlayerShield()
+    {
+        return _currentShield;
+    }
+
 
 }
