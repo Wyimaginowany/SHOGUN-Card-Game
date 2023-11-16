@@ -6,30 +6,30 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    private Button playButton, settingsButton, achievementsButton, quitButton;
+    private Button _playButton, _settingsButton, _achievementsButton, _quitButton;
     public void Awake()
     {
-        playButton = GameObject.Find("PlayButton").gameObject.GetComponent<Button>();
-        achievementsButton = GameObject.Find("AchievementsButton").gameObject.GetComponent<Button>();
-        settingsButton = GameObject.Find("SettingsButton").gameObject.GetComponent<Button>();
-        quitButton = GameObject.Find("QuitButton").gameObject.GetComponent<Button>();
+        _playButton = GameObject.Find("PlayButton").gameObject.GetComponent<Button>();
+        _achievementsButton = GameObject.Find("AchievementsButton").gameObject.GetComponent<Button>();
+        _settingsButton = GameObject.Find("SettingsButton").gameObject.GetComponent<Button>();
+        _quitButton = GameObject.Find("QuitButton").gameObject.GetComponent<Button>();
 
-        playButton.onClick.AddListener(() =>
+        _playButton.onClick.AddListener(() =>
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         });
 
-        achievementsButton.onClick.AddListener(() =>
+        _achievementsButton.onClick.AddListener(() =>
         {
             MenuManager.setActiveView(MenuManager.achievementsMenu);
         });
 
-        settingsButton.onClick.AddListener(() =>
+        _settingsButton.onClick.AddListener(() =>
         {
             MenuManager.setActiveView(MenuManager.settingsMenu);
         });
 
-        quitButton.onClick.AddListener(() =>
+        _quitButton.onClick.AddListener(() =>
         {
             Application.Quit();
         });

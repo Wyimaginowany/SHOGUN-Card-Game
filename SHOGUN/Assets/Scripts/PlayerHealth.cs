@@ -1,7 +1,8 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using CardEnums;
 public class PlayerHealth : MonoBehaviour
 {
     [Header("Settings")]
@@ -13,26 +14,42 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Animator _popupAnimator;
     [SerializeField] private TMP_Text _healthbarAmountText;
     [SerializeField] private Slider _healthbarSlider;
-    
 
+    public Animator GetAnimator(){ return _playerAnimator;}
+
+    private int _currentShield = 0;
     private int _currentHealth;
-
     private void Start()
     {
         _currentHealth = _maxHealth;
 
         _healthbarAmountText.text = _currentHealth.ToString() + "/" + _maxHealth.ToString();
         _healthbarSlider.value=1;
+
+        CombatManager.OnPlayerTurnStart += ResetShield;
+    }
+
+    private void OnDestroy()
+    {
+        CombatManager.OnPlayerTurnStart -= ResetShield;
+    }
+
+    private void ResetShield()
+    {
+        _currentShield = 0;
     }
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("adssadasda");
 
         _damageText.text = "-"+damage.ToString();
         _popupAnimator.SetTrigger("Take-damage");
-        
-        _currentHealth -= damage;
+        int damageToPlayer = damage - _currentShield;
+        _currentShield = Mathf.Clamp(_currentShield - damage, 0, 10000);
+
+        if (damageToPlayer <= 0) return;
+
+        _currentHealth -= damageToPlayer;
     
         if (_currentHealth <= 0)
         {
@@ -62,6 +79,11 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthbar();
 
         
+    }
+
+    public void GiveShield(int shieldAmount)
+    {
+        _currentShield += shieldAmount;
     }
 
     private void UpdateHealthbar(){

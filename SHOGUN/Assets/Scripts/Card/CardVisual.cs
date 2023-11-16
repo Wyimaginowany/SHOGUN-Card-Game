@@ -9,7 +9,7 @@ public class CardVisual : MonoBehaviour
     [SerializeField] private TMP_Text _cardText;
     [SerializeField] private TMP_Text _cardCostText;
     [SerializeField] private RawImage _cardColorImage;
-
+    
     private CardScriptableObject _cardData;
 
     void Start()
@@ -23,6 +23,6 @@ public class CardVisual : MonoBehaviour
     {
         _cardText.text = _cardData.Value.ToString();
         _cardCostText.text = _cardData.Cost.ToString();
-        _cardColorImage.color = _cardData.CardColor;
+        _cardColorImage.color = _cardData.CardColor; 
     }
 }
