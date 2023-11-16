@@ -12,6 +12,8 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private EnemyHealth[] _enemies;
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private TMP_Text _manaAmountText;
+    [SerializeField] private GameObject _endTurnButton;
+    [SerializeField] private GameObject _endTurnButtonBlocked;
 
     public static event Action OnPlayerTurnStart;
     public static event Action OnPlayerTurnEnd;
@@ -36,6 +38,12 @@ public class CombatManager : MonoBehaviour
     {
         Card.OnCardPlayed -= HandleCardPlayed;
         EnemyHealth.OnEnemyDeath -= HandleEnemyDeath;
+    }
+
+    public void FullHandDrawn()
+    {
+        _endTurnButton.SetActive(true);
+        _endTurnButtonBlocked.SetActive(false);
     }
 
     private void HandleEnemyDeath(EnemyHealth deadEnemy)
@@ -64,6 +72,8 @@ public class CombatManager : MonoBehaviour
     public void EndTurnButton()
     {
         _enemyOrderIndex = 0;
+        _endTurnButton.SetActive(false);
+        _endTurnButtonBlocked.SetActive(true);
 
 
         OnPlayerTurnEnd?.Invoke();
@@ -74,18 +84,23 @@ public class CombatManager : MonoBehaviour
     {
         if (_enemyOrderIndex == _aliveEnemies.Count)
         {
-            OnPlayerTurnStart?.Invoke();
-            
-            _currentMana = _maxMana;
-            _manaAmountText.text = _currentMana.ToString();
+            HandlePlayerTurnStart();
             turnCounter++;
-            
+
             return;
         }
         //HandleTurn is protected now
         _aliveEnemies[_enemyOrderIndex].GetComponent<EnemyCombat>().HandleTurn();
 
         _enemyOrderIndex++;
+    }
+
+    private void HandlePlayerTurnStart()
+    {
+        OnPlayerTurnStart?.Invoke();
+
+        _currentMana = _maxMana;
+        _manaAmountText.text = _currentMana.ToString();
     }
 
     public void HandleCardPlayed(Card cardPlayed)

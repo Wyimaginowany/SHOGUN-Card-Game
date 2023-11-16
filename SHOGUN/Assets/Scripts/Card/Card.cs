@@ -35,6 +35,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private bool _isBeingDragged = false;
     private bool _isBeingDrawn = false;
     private bool _isInHand = false;
+    public bool _isInteractable = false;
 
     protected virtual void Start()
     {
@@ -57,7 +58,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
     protected virtual void OnBeeingDragged()
     {
-        //_cardVisualCanvasGroup.alpha = 1;
+        //
     }
 
     protected virtual void EndDragging()
@@ -71,12 +72,15 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         OnCardPlayed?.Invoke(this);
         _rectTransform.anchoredPosition = _startingPosition;
         PlayerCardAnimations.TriggerAnimation(_cardAnimation);
+        _isInteractable = false;
+
     }
 
     protected void ShuffleCardIntoDeck()
     {
         OnCardThrownAway?.Invoke(this);
         _rectTransform.anchoredPosition = _startingPosition;
+        _isInteractable = false;
     }
 
     protected void ReturnCardToHand()
@@ -142,7 +146,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             }
         }
 
-        if (_isBeingDragged)
+        if (_isBeingDragged && _isInteractable)
         {
             _timer += Time.deltaTime;
             float percentageComplete = Mathf.Clamp(_timer / _beginTransitionTime, 0f, 1f);
@@ -187,25 +191,30 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (!_isInteractable) return;
         OnCardMouseHoverStart?.Invoke(this, _cardVisualDisplayPoint);     
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (!_isInteractable) return;
         OnCardMouseHoverEnd?.Invoke(this);
         _cardVisualCanvasGroup.alpha = 1;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (!_isInteractable) return;
         BeginDragging();
     }
     public void OnDrag(PointerEventData eventData)
     {
+        if (!_isInteractable) return;
         OnBeeingDragged();
     }
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (!_isInteractable) return;
         EndDragging();
     }
 

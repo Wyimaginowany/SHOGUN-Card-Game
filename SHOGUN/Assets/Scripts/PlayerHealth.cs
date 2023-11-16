@@ -97,4 +97,9 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Player has died. Returning player to full health");
         _currentHealth = _maxHealth;
     }
+
+    public int GetPlayerShield()
+    {
+        return _currentShield;
+    }
 }
