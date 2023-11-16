@@ -12,7 +12,8 @@ public class Thief : EnemyCombat
     [SerializeField] private int _comboCounter = 1;
     [SerializeField] private double _damageMultiplier;
     
-    
+    private Animator _animator;
+
     // public enum BeltColor
     // {
     //     White=100,
@@ -31,6 +32,8 @@ public class Thief : EnemyCombat
 
     protected override void Start()
     {
+        _animator = GetComponent<Animator>();
+
         base.Start();
         string[] beltColors = { "white", "orange", "blue", "yellow", "green", "brown", "black" };
         int[] beltDamages = { 100, 120, 140, 160, 180, 200, 220 };
@@ -77,6 +80,7 @@ public class Thief : EnemyCombat
     
     private void BasicAttack()
     {
+        _animator.SetTrigger("Kick");
         int damage = (int) Math.Round(Random.Range(3, 5) * _damageMultiplier);
         Debug.Log(playerHealth);
         playerHealth.TakeDamage(damage);
@@ -84,6 +88,7 @@ public class Thief : EnemyCombat
 
     private void ComboAttack()
     {
+        _animator.SetTrigger("Combo");
         int damage = (int) Math.Round(2 * _comboCounter * _damageMultiplier);
         Debug.Log(playerHealth);
         playerHealth.TakeDamage(damage);

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public abstract class EnemyCombat : MonoBehaviour
@@ -9,6 +10,7 @@ public abstract class EnemyCombat : MonoBehaviour
 
     [Header("To Attach")]
     [SerializeField] private AnimatorOverrideController _overrideController;
+    [SerializeField] private AnimatorController _AnimatorController;
     
 
     private Animator _animator;
@@ -27,7 +29,7 @@ public abstract class EnemyCombat : MonoBehaviour
     
     public virtual void HandleTurn()
     {
-        _animator.SetTrigger("attack");
+        
     }
 
     private void AttackAnimationEvent()
