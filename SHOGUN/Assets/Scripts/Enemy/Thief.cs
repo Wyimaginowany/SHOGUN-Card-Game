@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class Thief : EnemyCombat
 {
@@ -48,9 +47,9 @@ public class Thief : EnemyCombat
         _enemyHealth = GetComponent<EnemyHealth>();
         string[] beltColors = { "white", "orange", "blue", "yellow", "green", "brown", "black" };
         int[] beltDamages = { 100, 120, 140, 160, 180, 200, 220 };
-        int randomIndex = Random.Range(0, beltColors.Length);
-        _damageMultiplier = (double) beltDamages[randomIndex] / 100;
-        Debug.Log(beltColors[randomIndex]);
+        //int randomIndex = UnityEngine.Random.Range(0, beltColors.Length);
+        //_damageMultiplier = (double) beltDamages[randomIndex] / 100;
+        //Debug.Log(beltColors[randomIndex]);
         
         //TODO: SET ENEMY MODEL TO ACCORDING BELTCOLOR
     }
@@ -69,7 +68,7 @@ public class Thief : EnemyCombat
         _blockActionCooldown--;
         _buffBlockCooldown--;
         
-        int selectedIndex = Random.Range(0, availableAbilities.Count);
+        //int selectedIndex = Random.Range(0, availableAbilities.Count);
         //string selectedAbility = availableAbilities[selectedIndex];
 
 
@@ -100,8 +99,8 @@ public class Thief : EnemyCombat
     {
         //_animator.SetTrigger("Kick");
         Debug.Log(playerHealth);
-        int damage = (int) Math.Round(Random.Range(_basicAttackMinDmg, _basicAttackMaxDmg) * _damageMultiplier);
-        playerHealth.TakeDamage(damage);
+        //int damage = (int) Math.Round(Random.Range(_basicAttackMinDmg, _basicAttackMaxDmg) * _damageMultiplier);
+        //playerHealth.TakeDamage(damage);
 
         _basicAttackCooldown = _basicAttackMaxCD;
         Debug.Log("basicAttack");

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class Oni : EnemyCombat
 {
@@ -45,7 +44,7 @@ public class Oni : EnemyCombat
         _stunAttackCooldown--;
         _buffDamageCooldown--;
         
-        int selectedIndex = Random.Range(0, availableAbilities.Count);
+        //int selectedIndex = Random.Range(0, availableAbilities.Count);
         //string selectedAbility = availableAbilities[selectedIndex];
 
 
@@ -76,8 +75,8 @@ public class Oni : EnemyCombat
     private void StrongHit()
     {
         //_animator.SetTrigger("strongHit");
-        int damage = (int)(Random.Range(_strongHitMinDmg, _strongHitMaxDmg) * _berserkMulti);
-        playerHealth.TakeDamage(damage);
+        //int damage = (int)(Random.Range(_strongHitMinDmg, _strongHitMaxDmg) * _berserkMulti);
+        //playerHealth.TakeDamage(damage);
 
         _strongHitCooldown = _strongHitMaxCD;
         Debug.Log("strongHit");
@@ -85,8 +84,8 @@ public class Oni : EnemyCombat
 
     private void StunAttack()
     {
-        int damage = (int)(Random.Range(_stunAttackMinDmg, _stunAttackMaxDmg) * _berserkMulti);
-        playerHealth.TakeDamage(damage);
+        //int damage = (int)(Random.Range(_stunAttackMinDmg, _stunAttackMaxDmg) * _berserkMulti);
+        //playerHealth.TakeDamage(damage);
 
         if (playerHealth.GetPlayerShield() < _minShieldToBlockStun)
         {

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class PaperNinja : EnemyCombat
 {
@@ -30,7 +29,7 @@ public class PaperNinja : EnemyCombat
         _paperCutCooldown--;
         _vanishCooldown--;
         
-        int selectedIndex = Random.Range(0, availableAbilities.Count);
+        //int selectedIndex = Random.Range(0, availableAbilities.Count);
         //string selectedAbility = availableAbilities[selectedIndex];
 
         _animator.SetTrigger("attack");
@@ -56,8 +55,8 @@ public class PaperNinja : EnemyCombat
 
     private void ShurikenThrow()
     {
-        int damage = Random.Range(_shurikenThrowMinDmg, _shurikenThrowMaxDmg);
-        playerHealth.TakeDamage(damage);
+        //int damage = Random.Range(_shurikenThrowMinDmg, _shurikenThrowMaxDmg);
+        //playerHealth.TakeDamage(damage);
 
         _shurikenThrowCooldown = _shurikenThrowMaxCD;
         Debug.Log("shurikenThrow");
@@ -66,7 +65,7 @@ public class PaperNinja : EnemyCombat
     private void PaperCut()
     {
         int damage = _paperCutMinDmg;
-        int bleedStacks = Random.Range(2, 3);
+        //int bleedStacks = Random.Range(2, 3);
         playerHealth.TakeDamage(damage);
         
         //TODO: playerEffect z bleedStacks
