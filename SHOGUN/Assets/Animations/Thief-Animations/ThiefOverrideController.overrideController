@@ -7,5 +7,9 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ThiefOverrideController
-  m_Controller: {fileID: 0}
-  m_Clips: []
+  m_Controller: {fileID: 9100000, guid: dd755c23ad898af44a6ff7a04e2b9168, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: b15391aebdd1dd64da2d21a60d16af9e, type: 2}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 44a193bf846ceca42a2578d07499edac, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 32b1ce86ee3fa9043827a4696da53138, type: 2}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 44a193bf846ceca42a2578d07499edac, type: 3}

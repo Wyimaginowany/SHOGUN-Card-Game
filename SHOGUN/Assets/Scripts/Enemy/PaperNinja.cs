@@ -24,15 +24,17 @@ public class PaperNinja : EnemyCombat
         List<string> availableAbilities = new List<string>();
         if (_shurikenThrowCooldown <= 0) availableAbilities.Add("ShurikenThrow");
         if (_paperCutCooldown <= 0) availableAbilities.Add("PaperCut");
-        if (_vanishCooldown <= 0) availableAbilities.Add("Vanish");
+        //if (_vanishCooldown <= 0) availableAbilities.Add("Vanish");
         
         _shurikenThrowCooldown--;
         _paperCutCooldown--;
         _vanishCooldown--;
         
         int selectedIndex = Random.Range(0, availableAbilities.Count);
-        string selectedAbility = availableAbilities[selectedIndex];
-        
+        //string selectedAbility = availableAbilities[selectedIndex];
+
+        _animator.SetTrigger("attack");
+        /*
         switch (selectedAbility)
         {
             case "ShurikenThrow":
@@ -44,9 +46,14 @@ public class PaperNinja : EnemyCombat
             case "Vanish":
                 Vanish();
                 break;
-        }
+        }*/
     }
-    
+
+    public void DefaultAttack()
+    {
+        playerHealth.TakeDamage(_damage);
+    }
+
     private void ShurikenThrow()
     {
         int damage = Random.Range(_shurikenThrowMinDmg, _shurikenThrowMaxDmg);

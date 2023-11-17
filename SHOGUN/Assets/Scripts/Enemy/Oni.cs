@@ -36,19 +36,21 @@ public class Oni : EnemyCombat
     {
         base.HandleTurn();
         List<string> availableAbilities = new List<string>();
-        if (_strongHitCooldown <= 0) availableAbilities.Add("strongHit");
-        if (_stunAttackCooldown <= 0) availableAbilities.Add("stunAttack");
-        if (_buffDamageCooldown <= 0) availableAbilities.Add("buffDamage");
-        if (_berserkCooldown <= 0) availableAbilities.Add("berserk");
+        //if (_strongHitCooldown <= 0) availableAbilities.Add("strongHit");
+        //if (_stunAttackCooldown <= 0) availableAbilities.Add("stunAttack");
+        //if (_buffDamageCooldown <= 0) availableAbilities.Add("buffDamage");
+        //if (_berserkCooldown <= 0) availableAbilities.Add("berserk");
         
         _strongHitCooldown--;
         _stunAttackCooldown--;
         _buffDamageCooldown--;
         
         int selectedIndex = Random.Range(0, availableAbilities.Count);
-        string selectedAbility = availableAbilities[selectedIndex];
-        
-        switch (selectedAbility)
+        //string selectedAbility = availableAbilities[selectedIndex];
+
+
+        _animator.SetTrigger("attack");
+        /*switch (selectedAbility)
         {
             case "strongHit":
                 StrongHit();
@@ -62,9 +64,15 @@ public class Oni : EnemyCombat
             case "berserk":
                 Berserk();
                 break;
-        }
+            
+        }*/
     }
-    
+
+    public void DefaultAttack()
+    {
+        playerHealth.TakeDamage(_damage);
+    }
+
     private void StrongHit()
     {
         //_animator.SetTrigger("strongHit");

@@ -232,11 +232,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef029bc2f7164df5bf42ce3f2cf41832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 0
+  _damage: 9
   _overrideController: {fileID: 22100000, guid: 171170d7c2f11a342a5c7c0388027228, type: 2}
-  _shurikenThrowCooldown: 0
-  _paperCutCooldown: 0
-  _vanishCooldown: 0
+  _shurikenThrowMaxCD: 0
+  _paperCutMaxCD: 1
+  _vanishMaxCD: 1
+  _shurikenThrowMinDmg: 3
+  _shurikenThrowMaxDmg: 4
+  _paperCutMinDmg: 1
 --- !u!1 &7823335539016324348
 GameObject:
   m_ObjectHideFlags: 0

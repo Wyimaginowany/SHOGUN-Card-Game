@@ -17,8 +17,6 @@ public class Thief : EnemyCombat
     [SerializeField] private int _blockActionValue = 5;
     
 
-    private Animator _animator;
-
     // public enum BeltColor
     // {
     //     White=100,
@@ -46,8 +44,6 @@ public class Thief : EnemyCombat
 
     protected override void Start()
     {
-        _animator = GetComponent<Animator>();
-
         base.Start();
         _enemyHealth = GetComponent<EnemyHealth>();
         string[] beltColors = { "white", "orange", "blue", "yellow", "green", "brown", "black" };
@@ -63,10 +59,10 @@ public class Thief : EnemyCombat
     {
         base.HandleTurn();
         List<string> availableAbilities = new List<string>();
-        if (_basicAttackCooldown <= 0) availableAbilities.Add("basicAttack");
-        if (_comboAttackCooldown <= 0) availableAbilities.Add("comboAttack");
-        if (_blockActionCooldown <= 0) availableAbilities.Add("blockAction");
-        if (_buffBlockCooldown <= 0) availableAbilities.Add("buffBlock");
+        //if (_basicAttackCooldown <= 0) availableAbilities.Add("basicAttack");
+        //if (_comboAttackCooldown <= 0) availableAbilities.Add("comboAttack");
+        //if (_blockActionCooldown <= 0) availableAbilities.Add("blockAction");
+        //if (_buffBlockCooldown <= 0) availableAbilities.Add("buffBlock");
         
         _basicAttackCooldown--;
         _comboAttackCooldown--;
@@ -74,9 +70,11 @@ public class Thief : EnemyCombat
         _buffBlockCooldown--;
         
         int selectedIndex = Random.Range(0, availableAbilities.Count);
-        string selectedAbility = availableAbilities[selectedIndex];
-        
-        switch (selectedAbility)
+        //string selectedAbility = availableAbilities[selectedIndex];
+
+
+        _animator.SetTrigger("attack");
+        /*switch (selectedAbility)
         {
             case "basicAttack":
                 BasicAttack();
@@ -90,12 +88,17 @@ public class Thief : EnemyCombat
             case "buffBlock":
                 BuffBlock();
                 break;
-        }
+            
+        }*/
     }
-    
+
+    public void DefaultAttack()
+    {
+        playerHealth.TakeDamage(_damage);
+    }
     private void BasicAttack()
     {
-        _animator.SetTrigger("Kick");
+        //_animator.SetTrigger("Kick");
         Debug.Log(playerHealth);
         int damage = (int) Math.Round(Random.Range(_basicAttackMinDmg, _basicAttackMaxDmg) * _damageMultiplier);
         playerHealth.TakeDamage(damage);
@@ -106,7 +109,7 @@ public class Thief : EnemyCombat
 
     private void ComboAttack()
     {
-        _animator.SetTrigger("Combo");
+        //_animator.SetTrigger("Combo");
         int damage = (int) Math.Round(_comboAttackMinDmg * _comboCounter * _damageMultiplier);
         Debug.Log(playerHealth);
         playerHealth.TakeDamage(damage);

@@ -6,14 +6,13 @@ using UnityEngine;
 public abstract class EnemyCombat : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private int _damage;
+    [SerializeField] protected int _damage;
 
     [Header("To Attach")]
     [SerializeField] private AnimatorOverrideController _overrideController;
-    [SerializeField] private AnimatorController _AnimatorController;
     
 
-    private Animator _animator;
+    protected Animator _animator;
     private CombatManager _combatManager;
     protected PlayerHealth playerHealth;
 

@@ -218,12 +218,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a3e7cafd4c24cbca07078212517d994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 0
+  _damage: 20
   _overrideController: {fileID: 22100000, guid: daeccdc9dc5e19d49b0051e9bf9f68e4, type: 2}
-  _strongHitCooldown: 0
-  _stunAttackCooldown: 0
-  _buffDamageCooldown: 0
-  _berserkCooldown: 0
+  _strongHitMaxCD: 2
+  _stunAttackMaxCD: 2
+  _buffDamageMaxCD: 2
+  _berserkMaxCD: 10000
+  _strongHitMinDmg: 12
+  _strongHitMaxDmg: 20
+  _stunAttackMinDmg: 6
+  _stunAttackMaxDmg: 9
+  _minShieldToBlockStun: 6
 --- !u!1 &7823335539016324348
 GameObject:
   m_ObjectHideFlags: 0
