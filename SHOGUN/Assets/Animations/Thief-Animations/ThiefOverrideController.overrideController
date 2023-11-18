@@ -7,5 +7,5 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ThiefOverrideController
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 04dbed158d230d54b8214ba72d9fe6b4, type: 2}
   m_Clips: []
