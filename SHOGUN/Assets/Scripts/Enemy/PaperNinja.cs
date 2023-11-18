@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class PaperNinja : EnemyCombat
 {
@@ -24,15 +23,17 @@ public class PaperNinja : EnemyCombat
         List<string> availableAbilities = new List<string>();
         if (_shurikenThrowCooldown <= 0) availableAbilities.Add("ShurikenThrow");
         if (_paperCutCooldown <= 0) availableAbilities.Add("PaperCut");
-        if (_vanishCooldown <= 0) availableAbilities.Add("Vanish");
+        //if (_vanishCooldown <= 0) availableAbilities.Add("Vanish");
         
         _shurikenThrowCooldown--;
         _paperCutCooldown--;
         _vanishCooldown--;
         
-        int selectedIndex = Random.Range(0, availableAbilities.Count);
-        string selectedAbility = availableAbilities[selectedIndex];
-        
+        //int selectedIndex = Random.Range(0, availableAbilities.Count);
+        //string selectedAbility = availableAbilities[selectedIndex];
+
+        _animator.SetTrigger("attack");
+        /*
         switch (selectedAbility)
         {
             case "ShurikenThrow":
@@ -44,13 +45,18 @@ public class PaperNinja : EnemyCombat
             case "Vanish":
                 Vanish();
                 break;
-        }
+        }*/
     }
-    
+
+    public void DefaultAttack()
+    {
+        playerHealth.TakeDamage(_damage);
+    }
+
     private void ShurikenThrow()
     {
-        int damage = Random.Range(_shurikenThrowMinDmg, _shurikenThrowMaxDmg);
-        playerHealth.TakeDamage(damage);
+        //int damage = Random.Range(_shurikenThrowMinDmg, _shurikenThrowMaxDmg);
+        //playerHealth.TakeDamage(damage);
 
         _shurikenThrowCooldown = _shurikenThrowMaxCD;
         Debug.Log("shurikenThrow");
@@ -59,7 +65,7 @@ public class PaperNinja : EnemyCombat
     private void PaperCut()
     {
         int damage = _paperCutMinDmg;
-        int bleedStacks = Random.Range(2, 3);
+        //int bleedStacks = Random.Range(2, 3);
         playerHealth.TakeDamage(damage);
         
         //TODO: playerEffect z bleedStacks

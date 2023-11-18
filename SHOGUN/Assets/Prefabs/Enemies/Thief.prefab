@@ -113,15 +113,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fbd84d83ac844ecb251349a11e68540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 0
+  _damage: 10
   _overrideController: {fileID: 22100000, guid: f655ae97c2c4d8243aa067d2c99ad96e, type: 2}
-  _AnimatorController: {fileID: 9100000, guid: 04dbed158d230d54b8214ba72d9fe6b4, type: 2}
-  _basicAttackCooldown: 0
-  _comboAttackCooldown: 0
-  _blockActionCooldown: 0
-  _buffBlockCooldown: 0
-  _comboCounter: 1
-  _damageMultiplier: 0
+  _basicAttackMaxCD: 0
+  _comboAttackMaxCD: 1
+  _blockActionMaxCD: 1
+  _buffBlockMaxCD: 5
+  _basicAttackMinDmg: 3
+  _basicAttackMaxDmg: 5
+  _comboAttackMinDmg: 2
+  _blockActionValue: 5
 --- !u!95 &3423200622539279653
 Animator:
   serializedVersion: 5
@@ -132,7 +133,7 @@ Animator:
   m_GameObject: {fileID: 5374627676133394782}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: ba93849ee1e5d7d468a895e85c81cf8d, type: 3}
-  m_Controller: {fileID: 9100000, guid: 04dbed158d230d54b8214ba72d9fe6b4, type: 2}
+  m_Controller: {fileID: 9100000, guid: dd755c23ad898af44a6ff7a04e2b9168, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -34,6 +34,20 @@ public class CombatManager : MonoBehaviour
         turnCounter = 0;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            EnemyHealth[] aliveEnemies = _aliveEnemies.ToArray();
+            foreach (EnemyHealth enemy in aliveEnemies)
+            {
+                _aliveEnemies.Remove(enemy);
+                Destroy(enemy.gameObject);
+            }
+            SpawnNewEnemies();
+        }
+    }
+
     private void OnDestroy()
     {
         Card.OnCardPlayed -= HandleCardPlayed;
@@ -61,7 +75,7 @@ public class CombatManager : MonoBehaviour
 
         for (int i = 0; i < randomEnemiesAmount; i++)
         {
-            GameObject newEnemy = Instantiate(_enemies[UnityEngine.Random.Range(0, _enemies.Length - 1)].gameObject,
+            GameObject newEnemy = Instantiate(_enemies[UnityEngine.Random.Range(0, _enemies.Length)].gameObject,
                                               _spawnPoints[i].position,
                                               Quaternion.identity);
             
