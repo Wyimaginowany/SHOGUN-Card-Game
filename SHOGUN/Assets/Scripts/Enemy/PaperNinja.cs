@@ -32,7 +32,7 @@ public class PaperNinja : EnemyCombat
         //int selectedIndex = Random.Range(0, availableAbilities.Count);
         //string selectedAbility = availableAbilities[selectedIndex];
 
-        _animator.SetTrigger("attack");
+        _animator.SetTrigger("ShurikenThrow");
         /*
         switch (selectedAbility)
         {

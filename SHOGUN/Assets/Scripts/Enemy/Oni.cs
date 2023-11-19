@@ -48,7 +48,7 @@ public class Oni : EnemyCombat
         //string selectedAbility = availableAbilities[selectedIndex];
 
 
-        _animator.SetTrigger("attack");
+        _animator.SetTrigger("StrongAttack");
         /*switch (selectedAbility)
         {
             case "strongHit":
