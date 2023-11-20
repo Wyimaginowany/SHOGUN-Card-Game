@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PaperNinjaOverrideController
+  m_Controller: {fileID: 9100000, guid: fd341b02886f08646860527651913d5f, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: -203655887218126122, guid: d9276334bb445d74e8e122710eb2e164, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 400d0e77e461afa46b22cad9deffc673, type: 2}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: f28ec114fb1cede488e22d253ac5d56b, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: f28ec114fb1cede488e22d253ac5d56b, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 9a13355c41a700441a74f60f066cdaa4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 9a13355c41a700441a74f60f066cdaa4, type: 2}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 5be85a953faa27f4681321756c0915fc, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 5be85a953faa27f4681321756c0915fc, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 8ac54b9bf2a877a4f8683a06047c6033, type: 2}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 02dd1d09c9a138a4094b10c3d8c72370, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: d62ef70586a11e24a8f2007dd3cb7c58, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: d62ef70586a11e24a8f2007dd3cb7c58, type: 3}

@@ -72,7 +72,7 @@ public class Thief : EnemyCombat
         //string selectedAbility = availableAbilities[selectedIndex];
 
 
-        _animator.SetTrigger("attack");
+        _animator.SetTrigger("Kick");
         /*switch (selectedAbility)
         {
             case "basicAttack":

@@ -14,6 +14,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Animator _popupAnimator;
     [SerializeField] private TMP_Text _healthbarAmountText;
     [SerializeField] private Slider _healthbarSlider;
+    [SerializeField] private TMP_Text _shieldAmountText;
 
     public Animator GetAnimator(){ return _playerAnimator;}
 
@@ -36,19 +37,22 @@ public class PlayerHealth : MonoBehaviour
 
     private void ResetShield()
     {
+        _shieldAmountText.text = "";
         _currentShield = 0;
     }
 
     public void TakeDamage(int damage)
     {
-
-        _damageText.text = "-"+damage.ToString();
-        _popupAnimator.SetTrigger("Take-damage");
         int damageToPlayer = damage - _currentShield;
         _currentShield = Mathf.Clamp(_currentShield - damage, 0, 10000);
+        UpdateShieldDisplay();
+        
+        if (damageToPlayer <= 0) {
+            DisplayBlockedPopup();
+            return;
+        }
 
-        if (damageToPlayer <= 0) return;
-
+        DisplayDamagePopup(damageToPlayer);
         _currentHealth -= damageToPlayer;
     
         if (_currentHealth <= 0)
@@ -84,11 +88,27 @@ public class PlayerHealth : MonoBehaviour
     public void GiveShield(int shieldAmount)
     {
         _currentShield += shieldAmount;
+        _damageText.text = "+"+shieldAmount.ToString();
+        _popupAnimator.SetTrigger("Give-shield");
+        UpdateShieldDisplay();
     }
 
     private void UpdateHealthbar(){
         _healthbarAmountText.text = _currentHealth.ToString() + "/" + _maxHealth.ToString();
         _healthbarSlider.value= ((float) _currentHealth) / ((float)_maxHealth);
+    }
+    private void UpdateShieldDisplay(){
+        _shieldAmountText.text = _currentShield.ToString();
+    }
+
+    private void DisplayDamagePopup(int damage){
+        _damageText.text = "-"+damage.ToString();
+        _popupAnimator.SetTrigger("Take-damage");
+    }
+
+    private void DisplayBlockedPopup(){
+        _damageText.text = "blocked";
+        _popupAnimator.SetTrigger("Block-damage");
     }
 
     private void HandlePlayerDeath()
