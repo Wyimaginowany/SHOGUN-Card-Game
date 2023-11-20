@@ -2,15 +2,17 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+using CardEnums;
 public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Settings")]
     [SerializeField] private float _returnTransitionTime = 0.3f;
     [SerializeField] private float _beginTransitionTime = 0.8f;
+    [SerializeField] private float _drawTransitionTime = 4f;
     [Header("To Attach")]
     [SerializeField] protected CardScriptableObject _cardData;
     [SerializeField] private Transform _cardVisualDisplayPoint;
+    [SerializeField] private CardAnimation _cardAnimation;
 
     protected CombatManager _combatManager;
     protected CanvasGroup _cardVisualCanvasGroup;
@@ -26,10 +28,14 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private RectTransform _rectTransform;
     private Quaternion _lastHandRotation;
     private Vector2 _newCardPosition;
+    private Vector2 _cardDisplayPosition;
     private float _timer = 0f;
     private int _childIndexBeforeDrag = 0;
     private bool _moveToNewHandPosition = false;
     private bool _isBeingDragged = false;
+    private bool _isBeingDrawn = false;
+    private bool _isInHand = false;
+    public bool _isInteractable = false;
 
     protected virtual void Start()
     {
@@ -52,7 +58,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
     protected virtual void OnBeeingDragged()
     {
-        //_cardVisualCanvasGroup.alpha = 1;
+        //
     }
 
     protected virtual void EndDragging()
@@ -65,12 +71,16 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         OnCardPlayed?.Invoke(this);
         _rectTransform.anchoredPosition = _startingPosition;
+        PlayerCardAnimations.TriggerAnimation(_cardAnimation);
+        _isInteractable = false;
+
     }
 
     protected void ShuffleCardIntoDeck()
     {
         OnCardThrownAway?.Invoke(this);
         _rectTransform.anchoredPosition = _startingPosition;
+        _isInteractable = false;
     }
 
     protected void ReturnCardToHand()
@@ -116,6 +126,13 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private void Update()
     {
+        if (_isBeingDrawn)
+        {
+            _timer += Time.deltaTime;
+            float percentageComplete = _timer / _drawTransitionTime;
+            _rectTransform.anchoredPosition = Vector2.Lerp(_rectTransform.anchoredPosition, _cardDisplayPosition, percentageComplete);
+        }
+
         if (_moveToNewHandPosition)
         {
             _timer += Time.deltaTime;
@@ -125,10 +142,11 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             if (Vector2.Distance(_rectTransform.anchoredPosition, _newCardPosition) <= 0.1f)
             {
                 _moveToNewHandPosition = false;
+                _isInHand = true;
             }
         }
 
-        if (_isBeingDragged)
+        if (_isBeingDragged && _isInteractable)
         {
             _timer += Time.deltaTime;
             float percentageComplete = Mathf.Clamp(_timer / _beginTransitionTime, 0f, 1f);
@@ -137,10 +155,19 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         }
     }
 
+    public void DrawThisCard(Vector2 drawDisplayPoistion)
+    {
+        _cardDisplayPosition = drawDisplayPoistion;
+        _isInHand = false;
+        _timer = 0;
+        _isBeingDrawn = true;
+    }
+
     public void SetNewHandPosition(Vector2 newPosition)
     {
         _newCardPosition = newPosition;
         _timer = 0;
+        _isBeingDrawn = false;
         _moveToNewHandPosition = true;
     }
 
@@ -155,29 +182,39 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _cardVisualCanvasGroup.alpha = 0;
     }
 
+    public bool IsInHand()
+    {
+        return _isInHand;
+    }
+
     #region InterfaceMethods
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (!_isInteractable) return;
         OnCardMouseHoverStart?.Invoke(this, _cardVisualDisplayPoint);     
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (!_isInteractable) return;
         OnCardMouseHoverEnd?.Invoke(this);
         _cardVisualCanvasGroup.alpha = 1;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (!_isInteractable) return;
         BeginDragging();
     }
     public void OnDrag(PointerEventData eventData)
     {
+        if (!_isInteractable) return;
         OnBeeingDragged();
     }
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (!_isInteractable) return;
         EndDragging();
     }
 

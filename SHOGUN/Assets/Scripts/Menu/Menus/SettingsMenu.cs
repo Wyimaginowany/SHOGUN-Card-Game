@@ -7,13 +7,12 @@ using TMPro;
 public class SettingsMenu : MonoBehaviour
 {
     [SerializeField] private TMP_Text volumeValueText = null;
-    [SerializeField] private Slider volumeSlider = null;
-    private Button backButton;
+    private Button _backButton;
     public void Awake()
     {
-        backButton = GameObject.Find("BackButton").gameObject.GetComponent<Button>();
+        _backButton = GameObject.Find("BackButton").gameObject.GetComponent<Button>();
 
-        backButton.onClick.AddListener(() =>
+        _backButton.onClick.AddListener(() =>
         {
             MenuManager.setActiveView(MenuManager.mainMenu);
         });
