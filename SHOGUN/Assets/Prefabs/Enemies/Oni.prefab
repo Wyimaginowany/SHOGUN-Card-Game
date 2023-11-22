@@ -137,7 +137,28 @@ MonoBehaviour:
   _damage: 0
   _turnTimeAmount: 2
   _overrideController: {fileID: 22100000, guid: b6502c60312350d42b5391fdf2c6b8b1, type: 2}
-  _oniPossibleAttacks: []
+  _oniPossibleAttacks:
+  - AttackType: 0
+    AttackPriority: 1
+    AttackCooldown: 0
+    AttackCooldownAtStart: 0
+    RemoveAfterUsage: 0
+    AnimatorTrigger: StrongAttack
+    AttackDuration: 0
+  - AttackType: 1
+    AttackPriority: 2
+    AttackCooldown: 2
+    AttackCooldownAtStart: 2
+    RemoveAfterUsage: 0
+    AnimatorTrigger: StunAttack
+    AttackDuration: 0
+  - AttackType: 3
+    AttackPriority: 3
+    AttackCooldown: 3
+    AttackCooldownAtStart: 3
+    RemoveAfterUsage: 0
+    AnimatorTrigger: Berserk
+    AttackDuration: 0
   _strongHitMinDmg: 12
   _strongHitMaxDmg: 20
   _minShieldToBlockStun: 6
@@ -366,7 +387,7 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: 239fef92b24592f4c855da2697e09136, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 5ecd37c20ac63d44ea2c876e9458c7b1, type: 2}
+      objectReference: {fileID: 9100000, guid: 739872693536465448857e2d1ae54dc0, type: 2}
     - target: {fileID: 5866666021909216657, guid: 239fef92b24592f4c855da2697e09136, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0

@@ -97,6 +97,7 @@ public class Thief : EnemyCombat
 
         _turnTimeAmount = thiefAttackSelected.AttackDuration;
         _animator.SetTrigger(thiefAttackSelected.AnimatorTrigger);
+        Debug.Log(thiefAttackSelected.AnimatorTrigger);
         thiefAttackSelected.AttackCooldown = thiefAttackSelected.AttackCooldownAtStart;
         if (thiefAttackSelected.RemoveAfterUsage) _thiefPossibleAttacks.Remove(thiefAttackSelected);
 

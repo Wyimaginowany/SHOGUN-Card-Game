@@ -20,9 +20,11 @@ public class EnemyHealth : MonoBehaviour
 
     private int _currentHealth;
     private int _currentShield = 0;
+    protected Animator _animator;
 
     private void Start()
     {
+        _animator = GetComponent<Animator>();
         _currentHealth = _maxHealth;
         _healthbarAmountText.text = _currentHealth.ToString() + "/" + _maxHealth.ToString();
         _healthbarSlider.value = 1;
@@ -45,7 +47,7 @@ public class EnemyHealth : MonoBehaviour
         return _currentShield;
     }
 
-    public void TakeDamage(int damage)
+    public async void TakeDamage(int damage)
     {
         _damageText.text = "-" + damage.ToString();
         _popupAnimator.SetTrigger("Take-damage");
@@ -54,9 +56,14 @@ public class EnemyHealth : MonoBehaviour
         _currentShield = Mathf.Clamp(_currentShield - damage, 0, 10000);
 
         _currentHealth -= damageToEnemy;
-
+        
+        if(_currentHealth >0){
+        _animator.SetTrigger("Take-damage");
+        }
         if (_currentHealth <= 0)
         {
+            _animator.SetTrigger("Death");
+            //TODO make so it triggers death after deathAnimation
             OnEnemyDeath?.Invoke(this);
             Destroy(gameObject);
         }

@@ -118,33 +118,26 @@ MonoBehaviour:
   _overrideController: {fileID: 22100000, guid: f655ae97c2c4d8243aa067d2c99ad96e, type: 2}
   _thiefPossibleAttacks:
   - AttackType: 0
-    AttackPriority: 0
+    AttackPriority: 1
     AttackCooldown: 0
     AttackCooldownAtStart: 0
     RemoveAfterUsage: 0
-    AnimatorTrigger: 
-    AttackDuration: 0
-  - AttackType: 0
-    AttackPriority: 0
-    AttackCooldown: 0
-    AttackCooldownAtStart: 0
+    AnimatorTrigger: Kick
+    AttackDuration: 2
+  - AttackType: 1
+    AttackPriority: 2
+    AttackCooldown: 2
+    AttackCooldownAtStart: 1
     RemoveAfterUsage: 0
-    AnimatorTrigger: 
-    AttackDuration: 0
-  - AttackType: 2
-    AttackPriority: 0
-    AttackCooldown: 0
-    AttackCooldownAtStart: 0
-    RemoveAfterUsage: 0
-    AnimatorTrigger: 
-    AttackDuration: 0
+    AnimatorTrigger: Combo
+    AttackDuration: 2
   - AttackType: 3
-    AttackPriority: 0
-    AttackCooldown: 0
-    AttackCooldownAtStart: 0
+    AttackPriority: 3
+    AttackCooldown: 3
+    AttackCooldownAtStart: 3
     RemoveAfterUsage: 0
-    AnimatorTrigger: 
-    AttackDuration: 0
+    AnimatorTrigger: Block
+    AttackDuration: 2
   _basicAttackMinDmg: 3
   _basicAttackMaxDmg: 5
   _comboAttackMinDmg: 2
@@ -160,7 +153,7 @@ Animator:
   m_GameObject: {fileID: 5374627676133394782}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: ba93849ee1e5d7d468a895e85c81cf8d, type: 3}
-  m_Controller: {fileID: 9100000, guid: dd755c23ad898af44a6ff7a04e2b9168, type: 2}
+  m_Controller: {fileID: 9100000, guid: 04dbed158d230d54b8214ba72d9fe6b4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -242,9 +235,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thief
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5866666021909216657, guid: ba93849ee1e5d7d468a895e85c81cf8d, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba93849ee1e5d7d468a895e85c81cf8d, type: 3}
+--- !u!1 &1557709158889644669 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ba93849ee1e5d7d468a895e85c81cf8d, type: 3}
+  m_PrefabInstance: {fileID: 1828305231942803244}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7186434133178794233
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557709158889644669}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 9e80f32b46c28e74fa1c003f58116318, type: 3}
+  m_Controller: {fileID: 9100000, guid: 04dbed158d230d54b8214ba72d9fe6b4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &2221902540101728455 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ba93849ee1e5d7d468a895e85c81cf8d, type: 3}

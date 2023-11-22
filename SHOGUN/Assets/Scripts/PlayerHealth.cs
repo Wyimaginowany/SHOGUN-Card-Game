@@ -46,6 +46,7 @@ public class PlayerHealth : MonoBehaviour
         int damageToPlayer = damage - _currentShield;
         _currentShield = Mathf.Clamp(_currentShield - damage, 0, 10000);
         UpdateShieldDisplay();
+        Debug.Log("Player has taken:  "+ damage);
         
         if (damageToPlayer <= 0) {
             DisplayBlockedPopup();

@@ -136,29 +136,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 0
   _turnTimeAmount: 2
-  _overrideController: {fileID: 0}
+  _overrideController: {fileID: 22100000, guid: 9229a9cd58d075942ada1125e0342f0b, type: 2}
   _paperNinjaPossibleAttacks:
   - AttackType: 0
     AttackPriority: 1
     AttackCooldown: 0
     AttackCooldownAtStart: 0
     RemoveAfterUsage: 0
-    AnimatorTrigger: 
-    AttackDuration: 0
+    AnimatorTrigger: ShurikenThrow
+    AttackDuration: 2
   - AttackType: 1
-    AttackPriority: 3
-    AttackCooldown: 0
-    AttackCooldownAtStart: 0
-    RemoveAfterUsage: 0
-    AnimatorTrigger: 
-    AttackDuration: 0
-  - AttackType: 2
     AttackPriority: 2
-    AttackCooldown: 0
-    AttackCooldownAtStart: 0
+    AttackCooldown: 2
+    AttackCooldownAtStart: 2
     RemoveAfterUsage: 0
-    AnimatorTrigger: 
-    AttackDuration: 0
+    AnimatorTrigger: PaperCut
+    AttackDuration: 2
+  - AttackType: 2
+    AttackPriority: 3
+    AttackCooldown: 3
+    AttackCooldownAtStart: 3
+    RemoveAfterUsage: 0
+    AnimatorTrigger: Vanish
+    AttackDuration: 2
   _shurikenThrowMinDmg: 3
   _shurikenThrowMaxDmg: 5
   _paperCutMinDmg: 2
