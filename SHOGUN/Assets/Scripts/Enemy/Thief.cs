@@ -106,7 +106,8 @@ public class Thief : EnemyCombat
     
     private void DealDamageToPlayer(int damage)
     {
-        damage *= (int) Math.Round(100 * _damageMultiplier);
+        damage *= (int) Math.Round(1 * _damageMultiplier);
+        Debug.Log(damage);
         playerHealth.TakeDamage(damage);
     }
     
