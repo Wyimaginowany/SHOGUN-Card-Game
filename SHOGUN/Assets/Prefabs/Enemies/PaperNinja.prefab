@@ -134,14 +134,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef029bc2f7164df5bf42ce3f2cf41832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 9
-  _overrideController: {fileID: 22100000, guid: 9229a9cd58d075942ada1125e0342f0b, type: 2}
-  _shurikenThrowMaxCD: 0
-  _paperCutMaxCD: 1
-  _vanishMaxCD: 1
+  _damage: 0
+  _turnTimeAmount: 2
+  _overrideController: {fileID: 0}
+  _paperNinjaPossibleAttacks:
+  - AttackType: 0
+    AttackPriority: 1
+    AttackCooldown: 0
+    AttackCooldownAtStart: 0
+    RemoveAfterUsage: 0
+    AnimatorTrigger: 
+    AttackDuration: 0
+  - AttackType: 1
+    AttackPriority: 3
+    AttackCooldown: 0
+    AttackCooldownAtStart: 0
+    RemoveAfterUsage: 0
+    AnimatorTrigger: 
+    AttackDuration: 0
+  - AttackType: 2
+    AttackPriority: 2
+    AttackCooldown: 0
+    AttackCooldownAtStart: 0
+    RemoveAfterUsage: 0
+    AnimatorTrigger: 
+    AttackDuration: 0
   _shurikenThrowMinDmg: 3
-  _shurikenThrowMaxDmg: 4
-  _paperCutMinDmg: 1
+  _shurikenThrowMaxDmg: 5
+  _paperCutMinDmg: 2
 --- !u!1001 &1890617150875034715
 PrefabInstance:
   m_ObjectHideFlags: 0

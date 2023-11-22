@@ -114,15 +114,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 10
+  _turnTimeAmount: 2
   _overrideController: {fileID: 22100000, guid: f655ae97c2c4d8243aa067d2c99ad96e, type: 2}
-  _basicAttackMaxCD: 0
-  _comboAttackMaxCD: 1
-  _blockActionMaxCD: 1
-  _buffBlockMaxCD: 5
+  _thiefPossibleAttacks:
+  - AttackType: 0
+    AttackPriority: 0
+    AttackCooldown: 0
+    AttackCooldownAtStart: 0
+    RemoveAfterUsage: 0
+    AnimatorTrigger: 
+    AttackDuration: 0
+  - AttackType: 0
+    AttackPriority: 0
+    AttackCooldown: 0
+    AttackCooldownAtStart: 0
+    RemoveAfterUsage: 0
+    AnimatorTrigger: 
+    AttackDuration: 0
+  - AttackType: 2
+    AttackPriority: 0
+    AttackCooldown: 0
+    AttackCooldownAtStart: 0
+    RemoveAfterUsage: 0
+    AnimatorTrigger: 
+    AttackDuration: 0
+  - AttackType: 3
+    AttackPriority: 0
+    AttackCooldown: 0
+    AttackCooldownAtStart: 0
+    RemoveAfterUsage: 0
+    AnimatorTrigger: 
+    AttackDuration: 0
   _basicAttackMinDmg: 3
   _basicAttackMaxDmg: 5
   _comboAttackMinDmg: 2
   _blockActionValue: 5
+  _blockBuffPercentage: 50
 --- !u!95 &3423200622539279653
 Animator:
   serializedVersion: 5
