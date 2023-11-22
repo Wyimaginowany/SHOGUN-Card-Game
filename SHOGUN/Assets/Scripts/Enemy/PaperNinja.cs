@@ -3,82 +3,103 @@ using UnityEngine;
 
 public class PaperNinja : EnemyCombat
 {
-    [Header("Max Cooldowns")]
-    [SerializeField] private int _shurikenThrowMaxCD = 0;
-    [SerializeField] private int _paperCutMaxCD = 1;
-    [SerializeField] private int _vanishMaxCD = 1;
-    
-    [Header("Moves")]
+    [Header("Attacks")]
+    [SerializeField] private List<EnemyAttack> _paperNinjaPossibleAttacks = new List<EnemyAttack>();
+    [Space(5)]
+    [Header("Basic Attack")]
     [SerializeField] private int _shurikenThrowMinDmg = 3;
-    [SerializeField] private int _shurikenThrowMaxDmg = 4;
-    [SerializeField] private int _paperCutMinDmg = 1;
+    [SerializeField] private int _shurikenThrowMaxDmg = 5;
+    [Space(5)]
+    [Header("Combo Attack")]
+    [SerializeField] private int _paperCutMinDmg = 2;
+
+    [System.Serializable]
+    public class EnemyAttack
+    {
+        public PaperNinjaAttackTypes AttackType;
+        public int AttackPriority = 0;
+        public int AttackCooldown = 2;
+        public int AttackCooldownAtStart = 2;
+        public bool RemoveAfterUsage = false;
+        public string AnimatorTrigger = "";
+        public float AttackDuration = 2f;
+    }
     
-    private int _shurikenThrowCooldown;
-    private int _paperCutCooldown;
-    private int _vanishCooldown;
+    private EnemyAttack GetTurnAttack()
+    {
+        EnemyAttack chosenAttack = null;
+        int enemyPriority = -1;
+
+        foreach (EnemyAttack enemyAttack in _paperNinjaPossibleAttacks)
+        {
+            if (enemyAttack.AttackCooldown > 0)
+            {
+                enemyAttack.AttackCooldown--;
+                continue;
+            }
+                
+
+            if (enemyAttack.AttackPriority > enemyPriority)
+            {
+                enemyPriority = enemyAttack.AttackPriority;
+                chosenAttack = enemyAttack;
+            }
+        }
+
+        chosenAttack.AttackCooldown++;
+        return chosenAttack;
+    }
     
     public override void HandleTurn()
     {
-        base.HandleTurn();
-        List<string> availableAbilities = new List<string>();
-        if (_shurikenThrowCooldown <= 0) availableAbilities.Add("ShurikenThrow");
-        if (_paperCutCooldown <= 0) availableAbilities.Add("PaperCut");
-        //if (_vanishCooldown <= 0) availableAbilities.Add("Vanish");
-        
-        _shurikenThrowCooldown--;
-        _paperCutCooldown--;
-        _vanishCooldown--;
-        
-        //int selectedIndex = Random.Range(0, availableAbilities.Count);
-        //string selectedAbility = availableAbilities[selectedIndex];
+        EnemyAttack paperNinjaAttackSelected = GetTurnAttack();
 
-        _animator.SetTrigger("ShurikenThrow");
-        /*
-        switch (selectedAbility)
+        switch (paperNinjaAttackSelected.AttackType)
         {
-            case "ShurikenThrow":
+            case PaperNinjaAttackTypes.ShurikenThrow:
                 ShurikenThrow();
                 break;
-            case "PaperCut":
+            case PaperNinjaAttackTypes.PaperCut:
                 PaperCut();
                 break;
-            case "Vanish":
+            case PaperNinjaAttackTypes.Vanish:
                 Vanish();
                 break;
-        }*/
-    }
+        }
 
-    public void DefaultAttack()
-    {
-        playerHealth.TakeDamage(_damage);
+        _turnTimeAmount = paperNinjaAttackSelected.AttackDuration;
+        _animator.SetTrigger(paperNinjaAttackSelected.AnimatorTrigger);
+        paperNinjaAttackSelected.AttackCooldown = paperNinjaAttackSelected.AttackCooldownAtStart;
+        if (paperNinjaAttackSelected.RemoveAfterUsage) _paperNinjaPossibleAttacks.Remove(paperNinjaAttackSelected);
+
+        base.HandleTurn();
     }
 
     private void ShurikenThrow()
     {
-        //int damage = Random.Range(_shurikenThrowMinDmg, _shurikenThrowMaxDmg);
-        //playerHealth.TakeDamage(damage);
-
-        _shurikenThrowCooldown = _shurikenThrowMaxCD;
+        int damage = Random.Range(_shurikenThrowMinDmg, _shurikenThrowMaxDmg);
+        playerHealth.TakeDamage(damage);
+        
         Debug.Log("shurikenThrow");
     }
 
     private void PaperCut()
     {
         int damage = _paperCutMinDmg;
-        //int bleedStacks = Random.Range(2, 3);
+        int bleedStacks = Random.Range(2, 3);
         playerHealth.TakeDamage(damage);
         
         //TODO: playerEffect z bleedStacks
         
-        _paperCutCooldown = _paperCutMaxCD;
         Debug.Log("PaperCut");
     }
 
     private void Vanish()
     {
         //TODO: nietykalnosc na 1 ture
-
-        _vanishCooldown = _vanishMaxCD;
+        
         Debug.Log("vanish");
     }
 }
+
+public enum PaperNinjaAttackTypes { ShurikenThrow, PaperCut, Vanish}

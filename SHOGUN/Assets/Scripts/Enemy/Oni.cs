@@ -5,7 +5,7 @@ using UnityEngine;
 public class Oni : EnemyCombat
 {
     [Header("Attacks")]
-    [SerializeField] private List<EnemyAtack> _oniPossibleAttacks = new List<EnemyAtack>();
+    [SerializeField] private List<EnemyAttack> _oniPossibleAttacks = new List<EnemyAttack>();
     [Space(5)]
     [Header("Strong Attack")]
     [SerializeField] private int _strongHitMinDmg = 12;
@@ -28,7 +28,7 @@ public class Oni : EnemyCombat
     private int _currentDamageBuff = 0;
 
     [System.Serializable]
-    public class EnemyAtack
+    public class EnemyAttack
     {
         public OniAttackTypes AttackType;
         public int AttackPriority = 0;
@@ -49,7 +49,7 @@ public class Oni : EnemyCombat
 
     public override void HandleTurn()
     {
-        EnemyAtack oniAttackSelected = GetTurnAttack();
+        EnemyAttack oniAttackSelected = GetTurnAttack();
 
         switch (oniAttackSelected.AttackType)
         {
@@ -75,24 +75,24 @@ public class Oni : EnemyCombat
         base.HandleTurn();
     }
 
-    private EnemyAtack GetTurnAttack()
+    private EnemyAttack GetTurnAttack()
     {
-        EnemyAtack chosenAttack = null;
+        EnemyAttack chosenAttack = null;
         int enemyPriority = -1;
 
-        foreach (EnemyAtack enemyAtack in _oniPossibleAttacks)
+        foreach (EnemyAttack enemyAttack in _oniPossibleAttacks)
         {
-            if (enemyAtack.AttackCooldown > 0)
+            if (enemyAttack.AttackCooldown > 0)
             {
-                enemyAtack.AttackCooldown--;
+                enemyAttack.AttackCooldown--;
                 continue;
             }
                 
 
-            if (enemyAtack.AttackPriority > enemyPriority)
+            if (enemyAttack.AttackPriority > enemyPriority)
             {
-                enemyPriority = enemyAtack.AttackPriority;
-                chosenAttack = enemyAtack;
+                enemyPriority = enemyAttack.AttackPriority;
+                chosenAttack = enemyAttack;
             }
         }
 
