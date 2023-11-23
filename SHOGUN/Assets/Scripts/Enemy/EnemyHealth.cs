@@ -15,6 +15,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private Animator _popupAnimator;
     [SerializeField] private TMP_Text _healthbarAmountText;
     [SerializeField] private Slider _healthbarSlider;
+    [SerializeField] private float _timeAfterDeath=2f;
 
     public static event Action<EnemyHealth> OnEnemyDeath;
 
@@ -82,8 +83,7 @@ public class EnemyHealth : MonoBehaviour
 
     IEnumerator RunTimer()
     {
-        // Wait for 4 seconds
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(_timeAfterDeath);
         EnemyDeath();
     }
 
