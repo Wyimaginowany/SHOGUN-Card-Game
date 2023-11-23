@@ -15,6 +15,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private Animator _popupAnimator;
     [SerializeField] private TMP_Text _healthbarAmountText;
     [SerializeField] private Slider _healthbarSlider;
+    [SerializeField] private float _timeAfterDeath=2f;
 
     public static event Action<EnemyHealth> OnEnemyDeath;
 
@@ -63,9 +64,7 @@ public class EnemyHealth : MonoBehaviour
         if (_currentHealth <= 0)
         {
             _animator.SetTrigger("Death");
-            //TODO make so it triggers death after deathAnimation
-            OnEnemyDeath?.Invoke(this);
-            Destroy(gameObject);
+            StartCoroutine(RunTimer());
         }
 
         _healthbarAmountText.text = _currentHealth.ToString() + "/" + _maxHealth.ToString();
@@ -81,4 +80,17 @@ public class EnemyHealth : MonoBehaviour
     {
         _currentHealth = newHealth;
     }
+
+    IEnumerator RunTimer()
+    {
+        yield return new WaitForSeconds(_timeAfterDeath);
+        EnemyDeath();
+    }
+
+    public void EnemyDeath(){
+        OnEnemyDeath?.Invoke(this);
+        Destroy(gameObject);
+    }
+
+
 }

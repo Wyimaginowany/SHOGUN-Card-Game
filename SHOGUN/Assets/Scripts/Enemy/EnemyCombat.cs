@@ -6,8 +6,8 @@ public abstract class EnemyCombat : MonoBehaviour
     [SerializeField] protected int _damage;
     [SerializeField] protected float _turnTimeAmount = 2f;
 
-    [Header("To Attach")]
-    [SerializeField] private AnimatorOverrideController _overrideController;
+    // [Header("To Attach")]
+    // [SerializeField] private AnimatorOverrideController _overrideController;
     
 
     protected Animator _animator;
@@ -19,7 +19,7 @@ public abstract class EnemyCombat : MonoBehaviour
     protected virtual void Start()
     {
         _animator = GetComponent<Animator>();
-        _animator.runtimeAnimatorController = _overrideController;
+        // _animator.runtimeAnimatorController = _overrideController;
 
         playerHealth = (PlayerHealth)FindObjectOfType(typeof(PlayerHealth));
         _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
