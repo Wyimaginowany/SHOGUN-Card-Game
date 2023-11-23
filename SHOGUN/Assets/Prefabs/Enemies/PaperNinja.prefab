@@ -136,7 +136,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 0
   _turnTimeAmount: 2
-  _overrideController: {fileID: 22100000, guid: 9229a9cd58d075942ada1125e0342f0b, type: 2}
   _paperNinjaPossibleAttacks:
   - AttackType: 0
     AttackPriority: 1
@@ -446,7 +445,8 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: 3281cd8c4347fb144a5300c1779e8664, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3281cd8c4347fb144a5300c1779e8664, type: 3}
 --- !u!4 &200458466774095935 stripped
 Transform:
