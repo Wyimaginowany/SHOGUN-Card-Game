@@ -63,9 +63,7 @@ public class EnemyHealth : MonoBehaviour
         if (_currentHealth <= 0)
         {
             _animator.SetTrigger("Death");
-            //TODO make so it triggers death after deathAnimation
-            OnEnemyDeath?.Invoke(this);
-            Destroy(gameObject);
+            StartCoroutine(RunTimer());
         }
 
         _healthbarAmountText.text = _currentHealth.ToString() + "/" + _maxHealth.ToString();
@@ -81,4 +79,18 @@ public class EnemyHealth : MonoBehaviour
     {
         _currentHealth = newHealth;
     }
+
+    IEnumerator RunTimer()
+    {
+        // Wait for 4 seconds
+        yield return new WaitForSeconds(4f);
+        EnemyDeath();
+    }
+
+    public void EnemyDeath(){
+        OnEnemyDeath?.Invoke(this);
+        Destroy(gameObject);
+    }
+
+
 }
