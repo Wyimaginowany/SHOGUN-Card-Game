@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AllTargetsCard : Card
+public abstract class AllTargetsCard : Card
 {
     protected override void Start()
     {
@@ -31,7 +31,7 @@ public class AllTargetsCard : Card
             return;
         }
 
-        if (!_combatManager.HaveEnoughMana(_cardData.Cost))
+        if (!_combatManager.HaveEnoughMana(CardData.Cost))
         {
             ReturnCardToHand();
             return;
@@ -39,11 +39,15 @@ public class AllTargetsCard : Card
 
         if (possibleDropAreas.Contains(PossibleAreas.PlayArea))
         {
-            _combatManager.DealDamageToAllEnemies(_cardData.Value);
             PlayCard();
             return;
         }
 
         ReturnCardToHand();
+    }
+
+    protected override void PlayCard()
+    {
+        base.PlayCard();
     }
 }

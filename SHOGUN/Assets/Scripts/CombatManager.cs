@@ -17,15 +17,21 @@ public class CombatManager : MonoBehaviour
 
     public static event Action OnPlayerTurnStart;
     public static event Action OnPlayerTurnEnd;
+    public  event Action<int> OnDamageCardBuff;
 
     private List<EnemyHealth> _aliveEnemies = new List<EnemyHealth>();
 
+    private PlayerHealth _playerHealth;
+    private HandManager _handManager;
     private int _currentMana;
     private int _enemyOrderIndex = 0;
     public int turnCounter;
 
     private void Start()
     {
+        _playerHealth = (PlayerHealth)FindObjectOfType(typeof(PlayerHealth));
+        _handManager = GetComponent<HandManager>();
+
         Card.OnCardPlayed += HandleCardPlayed;
         EnemyHealth.OnEnemyDeath += HandleEnemyDeath;
 
@@ -130,6 +136,11 @@ public class CombatManager : MonoBehaviour
         return true;
     }
 
+    public void DealDamageToEnemy(EnemyHealth enemy, int damage)
+    {
+        enemy.TakeDamage(damage);
+    }
+
     public void DealDamageToAllEnemies(int damage)
     {
         EnemyHealth[] currentlyAliveEnemies = _aliveEnemies.ToArray();
@@ -139,5 +150,31 @@ public class CombatManager : MonoBehaviour
             enemy.TakeDamage(damage);
         }
 
+    }
+
+    public void HealPlayer(int healAmount)
+    {
+        _playerHealth.HealPlayer(healAmount);
+    }
+
+    public void GivePlayerShield(int shieldAmount)
+    {
+        _playerHealth.GiveShield(shieldAmount);
+    }
+
+    public void IncreaseCurrentMana(int amount)
+    {
+        _currentMana += amount;
+        _manaAmountText.text = _currentMana.ToString();
+    }
+
+    public void ReduceCardsCost(int reduceAmount)
+    {
+        _handManager.ReduceCardsCostInHand(reduceAmount);
+    }
+
+    public void BuffPlayerDamage(int buffAmount)
+    {
+        OnDamageCardBuff?.Invoke(buffAmount);
     }
 }

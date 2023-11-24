@@ -74,7 +74,7 @@ public class SingleTargetHealCard : Card
             return;
         }
 
-        if (!_combatManager.HaveEnoughMana(_cardData.Cost))
+        if (!_combatManager.HaveEnoughMana(CardData.Cost))
         {
             _cardVisualCanvasGroup.alpha = 1;
             ReturnCardToHand();
@@ -88,7 +88,7 @@ public class SingleTargetHealCard : Card
             RaycastHit targetPlayerHit;
             if (Physics.Raycast(ray, out targetPlayerHit, Mathf.Infinity, _playerLayer))
             {
-                targetPlayerHit.collider.GetComponent<PlayerHealth>().HealPlayer(_cardData.Value);
+                targetPlayerHit.collider.GetComponent<PlayerHealth>().HealPlayer(CardData.Value);
                 _cardVisualCanvasGroup.alpha = 1;
                 PlayCard();
                 return;
