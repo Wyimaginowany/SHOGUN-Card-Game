@@ -88,17 +88,18 @@ public class HandManager : MonoBehaviour
 
         card.HideCard();
         _hoverCounter++;
-        SetupCardHoverVisual(card.GetCardData());
+        SetupCardHoverVisual(card.GetCard());
 
         _cardVisualPrefab.position = cardVisualNewPosition.position;
         _cardVisualPrefab.rotation = cardVisualNewPosition.rotation;
     }
 
-    private void SetupCardHoverVisual(CardScriptableObject cardData)
+    private void SetupCardHoverVisual(Card card)
     {
-        _cardText.text = cardData.Value.ToString();
-        _cardCostText.text = cardData.Cost.ToString();
+        CardScriptableObject cardData = card.CardData;
+        _cardText.text = card.GetCardValue().ToString();
         _cardColorImage.color = cardData.CardColor;
+        _cardCostText.text = card.GetCardCost().ToString();
     }
 
     private void CardMouseHoverEnd(Card card)
@@ -206,5 +207,13 @@ public class HandManager : MonoBehaviour
     public void StartButton()
     {
         DrawFullHand();
+    }
+    
+    public void ReduceCardsCostInHand(int reduceAmount)
+    {
+        foreach(Card card in _hand)
+        {
+            card.ReduceCost(reduceAmount);
+        }
     }
 }

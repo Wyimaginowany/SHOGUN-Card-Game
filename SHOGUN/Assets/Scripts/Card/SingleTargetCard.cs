@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SingleTargetCard : Card
+public abstract class SingleTargetCard : Card
 {
     [SerializeField] private LayerMask _enemyLayer;
     [SerializeField] private LayerMask _groundLayer;
@@ -43,12 +44,12 @@ public class SingleTargetCard : Card
 
             if (Physics.Raycast(ray, out _enemyHit, Mathf.Infinity, _enemyLayer))
             {
-                Debug.Log("Enemy Snap Arrow");
+                //enemy under pointer
                 lineEndPoint = _enemyHit.collider.gameObject.transform.position;
             }
             else if (Physics.Raycast(ray, out _groudHit, Mathf.Infinity, _groundLayer))
             {
-                Debug.Log("Ground HIT");              
+               //ground hit             
                 lineEndPoint = _groudHit.point;
             }
             _lineRendererController.DrawLineFromPlayer(lineEndPoint);
@@ -74,7 +75,7 @@ public class SingleTargetCard : Card
             return;
         }
 
-        if (!_combatManager.HaveEnoughMana(_cardData.Cost))
+        if (!_combatManager.HaveEnoughMana(CardData.Cost))
         {
             _cardVisualCanvasGroup.alpha = 1;
             ReturnCardToHand();
@@ -88,13 +89,17 @@ public class SingleTargetCard : Card
             RaycastHit targetEnemyHit;
             if (Physics.Raycast(ray, out targetEnemyHit, Mathf.Infinity, _enemyLayer))
             {
-                targetEnemyHit.collider.GetComponent<EnemyHealth>().TakeDamage(_cardData.Value);
-                _cardVisualCanvasGroup.alpha = 1;
-                PlayCard();
+                PlayCardOnTarget(targetEnemyHit.collider.GetComponent<EnemyHealth>());
                 return;
             }
         }
         _cardVisualCanvasGroup.alpha = 1;
         ReturnCardToHand();
+    }
+
+    protected virtual void PlayCardOnTarget(EnemyHealth enemyHealth)
+    {
+        PlayCard();
+        _cardVisualCanvasGroup.alpha = 1;
     }
 }
