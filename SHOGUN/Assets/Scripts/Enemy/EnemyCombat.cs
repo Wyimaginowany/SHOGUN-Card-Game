@@ -1,3 +1,6 @@
+using System;
+using System.Runtime.Serialization;
+using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 using UnityEngine;
 
 public abstract class EnemyCombat : MonoBehaviour
@@ -11,19 +14,29 @@ public abstract class EnemyCombat : MonoBehaviour
     
 
     protected Animator _animator;
-    private CombatManager _combatManager;
+    protected CombatManager _combatManager;
     protected PlayerHealth playerHealth;
     private float _turnTimer = 0;
     private bool _isThisEnemyTurn = false;
+
+    private void OnDestroy()
+    {
+        CombatManager.OnPlayerTurnStart -= PrepareEnemyTurn;
+    }
 
     protected virtual void Start()
     {
         _animator = GetComponent<Animator>();
         // _animator.runtimeAnimatorController = _overrideController;
-
+        CombatManager.OnPlayerTurnStart += PrepareEnemyTurn;
         playerHealth = (PlayerHealth)FindObjectOfType(typeof(PlayerHealth));
         _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
         //_playerEffects = ...
+    }
+
+    private void PrepareEnemyTurn()
+    {
+        
     }
 
     private void Update()

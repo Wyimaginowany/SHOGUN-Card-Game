@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Thief : EnemyCombat
@@ -22,6 +23,7 @@ public class Thief : EnemyCombat
     
     private int _comboCounter = 1;
     private double _damageMultiplier;
+    private List<EnemyAttack> attacksPool = new List<EnemyAttack>();
     
     private EnemyHealth _enemyHealth;
 
@@ -30,17 +32,16 @@ public class Thief : EnemyCombat
     {
         public ThiefAttackTypes AttackType;
         public int AttackPriority = 0;
-        public int AttackCooldown = 2;
-        public int AttackCooldownAtStart = 2;
-        public bool RemoveAfterUsage = false;
+        public int AttackCooldown = 0;
+        public int AttackMaxCooldown = 2;
         public string AnimatorTrigger = "";
         public float AttackDuration = 2f;
     }
     
     private EnemyAttack GetTurnAttack()
     {
-        EnemyAttack chosenAttack = null;
-        int enemyPriority = -1;
+        EnemyAttack chosenAttack;
+        attacksPool = new List<EnemyAttack>();
 
         foreach (EnemyAttack enemyAttack in _thiefPossibleAttacks)
         {
@@ -49,15 +50,14 @@ public class Thief : EnemyCombat
                 enemyAttack.AttackCooldown--;
                 continue;
             }
-                
 
-            if (enemyAttack.AttackPriority > enemyPriority)
+            for (int i = 0; i < enemyAttack.AttackPriority; i++)
             {
-                enemyPriority = enemyAttack.AttackPriority;
-                chosenAttack = enemyAttack;
+                attacksPool.Add(enemyAttack);
             }
         }
 
+        chosenAttack = attacksPool.ElementAt(UnityEngine.Random.Range(0, attacksPool.Count));
         chosenAttack.AttackCooldown++;
         return chosenAttack;
     }
@@ -98,30 +98,29 @@ public class Thief : EnemyCombat
         _turnTimeAmount = thiefAttackSelected.AttackDuration;
         _animator.SetTrigger(thiefAttackSelected.AnimatorTrigger);
         Debug.Log(thiefAttackSelected.AnimatorTrigger);
-        thiefAttackSelected.AttackCooldown = thiefAttackSelected.AttackCooldownAtStart;
-        if (thiefAttackSelected.RemoveAfterUsage) _thiefPossibleAttacks.Remove(thiefAttackSelected);
+        thiefAttackSelected.AttackCooldown = thiefAttackSelected.AttackMaxCooldown;
 
         base.HandleTurn();
     }
     
-    private void DealDamageToPlayer(int damage)
+    private void DealDamage(int damage)
     {
         damage *= (int) Math.Round(1 * _damageMultiplier);
         Debug.Log(damage);
-        playerHealth.TakeDamage(damage);
+        _combatManager.DealDamageToPlayer(damage);
     }
     
     private void BasicAttack()
     {
         int damage = (int) Math.Round(UnityEngine.Random.Range(_basicAttackMinDmg, _basicAttackMaxDmg) * _damageMultiplier);
-        DealDamageToPlayer(damage);
+        DealDamage(damage);
         Debug.Log("basicAttack");
     }
 
     private void ComboAttack()
     {
         int damage = (int) Math.Round(_comboAttackMinDmg * _comboCounter * _damageMultiplier);
-        DealDamageToPlayer(damage);
+        DealDamage(damage);
         Debug.Log("comboAttack");
     }
 

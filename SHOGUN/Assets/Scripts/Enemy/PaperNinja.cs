@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PaperNinja : EnemyCombat
@@ -12,23 +13,24 @@ public class PaperNinja : EnemyCombat
     [Space(5)]
     [Header("Combo Attack")]
     [SerializeField] private int _paperCutMinDmg = 2;
+    
+    private List<EnemyAttack> attacksPool = new List<EnemyAttack>();
 
     [System.Serializable]
     public class EnemyAttack
     {
         public PaperNinjaAttackTypes AttackType;
         public int AttackPriority = 0;
-        public int AttackCooldown = 2;
-        public int AttackCooldownAtStart = 2;
-        public bool RemoveAfterUsage = false;
+        public int AttackCooldown = 0;
+        public int AttackMaxCooldown = 2;
         public string AnimatorTrigger = "";
         public float AttackDuration = 2f;
     }
     
     private EnemyAttack GetTurnAttack()
     {
-        EnemyAttack chosenAttack = null;
-        int enemyPriority = -1;
+        EnemyAttack chosenAttack;
+        attacksPool = new List<EnemyAttack>();
 
         foreach (EnemyAttack enemyAttack in _paperNinjaPossibleAttacks)
         {
@@ -37,15 +39,14 @@ public class PaperNinja : EnemyCombat
                 enemyAttack.AttackCooldown--;
                 continue;
             }
-                
 
-            if (enemyAttack.AttackPriority > enemyPriority)
+            for (int i = 0; i < enemyAttack.AttackPriority; i++)
             {
-                enemyPriority = enemyAttack.AttackPriority;
-                chosenAttack = enemyAttack;
+                attacksPool.Add(enemyAttack);
             }
         }
 
+        chosenAttack = attacksPool.ElementAt(UnityEngine.Random.Range(0, attacksPool.Count));
         chosenAttack.AttackCooldown++;
         return chosenAttack;
     }
@@ -69,8 +70,7 @@ public class PaperNinja : EnemyCombat
 
         _turnTimeAmount = paperNinjaAttackSelected.AttackDuration;
         _animator.SetTrigger(paperNinjaAttackSelected.AnimatorTrigger);
-        paperNinjaAttackSelected.AttackCooldown = paperNinjaAttackSelected.AttackCooldownAtStart;
-        if (paperNinjaAttackSelected.RemoveAfterUsage) _paperNinjaPossibleAttacks.Remove(paperNinjaAttackSelected);
+        paperNinjaAttackSelected.AttackCooldown = paperNinjaAttackSelected.AttackMaxCooldown;
 
         base.HandleTurn();
     }
@@ -78,7 +78,7 @@ public class PaperNinja : EnemyCombat
     private void ShurikenThrow()
     {
         int damage = Random.Range(_shurikenThrowMinDmg, _shurikenThrowMaxDmg);
-        playerHealth.TakeDamage(damage);
+        _combatManager.DealDamageToPlayer(damage);
         
         Debug.Log("shurikenThrow");
     }
@@ -87,7 +87,7 @@ public class PaperNinja : EnemyCombat
     {
         int damage = _paperCutMinDmg;
         int bleedStacks = Random.Range(2, 3);
-        playerHealth.TakeDamage(damage);
+        _combatManager.DealDamageToPlayer(damage);
         
         //TODO: playerEffect z bleedStacks
         

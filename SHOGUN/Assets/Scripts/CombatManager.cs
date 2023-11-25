@@ -152,6 +152,11 @@ public class CombatManager : MonoBehaviour
 
     }
 
+    public void DealDamageToPlayer(int damage)
+    {
+        _playerHealth.TakeDamage(damage);
+    }
+
     public void HealPlayer(int healAmount)
     {
         _playerHealth.HealPlayer(healAmount);

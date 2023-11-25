@@ -101,6 +101,7 @@ MonoBehaviour:
   _popupAnimator: {fileID: 7282155664421602750}
   _healthbarAmountText: {fileID: 262548898087709523}
   _healthbarSlider: {fileID: 262548896917990437}
+  _timeAfterDeath: 2
 --- !u!114 &4259602776806108146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,22 +120,25 @@ MonoBehaviour:
   - AttackType: 0
     AttackPriority: 1
     AttackCooldown: 0
-    AttackCooldownAtStart: 0
-    RemoveAfterUsage: 0
+    AttackMaxCooldown: 0
     AnimatorTrigger: Kick
     AttackDuration: 2
   - AttackType: 1
     AttackPriority: 2
-    AttackCooldown: 2
-    AttackCooldownAtStart: 1
-    RemoveAfterUsage: 0
+    AttackCooldown: 0
+    AttackMaxCooldown: 1
     AnimatorTrigger: Combo
+    AttackDuration: 2
+  - AttackType: 2
+    AttackPriority: 2
+    AttackCooldown: 0
+    AttackMaxCooldown: 1
+    AnimatorTrigger: Block
     AttackDuration: 2
   - AttackType: 3
     AttackPriority: 3
-    AttackCooldown: 3
-    AttackCooldownAtStart: 3
-    RemoveAfterUsage: 0
+    AttackCooldown: 0
+    AttackMaxCooldown: 5
     AnimatorTrigger: Block
     AttackDuration: 2
   _basicAttackMinDmg: 3

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Oni : EnemyCombat
@@ -26,14 +27,15 @@ public class Oni : EnemyCombat
     private EnemyHealth _enemyHealth;
     private int _currentBerserkMuliplier = 0;
     private int _currentDamageBuff = 0;
+    private List<EnemyAttack> attacksPool = new List<EnemyAttack>();
 
     [System.Serializable]
     public class EnemyAttack
     {
         public OniAttackTypes AttackType;
         public int AttackPriority = 0;
-        public int AttackCooldown = 2;
-        public int AttackCooldownAtStart = 2;
+        public int AttackCooldown = 0;
+        public int AttackMaxCooldown = 2;
         public bool RemoveAfterUsage = false;
         public string AnimatorTrigger = "";
         public float AttackDuration = 2f;
@@ -69,7 +71,7 @@ public class Oni : EnemyCombat
 
         _turnTimeAmount = oniAttackSelected.AttackDuration;
         _animator.SetTrigger(oniAttackSelected.AnimatorTrigger);
-        oniAttackSelected.AttackCooldown = oniAttackSelected.AttackCooldownAtStart;
+        oniAttackSelected.AttackCooldown = oniAttackSelected.AttackMaxCooldown;
         if (oniAttackSelected.RemoveAfterUsage) _oniPossibleAttacks.Remove(oniAttackSelected);
 
         base.HandleTurn();
@@ -77,8 +79,8 @@ public class Oni : EnemyCombat
 
     private EnemyAttack GetTurnAttack()
     {
-        EnemyAttack chosenAttack = null;
-        int enemyPriority = -1;
+        EnemyAttack chosenAttack;
+        attacksPool = new List<EnemyAttack>();
 
         foreach (EnemyAttack enemyAttack in _oniPossibleAttacks)
         {
@@ -87,29 +89,28 @@ public class Oni : EnemyCombat
                 enemyAttack.AttackCooldown--;
                 continue;
             }
-                
 
-            if (enemyAttack.AttackPriority > enemyPriority)
+            for (int i = 0; i < enemyAttack.AttackPriority; i++)
             {
-                enemyPriority = enemyAttack.AttackPriority;
-                chosenAttack = enemyAttack;
+                attacksPool.Add(enemyAttack);
             }
         }
 
+        chosenAttack = attacksPool.ElementAt(UnityEngine.Random.Range(0, attacksPool.Count));
         chosenAttack.AttackCooldown++;
         return chosenAttack;
     }
 
-    private void DealDamageToPlayer(int damage)
+    private void DealDamage(int damage)
     {
         damage *= Mathf.RoundToInt((100 + _currentBerserkMuliplier) / 100);
-        playerHealth.TakeDamage(damage + _currentDamageBuff);
+        _combatManager.DealDamageToPlayer(damage);
     }
 
     private void StrongHit()
     {
         int damage = UnityEngine.Random.Range(_strongHitMinDmg, _strongHitMaxDmg);
-        DealDamageToPlayer(damage);
+        DealDamage(damage);
 
         Debug.Log("strongHit");
     }
@@ -117,7 +118,7 @@ public class Oni : EnemyCombat
     private void StunAttack()
     {
         int damage = UnityEngine.Random.Range(_stunAttackMinDmg, _stunAttackMaxDmg);
-        DealDamageToPlayer(damage);
+        DealDamage(damage);
 
         if (playerHealth.GetPlayerShield() < _minShieldToBlockStun)
         {

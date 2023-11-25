@@ -122,6 +122,7 @@ MonoBehaviour:
   _popupAnimator: {fileID: 7696853930074114151}
   _healthbarAmountText: {fileID: 8821593079587241349}
   _healthbarSlider: {fileID: 8821593078475324147}
+  _timeAfterDeath: 2
 --- !u!114 &4025620448260214396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,22 +141,19 @@ MonoBehaviour:
   - AttackType: 0
     AttackPriority: 1
     AttackCooldown: 0
-    AttackCooldownAtStart: 0
-    RemoveAfterUsage: 0
+    AttackMaxCooldown: 0
     AnimatorTrigger: ShurikenThrow
     AttackDuration: 2
   - AttackType: 1
-    AttackPriority: 2
-    AttackCooldown: 2
-    AttackCooldownAtStart: 2
-    RemoveAfterUsage: 0
+    AttackPriority: 3
+    AttackCooldown: 0
+    AttackMaxCooldown: 1
     AnimatorTrigger: PaperCut
     AttackDuration: 2
   - AttackType: 2
-    AttackPriority: 3
-    AttackCooldown: 3
-    AttackCooldownAtStart: 3
-    RemoveAfterUsage: 0
+    AttackPriority: 5
+    AttackCooldown: 2
+    AttackMaxCooldown: 5
     AnimatorTrigger: Vanish
     AttackDuration: 2
   _shurikenThrowMinDmg: 3

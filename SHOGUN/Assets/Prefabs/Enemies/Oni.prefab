@@ -122,6 +122,7 @@ MonoBehaviour:
   _popupAnimator: {fileID: 5622431526208964476}
   _healthbarAmountText: {fileID: 950208726795507725}
   _healthbarSlider: {fileID: 950208725624872827}
+  _timeAfterDeath: 2
 --- !u!114 &4999473484698457178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,22 +141,29 @@ MonoBehaviour:
   - AttackType: 0
     AttackPriority: 1
     AttackCooldown: 0
-    AttackCooldownAtStart: 0
+    AttackMaxCooldown: 2
     RemoveAfterUsage: 0
     AnimatorTrigger: StrongAttack
     AttackDuration: 0
   - AttackType: 1
     AttackPriority: 2
-    AttackCooldown: 2
-    AttackCooldownAtStart: 2
+    AttackCooldown: 0
+    AttackMaxCooldown: 2
     RemoveAfterUsage: 0
     AnimatorTrigger: StunAttack
     AttackDuration: 0
+  - AttackType: 2
+    AttackPriority: 2
+    AttackCooldown: 0
+    AttackMaxCooldown: 1
+    RemoveAfterUsage: 1
+    AnimatorTrigger: Berserk
+    AttackDuration: 0
   - AttackType: 3
-    AttackPriority: 3
-    AttackCooldown: 3
-    AttackCooldownAtStart: 3
-    RemoveAfterUsage: 0
+    AttackPriority: 4
+    AttackCooldown: 2
+    AttackMaxCooldown: 5
+    RemoveAfterUsage: 1
     AnimatorTrigger: Berserk
     AttackDuration: 0
   _strongHitMinDmg: 12
