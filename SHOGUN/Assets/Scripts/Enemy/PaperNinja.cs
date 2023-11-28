@@ -14,7 +14,7 @@ public class PaperNinja : EnemyCombat
     [Header("Combo Attack")]
     [SerializeField] private int _paperCutMinDmg = 2;
     
-    private List<EnemyAttack> attacksPool = new List<EnemyAttack>();
+    private List<EnemyAttack> _attacksPool = new List<EnemyAttack>();
 
     [System.Serializable]
     public class EnemyAttack
@@ -30,7 +30,7 @@ public class PaperNinja : EnemyCombat
     private EnemyAttack GetTurnAttack()
     {
         EnemyAttack chosenAttack;
-        attacksPool = new List<EnemyAttack>();
+        _attacksPool = new List<EnemyAttack>();
 
         foreach (EnemyAttack enemyAttack in _paperNinjaPossibleAttacks)
         {
@@ -42,11 +42,11 @@ public class PaperNinja : EnemyCombat
 
             for (int i = 0; i < enemyAttack.AttackPriority; i++)
             {
-                attacksPool.Add(enemyAttack);
+                _attacksPool.Add(enemyAttack);
             }
         }
 
-        chosenAttack = attacksPool.ElementAt(UnityEngine.Random.Range(0, attacksPool.Count));
+        chosenAttack = _attacksPool.ElementAt(UnityEngine.Random.Range(0, _attacksPool.Count));
         chosenAttack.AttackCooldown++;
         return chosenAttack;
     }

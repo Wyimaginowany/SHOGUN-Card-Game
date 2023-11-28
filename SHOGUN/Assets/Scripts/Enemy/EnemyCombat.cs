@@ -1,11 +1,13 @@
 using System;
 using System.Runtime.Serialization;
 using Palmmedia.ReportGenerator.Core.Parser.Analysis;
+using TMPro;
 using UnityEngine;
 
 public abstract class EnemyCombat : MonoBehaviour
 {
     [Header("Settings")]
+    [SerializeField] protected TMP_Text _attackIntentionText;
     [SerializeField] protected int _damage;
     [SerializeField] protected float _turnTimeAmount = 2f;
 
@@ -21,23 +23,22 @@ public abstract class EnemyCombat : MonoBehaviour
 
     private void OnDestroy()
     {
-        CombatManager.OnPlayerTurnStart -= PrepareEnemyTurn;
+        CombatManager.OnPlayerTurnStart -= PrepareAttack;
     }
 
     protected virtual void Start()
     {
+        
         _animator = GetComponent<Animator>();
         // _animator.runtimeAnimatorController = _overrideController;
-        CombatManager.OnPlayerTurnStart += PrepareEnemyTurn;
+        CombatManager.OnPlayerTurnStart += PrepareAttack;
         playerHealth = (PlayerHealth)FindObjectOfType(typeof(PlayerHealth));
         _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
         //_playerEffects = ...
+        PrepareAttack();
     }
 
-    private void PrepareEnemyTurn()
-    {
-        
-    }
+    public virtual void PrepareAttack(){}
 
     private void Update()
     {

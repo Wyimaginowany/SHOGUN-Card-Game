@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Oni : EnemyCombat
@@ -27,11 +28,13 @@ public class Oni : EnemyCombat
     private EnemyHealth _enemyHealth;
     private int _currentBerserkMuliplier = 0;
     private int _currentDamageBuff = 0;
-    private List<EnemyAttack> attacksPool = new List<EnemyAttack>();
+    private List<EnemyAttack> _attacksPool = new List<EnemyAttack>();
+    private EnemyAttack _chosenAttack;
 
     [System.Serializable]
     public class EnemyAttack
     {
+        public String AttackName = "";
         public OniAttackTypes AttackType;
         public int AttackPriority = 0;
         public int AttackCooldown = 0;
@@ -51,9 +54,7 @@ public class Oni : EnemyCombat
 
     public override void HandleTurn()
     {
-        EnemyAttack oniAttackSelected = GetTurnAttack();
-
-        switch (oniAttackSelected.AttackType)
+        switch (_chosenAttack.AttackType)
         {
             case OniAttackTypes.StrongAttack:
                 StrongHit();
@@ -69,18 +70,28 @@ public class Oni : EnemyCombat
                 break;           
         }
 
-        _turnTimeAmount = oniAttackSelected.AttackDuration;
-        _animator.SetTrigger(oniAttackSelected.AnimatorTrigger);
-        oniAttackSelected.AttackCooldown = oniAttackSelected.AttackMaxCooldown;
-        if (oniAttackSelected.RemoveAfterUsage) _oniPossibleAttacks.Remove(oniAttackSelected);
+        _turnTimeAmount = _chosenAttack.AttackDuration;
+        _animator.SetTrigger(_chosenAttack.AnimatorTrigger);
+        _chosenAttack.AttackCooldown = _chosenAttack.AttackMaxCooldown;
+        if (_chosenAttack.RemoveAfterUsage) _oniPossibleAttacks.Remove(_chosenAttack);
 
         base.HandleTurn();
     }
 
-    private EnemyAttack GetTurnAttack()
+    public override void PrepareAttack()
     {
-        EnemyAttack chosenAttack;
-        attacksPool = new List<EnemyAttack>();
+        GetTurnAttack();
+        _attackIntentionText.text = GetChosenAttackName();
+    }
+
+    public String GetChosenAttackName()
+    {
+        return _chosenAttack.AttackName;
+    } 
+
+    private void GetTurnAttack()
+    {
+        _attacksPool = new List<EnemyAttack>();
 
         foreach (EnemyAttack enemyAttack in _oniPossibleAttacks)
         {
@@ -92,13 +103,12 @@ public class Oni : EnemyCombat
 
             for (int i = 0; i < enemyAttack.AttackPriority; i++)
             {
-                attacksPool.Add(enemyAttack);
+                _attacksPool.Add(enemyAttack);
             }
         }
 
-        chosenAttack = attacksPool.ElementAt(UnityEngine.Random.Range(0, attacksPool.Count));
-        chosenAttack.AttackCooldown++;
-        return chosenAttack;
+        _chosenAttack = _attacksPool.ElementAt(UnityEngine.Random.Range(0, _attacksPool.Count));
+        _chosenAttack.AttackCooldown++;
     }
 
     private void DealDamage(int damage)

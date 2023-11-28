@@ -23,7 +23,7 @@ public class Thief : EnemyCombat
     
     private int _comboCounter = 1;
     private double _damageMultiplier;
-    private List<EnemyAttack> attacksPool = new List<EnemyAttack>();
+    private List<EnemyAttack> _attacksPool = new List<EnemyAttack>();
     
     private EnemyHealth _enemyHealth;
 
@@ -41,7 +41,7 @@ public class Thief : EnemyCombat
     private EnemyAttack GetTurnAttack()
     {
         EnemyAttack chosenAttack;
-        attacksPool = new List<EnemyAttack>();
+        _attacksPool = new List<EnemyAttack>();
 
         foreach (EnemyAttack enemyAttack in _thiefPossibleAttacks)
         {
@@ -53,11 +53,11 @@ public class Thief : EnemyCombat
 
             for (int i = 0; i < enemyAttack.AttackPriority; i++)
             {
-                attacksPool.Add(enemyAttack);
+                _attacksPool.Add(enemyAttack);
             }
         }
 
-        chosenAttack = attacksPool.ElementAt(UnityEngine.Random.Range(0, attacksPool.Count));
+        chosenAttack = _attacksPool.ElementAt(UnityEngine.Random.Range(0, _attacksPool.Count));
         chosenAttack.AttackCooldown++;
         return chosenAttack;
     }
