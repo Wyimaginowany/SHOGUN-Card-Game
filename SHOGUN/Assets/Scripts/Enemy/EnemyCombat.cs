@@ -1,13 +1,10 @@
-using System;
-using System.Runtime.Serialization;
-using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 using TMPro;
 using UnityEngine;
 
 public abstract class EnemyCombat : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] protected TMP_Text _attackIntentionText;
+    [SerializeField] protected TextMeshProUGUI _attackIntentionText;
     [SerializeField] protected int _damage;
     [SerializeField] protected float _turnTimeAmount = 2f;
 

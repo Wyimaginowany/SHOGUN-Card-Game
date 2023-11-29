@@ -234,44 +234,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 5374627676133394782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a3e7cafd4c24cbca07078212517d994, type: 3}
+  m_Script: {fileID: 11500000, guid: 7977bc50a590416189221bfb9d0d62d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _attackIntentionText: {fileID: 7221214122741328750}
   _damage: 0
   _turnTimeAmount: 2
   _oniPossibleAttacks:
-  - AttackName: Strong Attack
+  - Attack: 0
     AttackType: 0
-    AttackPriority: 1
-    AttackCooldown: 0
-    AttackMaxCooldown: 2
-    RemoveAfterUsage: 0
-    AnimatorTrigger: StrongAttack
-    AttackDuration: 0
-  - AttackName: Stun
-    AttackType: 1
     AttackPriority: 2
     AttackCooldown: 0
     AttackMaxCooldown: 2
     RemoveAfterUsage: 0
-    AnimatorTrigger: StunAttack
+    AnimatorTrigger: 
     AttackDuration: 0
-  - AttackName: Buff
+  - Attack: 1
+    AttackType: 3
+    AttackPriority: 2
+    AttackCooldown: 0
+    AttackMaxCooldown: 2
+    RemoveAfterUsage: 0
+    AnimatorTrigger: 
+    AttackDuration: 0
+  - Attack: 2
     AttackType: 2
-    AttackPriority: 2
+    AttackPriority: 1
     AttackCooldown: 0
     AttackMaxCooldown: 1
     RemoveAfterUsage: 0
-    AnimatorTrigger: Berserk
+    AnimatorTrigger: 
     AttackDuration: 0
-  - AttackName: Berserk
-    AttackType: 3
-    AttackPriority: 4
-    AttackCooldown: 2
-    AttackMaxCooldown: 5
+  - Attack: 3
+    AttackType: 2
+    AttackPriority: 0
+    AttackCooldown: 3
+    AttackMaxCooldown: 1
     RemoveAfterUsage: 1
-    AnimatorTrigger: Berserk
+    AnimatorTrigger: 
     AttackDuration: 0
   _strongHitMinDmg: 12
   _strongHitMaxDmg: 20

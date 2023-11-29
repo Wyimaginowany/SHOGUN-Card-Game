@@ -6,7 +6,7 @@ using UnityEngine;
 public class Thief : EnemyCombat
 {
     [Header("Attacks")]
-    [SerializeField] private List<EnemyAttack> _thiefPossibleAttacks = new List<EnemyAttack>();
+    [SerializeField] private List<EnemyAttack<ThiefAttacks>> _thiefPossibleAttacks = new List<EnemyAttack<ThiefAttacks>>();
     [Space(5)]
     [Header("Basic Attack")]
     [SerializeField] private int _basicAttackMinDmg = 3;
@@ -23,45 +23,11 @@ public class Thief : EnemyCombat
     
     private int _comboCounter = 1;
     private double _damageMultiplier;
-    private List<EnemyAttack> _attacksPool = new List<EnemyAttack>();
+    private List<EnemyAttack<ThiefAttacks>> _attacksPool = new List<EnemyAttack<ThiefAttacks>>();
+    private EnemyAttack<ThiefAttacks> _chosenAttack;
     
     private EnemyHealth _enemyHealth;
-
-    [System.Serializable]
-    public class EnemyAttack
-    {
-        public ThiefAttackTypes AttackType;
-        public int AttackPriority = 0;
-        public int AttackCooldown = 0;
-        public int AttackMaxCooldown = 2;
-        public string AnimatorTrigger = "";
-        public float AttackDuration = 2f;
-    }
     
-    private EnemyAttack GetTurnAttack()
-    {
-        EnemyAttack chosenAttack;
-        _attacksPool = new List<EnemyAttack>();
-
-        foreach (EnemyAttack enemyAttack in _thiefPossibleAttacks)
-        {
-            if (enemyAttack.AttackCooldown > 0)
-            {
-                enemyAttack.AttackCooldown--;
-                continue;
-            }
-
-            for (int i = 0; i < enemyAttack.AttackPriority; i++)
-            {
-                _attacksPool.Add(enemyAttack);
-            }
-        }
-
-        chosenAttack = _attacksPool.ElementAt(UnityEngine.Random.Range(0, _attacksPool.Count));
-        chosenAttack.AttackCooldown++;
-        return chosenAttack;
-    }
-
     protected override void Start()
     {
         base.Start();
@@ -77,30 +43,55 @@ public class Thief : EnemyCombat
     
     public override void HandleTurn()
     {
-        EnemyAttack thiefAttackSelected = GetTurnAttack();
-
-        switch (thiefAttackSelected.AttackType)
+        switch (_chosenAttack.Attack)
         {
-            case ThiefAttackTypes.BasicAttack:
+            case ThiefAttacks.BasicAttack:
                 BasicAttack();
                 break;
-            case ThiefAttackTypes.ComboAttack:
+            case ThiefAttacks.ComboAttack:
                 ComboAttack();
                 break;
-            case ThiefAttackTypes.BlockAction:
+            case ThiefAttacks.BlockAction:
                 BlockAction();
                 break;
-            case ThiefAttackTypes.BuffBlock:
+            case ThiefAttacks.BuffBlock:
                 BuffBlock();
                 break;           
         }
 
-        _turnTimeAmount = thiefAttackSelected.AttackDuration;
-        _animator.SetTrigger(thiefAttackSelected.AnimatorTrigger);
-        Debug.Log(thiefAttackSelected.AnimatorTrigger);
-        thiefAttackSelected.AttackCooldown = thiefAttackSelected.AttackMaxCooldown;
+        _turnTimeAmount = _chosenAttack.AttackDuration;
+        _animator.SetTrigger(_chosenAttack.AnimatorTrigger);
+        _chosenAttack.AttackCooldown = _chosenAttack.AttackMaxCooldown;
+        if (_chosenAttack.RemoveAfterUsage) _thiefPossibleAttacks.Remove(_chosenAttack);
 
         base.HandleTurn();
+    }
+
+    public override void PrepareAttack()
+    {
+        GetTurnAttack();
+        _attackIntentionText.text = _chosenAttack.AttackType.ToString(); //zamiast tego ikonka miecz/shield/cos tam na buffa/cos na debuffa
+    }
+
+    private void GetTurnAttack()
+    {
+        _attacksPool = new List<EnemyAttack<ThiefAttacks>>();
+
+        foreach (EnemyAttack<ThiefAttacks> enemyAttack in _thiefPossibleAttacks)
+        {
+            if (enemyAttack.AttackCooldown > 0)
+            {
+                enemyAttack.AttackCooldown--;
+                continue;
+            }
+
+            for (int i = 0; i < enemyAttack.AttackPriority; i++)
+            {
+                _attacksPool.Add(enemyAttack);
+            }
+        }
+        _chosenAttack = _attacksPool.ElementAt(UnityEngine.Random.Range(0, _attacksPool.Count));
+        _chosenAttack.AttackCooldown++;
     }
     
     private void DealDamage(int damage)
@@ -139,4 +130,4 @@ public class Thief : EnemyCombat
         Debug.Log("buffBlock");
     }
 }
-public enum ThiefAttackTypes { BasicAttack, ComboAttack, BlockAction ,BuffBlock}
+public enum ThiefAttacks { BasicAttack, ComboAttack, BlockAction ,BuffBlock}
