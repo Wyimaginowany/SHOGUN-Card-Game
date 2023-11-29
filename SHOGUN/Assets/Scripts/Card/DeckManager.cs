@@ -68,4 +68,9 @@ public class DeckManager : MonoBehaviour
             _deck[randomIndex] = temporaryCard;
         }
     }
+
+    public void AddCardToDeck(Card newCard)
+    {
+        _deck.Add(newCard);
+    }
 }

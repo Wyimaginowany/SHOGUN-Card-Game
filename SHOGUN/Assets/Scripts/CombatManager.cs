@@ -73,6 +73,11 @@ public class CombatManager : MonoBehaviour
         if (_aliveEnemies.Count > 0) return;
 
         SpawnNewEnemies();
+
+        //chwilowe rozwiazanie
+        //gdzies musi byc koniec poziomu
+        CardSelectorManager tmp = (CardSelectorManager)FindObjectOfType(typeof(CardSelectorManager));
+        tmp.SetupNewCardsToSelect();
     }
 
     public void SpawnNewEnemies()
