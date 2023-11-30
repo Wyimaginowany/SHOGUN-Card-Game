@@ -12,6 +12,7 @@ public class CardSelectorManager : MonoBehaviour
     [SerializeField] private CardSelectionButton[] _cardSelectionButtons;
     [SerializeField] private GameObject[] _allPossibleCards;
 
+
     private DeckManager _deckManager;
     private Card[] _currentCardsSelected = new Card[3];
 
@@ -31,6 +32,7 @@ public class CardSelectorManager : MonoBehaviour
         _deckManager.AddCardToDeck(cardSelected);
         _cardSelectionUI.SetActive(false);
         _inGameUI.SetActive(true);
+        MapObject.MapInstance.GetComponent<MapObject>().ShowMap();
     }
 
     public void SetupNewCardsToSelect()

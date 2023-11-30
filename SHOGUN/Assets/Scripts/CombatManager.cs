@@ -39,6 +39,13 @@ public class CombatManager : MonoBehaviour
         _currentMana = _maxMana;
         _manaAmountText.text = _currentMana.ToString();
         turnCounter = 0;
+        MapEvent.OnPlayerTurnEnd+=Test;
+        
+    }
+
+    private void Test(){
+        SpawnNewEnemies();
+
     }
 
     private void Update()
@@ -59,6 +66,7 @@ public class CombatManager : MonoBehaviour
     {
         Card.OnCardPlayed -= HandleCardPlayed;
         EnemyHealth.OnEnemyDeath -= HandleEnemyDeath;
+        MapEvent.OnPlayerTurnEnd-=Test;
     }
 
     public void FullHandDrawn()
@@ -73,7 +81,7 @@ public class CombatManager : MonoBehaviour
 
         if (_aliveEnemies.Count > 0) return;
 
-        SpawnNewEnemies();
+        
 
         //chwilowe rozwiazanie
         //gdzies musi byc koniec poziomu

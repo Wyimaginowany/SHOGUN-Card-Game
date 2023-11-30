@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3635286872346630526}
   - component: {fileID: 8411780956933407486}
   - component: {fileID: 6637239067461309131}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: CombatEvent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
