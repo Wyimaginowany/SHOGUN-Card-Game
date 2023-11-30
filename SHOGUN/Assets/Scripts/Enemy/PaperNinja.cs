@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class PaperNinja : EnemyCombat
 { 
@@ -43,7 +46,7 @@ public class PaperNinja : EnemyCombat
     public override void PrepareAttack()
     {
         GetTurnAttack();
-        _attackIntentionText.text = _chosenAttack.AttackType.ToString(); //zamiast tego ikonka miecz/shield/cos tam na buffa/cos na debuffa
+        DisplayEnemyIntentions();
     }
     private void GetTurnAttack()
     {
@@ -65,6 +68,16 @@ public class PaperNinja : EnemyCombat
 
         _chosenAttack = _attacksPool.ElementAt(UnityEngine.Random.Range(0, _attacksPool.Count));
         _chosenAttack.AttackCooldown++;
+    }
+
+    public void DisplayEnemyIntentions()
+    {
+        _attackIntentionText.text = _chosenAttack.AttackName;
+        _attackDescriptionText.text = _chosenAttack.Description;
+        AttackTypes attackType = _chosenAttack.AttackType;
+        String iconName = (attackType + "_icon").ToLower();
+        String iconPath = "Enemy Intention Icons/" + iconName;
+        _iconGameObject.GetComponent<Image>().sprite = Resources.Load<Sprite> (iconPath);
     }
 
     private void ShurikenThrow()

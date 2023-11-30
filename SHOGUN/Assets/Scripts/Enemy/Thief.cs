@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Thief : EnemyCombat
 {
@@ -70,7 +71,7 @@ public class Thief : EnemyCombat
     public override void PrepareAttack()
     {
         GetTurnAttack();
-        _attackIntentionText.text = _chosenAttack.AttackType.ToString(); //zamiast tego ikonka miecz/shield/cos tam na buffa/cos na debuffa
+        DisplayEnemyIntentions();
     }
 
     private void GetTurnAttack()
@@ -94,6 +95,16 @@ public class Thief : EnemyCombat
         _chosenAttack.AttackCooldown++;
     }
     
+    public void DisplayEnemyIntentions()
+    {
+        _attackIntentionText.text = _chosenAttack.AttackName;
+        _attackDescriptionText.text = _chosenAttack.Description;
+        AttackTypes attackType = _chosenAttack.AttackType;
+        String iconName = (attackType + "_icon").ToLower();
+        String iconPath = "Enemy Intention Icons/" + iconName;
+        _iconGameObject.GetComponent<Image>().sprite = Resources.Load<Sprite> (iconPath);
+    }
+
     private void DealDamage(int damage)
     {
         damage *= (int) Math.Round(1 * _damageMultiplier);
