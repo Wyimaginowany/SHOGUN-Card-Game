@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CardSelectorManager : MonoBehaviour
 {
@@ -15,11 +17,23 @@ public class CardSelectorManager : MonoBehaviour
     private DeckManager _deckManager;
     private Card[] _currentCardsSelected = new Card[3];
 
+    private void OnDestroy()
+    {
+        PlayerHealth.OnPlayerDeath -= HideCardsUI;
+    }
+
     private void Start()
     {
         _deckManager = GetComponent<DeckManager>();
+        PlayerHealth.OnPlayerDeath += HideCardsUI;
     }
 
+    void HideCardsUI()
+    {
+        _cardSelectionUI.SetActive(false);
+        _inGameUI.SetActive(false);
+    }
+    
     public void HandleNewCardSelected(Card cardSelected)
     {
         for (int i = 0; i < _cardSelectionButtons.Length; i++)
