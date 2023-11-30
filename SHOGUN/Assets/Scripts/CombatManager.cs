@@ -26,6 +26,7 @@ public class CombatManager : MonoBehaviour
     private int _currentMana;
     private int _enemyOrderIndex = 0;
     public int turnCounter;
+    private int _currentPlayerBleedStacks = 0;
 
     private void Start()
     {
@@ -73,6 +74,11 @@ public class CombatManager : MonoBehaviour
         if (_aliveEnemies.Count > 0) return;
 
         SpawnNewEnemies();
+
+        //chwilowe rozwiazanie
+        //gdzies musi byc koniec poziomu
+        CardSelectorManager tmp = (CardSelectorManager)FindObjectOfType(typeof(CardSelectorManager));
+        tmp.SetupNewCardsToSelect();
     }
 
     public void SpawnNewEnemies()
@@ -181,5 +187,10 @@ public class CombatManager : MonoBehaviour
     public void BuffPlayerDamage(int buffAmount)
     {
         OnDamageCardBuff?.Invoke(buffAmount);
+    }
+
+    public void IncreasePlayerBleed(int bleedAmount)
+    {
+        _currentPlayerBleedStacks += bleedAmount;
     }
 }

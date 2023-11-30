@@ -7,7 +7,7 @@ public class CardVisual : MonoBehaviour
     [Header("To Attach")]
     [SerializeField] private TMP_Text _cardText;
     [SerializeField] private TMP_Text _cardCostText;
-    [SerializeField] private RawImage _cardColorImage;
+    [SerializeField] private Image _cardColorImage;
     
     private Card _card;
 

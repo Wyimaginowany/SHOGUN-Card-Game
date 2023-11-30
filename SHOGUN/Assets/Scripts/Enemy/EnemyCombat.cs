@@ -1,16 +1,16 @@
 using System;
-using System.Runtime.Serialization;
-using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 using TMPro;
 using UnityEngine;
 
 public abstract class EnemyCombat : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] protected TMP_Text _attackIntentionText;
+    [SerializeField] protected TextMeshProUGUI _attackIntentionText;
+    [SerializeField] protected TextMeshProUGUI _attackDescriptionText;
     [SerializeField] protected int _damage;
     [SerializeField] protected float _turnTimeAmount = 2f;
-
+    [SerializeField] protected GameObject _iconGameObject;
+    
     // [Header("To Attach")]
     // [SerializeField] private AnimatorOverrideController _overrideController;
     
@@ -37,7 +37,7 @@ public abstract class EnemyCombat : MonoBehaviour
         //_playerEffects = ...
         PrepareAttack();
     }
-
+    
     public virtual void PrepareAttack(){}
 
     private void Update()
