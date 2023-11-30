@@ -16,6 +16,7 @@ public class PlayerHealth : MonoBehaviour, IBleedable
     [SerializeField] private Slider _healthbarSlider;
     [SerializeField] private TMP_Text _shieldAmountText;
 
+    public static event Action OnPlayerDeath;
     public Animator GetAnimator(){ return _playerAnimator;}
 
     private int _currentShield = 0;
@@ -118,6 +119,7 @@ public class PlayerHealth : MonoBehaviour, IBleedable
 
     private void HandlePlayerDeath()
     {
+        OnPlayerDeath?.Invoke();
          _playerAnimator.SetTrigger("Death");
         Debug.Log("Player has died. Returning player to full health");
         _currentHealth = _maxHealth;
