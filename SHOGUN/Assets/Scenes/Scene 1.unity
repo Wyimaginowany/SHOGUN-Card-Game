@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -201,6 +201,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card System Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 8927327222898265330, guid: 7bfba9a0caae515489788f598ab8d1cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8927327222898265331, guid: 7bfba9a0caae515489788f598ab8d1cf, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -300,15 +304,15 @@ PrefabInstance:
     - target: {fileID: 8927327222898265334, guid: 7bfba9a0caae515489788f598ab8d1cf, type: 3}
       propertyPath: _enemies.Array.data[0]
       value: 
-      objectReference: {fileID: 5913106796917906721, guid: db9414f665640d549ba5f30a453cc6ca, type: 3}
+      objectReference: {fileID: 3212080953198315012, guid: db9414f665640d549ba5f30a453cc6ca, type: 3}
     - target: {fileID: 8927327222898265334, guid: 7bfba9a0caae515489788f598ab8d1cf, type: 3}
       propertyPath: _enemies.Array.data[1]
       value: 
-      objectReference: {fileID: 988380431254347671, guid: 6668b03617df90842b2e0de2bb2c31ad, type: 3}
+      objectReference: {fileID: 7319058848005160054, guid: 9e831edb67f734043a1fa9aad12664a6, type: 3}
     - target: {fileID: 8927327222898265334, guid: 7bfba9a0caae515489788f598ab8d1cf, type: 3}
       propertyPath: _enemies.Array.data[2]
       value: 
-      objectReference: {fileID: 5713895848681078172, guid: 9e831edb67f734043a1fa9aad12664a6, type: 3}
+      objectReference: {fileID: 8957048241304380330, guid: 6668b03617df90842b2e0de2bb2c31ad, type: 3}
     - target: {fileID: 8927327222898265334, guid: 7bfba9a0caae515489788f598ab8d1cf, type: 3}
       propertyPath: _enemies.Array.data[3]
       value: 

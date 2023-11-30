@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class PaperNinja : EnemyCombat
-{
+{ 
     [Header("Attacks")]
-    [SerializeField] private List<EnemyAttack> _paperNinjaPossibleAttacks = new List<EnemyAttack>();
+    [SerializeField] private List<EnemyAttack<PaperNinjaAttacks>> _paperNinjaPossibleAttacks = new List<EnemyAttack<PaperNinjaAttacks>>();
     [Space(5)]
     [Header("Basic Attack")]
     [SerializeField] private int _shurikenThrowMinDmg = 3;
@@ -14,25 +17,42 @@ public class PaperNinja : EnemyCombat
     [Header("Combo Attack")]
     [SerializeField] private int _paperCutMinDmg = 2;
     
-    private List<EnemyAttack> _attacksPool = new List<EnemyAttack>();
-
-    [System.Serializable]
-    public class EnemyAttack
+    private List<EnemyAttack<PaperNinjaAttacks>> _attacksPool = new List<EnemyAttack<PaperNinjaAttacks>>();
+    private EnemyAttack<PaperNinjaAttacks> _chosenAttack;
+    
+    public override void HandleTurn()
     {
-        public PaperNinjaAttackTypes AttackType;
-        public int AttackPriority = 0;
-        public int AttackCooldown = 0;
-        public int AttackMaxCooldown = 2;
-        public string AnimatorTrigger = "";
-        public float AttackDuration = 2f;
+        switch (_chosenAttack.Attack)
+        {
+            case PaperNinjaAttacks.ShurikenThrow:
+                ShurikenThrow();
+                break;
+            case PaperNinjaAttacks.PaperCut:
+                PaperCut();
+                break;
+            case PaperNinjaAttacks.Vanish:
+                Vanish();
+                break;
+        }
+
+        _turnTimeAmount = _chosenAttack.AttackDuration;
+        _animator.SetTrigger(_chosenAttack.AnimatorTrigger);
+        _chosenAttack.AttackCooldown = _chosenAttack.AttackMaxCooldown;
+        if (_chosenAttack.RemoveAfterUsage) _paperNinjaPossibleAttacks.Remove(_chosenAttack);
+
+        base.HandleTurn();
     }
     
-    private EnemyAttack GetTurnAttack()
+    public override void PrepareAttack()
     {
-        EnemyAttack chosenAttack;
-        _attacksPool = new List<EnemyAttack>();
+        GetTurnAttack();
+        DisplayEnemyIntentions();
+    }
+    private void GetTurnAttack()
+    {
+        _attacksPool = new List<EnemyAttack<PaperNinjaAttacks>>();
 
-        foreach (EnemyAttack enemyAttack in _paperNinjaPossibleAttacks)
+        foreach (EnemyAttack<PaperNinjaAttacks> enemyAttack in _paperNinjaPossibleAttacks)
         {
             if (enemyAttack.AttackCooldown > 0)
             {
@@ -46,33 +66,18 @@ public class PaperNinja : EnemyCombat
             }
         }
 
-        chosenAttack = _attacksPool.ElementAt(UnityEngine.Random.Range(0, _attacksPool.Count));
-        chosenAttack.AttackCooldown++;
-        return chosenAttack;
+        _chosenAttack = _attacksPool.ElementAt(UnityEngine.Random.Range(0, _attacksPool.Count));
+        _chosenAttack.AttackCooldown++;
     }
-    
-    public override void HandleTurn()
+
+    public void DisplayEnemyIntentions()
     {
-        EnemyAttack paperNinjaAttackSelected = GetTurnAttack();
-
-        switch (paperNinjaAttackSelected.AttackType)
-        {
-            case PaperNinjaAttackTypes.ShurikenThrow:
-                ShurikenThrow();
-                break;
-            case PaperNinjaAttackTypes.PaperCut:
-                PaperCut();
-                break;
-            case PaperNinjaAttackTypes.Vanish:
-                Vanish();
-                break;
-        }
-
-        _turnTimeAmount = paperNinjaAttackSelected.AttackDuration;
-        _animator.SetTrigger(paperNinjaAttackSelected.AnimatorTrigger);
-        paperNinjaAttackSelected.AttackCooldown = paperNinjaAttackSelected.AttackMaxCooldown;
-
-        base.HandleTurn();
+        _attackIntentionText.text = _chosenAttack.AttackName;
+        _attackDescriptionText.text = _chosenAttack.Description;
+        AttackTypes attackType = _chosenAttack.AttackType;
+        String iconName = (attackType + "_icon").ToLower();
+        String iconPath = "Enemy Intention Icons/" + iconName;
+        _iconGameObject.GetComponent<Image>().sprite = Resources.Load<Sprite> (iconPath);
     }
 
     private void ShurikenThrow()
@@ -102,4 +107,4 @@ public class PaperNinja : EnemyCombat
     }
 }
 
-public enum PaperNinjaAttackTypes { ShurikenThrow, PaperCut, Vanish}
+public enum PaperNinjaAttacks { ShurikenThrow, PaperCut, Vanish }

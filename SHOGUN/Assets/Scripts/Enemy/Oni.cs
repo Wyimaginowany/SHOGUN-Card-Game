@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Oni : EnemyCombat
 {
     [Header("Attacks")]
-    [SerializeField] private List<EnemyAttack> _oniPossibleAttacks = new List<EnemyAttack>();
+    [SerializeField] private List<EnemyAttack<OniAttacks>> _oniPossibleAttacks = new List<EnemyAttack<OniAttacks>>();
     [Space(5)]
     [Header("Strong Attack")]
     [SerializeField] private int _strongHitMinDmg = 12;
@@ -28,23 +28,9 @@ public class Oni : EnemyCombat
     private EnemyHealth _enemyHealth;
     private int _currentBerserkMuliplier = 0;
     private int _currentDamageBuff = 0;
-    private List<EnemyAttack> _attacksPool = new List<EnemyAttack>();
-    private EnemyAttack _chosenAttack;
-
-    [System.Serializable]
-    public class EnemyAttack
-    {
-        public String AttackName = "";
-        public OniAttackTypes AttackType;
-        public int AttackPriority = 0;
-        public int AttackCooldown = 0;
-        public int AttackMaxCooldown = 2;
-        public bool RemoveAfterUsage = false;
-        public string AnimatorTrigger = "";
-        public float AttackDuration = 2f;
-    }
-
-
+    private List<EnemyAttack<OniAttacks>> _attacksPool = new List<EnemyAttack<OniAttacks>>();
+    private EnemyAttack<OniAttacks> _chosenAttack;
+    
     protected override void Start()
     {
         base.Start();
@@ -54,18 +40,18 @@ public class Oni : EnemyCombat
 
     public override void HandleTurn()
     {
-        switch (_chosenAttack.AttackType)
+        switch (_chosenAttack.Attack)
         {
-            case OniAttackTypes.StrongAttack:
+            case OniAttacks.StrongAttack:
                 StrongHit();
                 break;
-            case OniAttackTypes.StunAttack:
+            case OniAttacks.StunAttack:
                 StunAttack();
                 break;
-            case OniAttackTypes.BuffAttack:
+            case OniAttacks.BuffAttack:
                 BuffDamage();
                 break;
-            case OniAttackTypes.Berserk:
+            case OniAttacks.Berserk:
                 Berserk();
                 break;           
         }
@@ -81,19 +67,15 @@ public class Oni : EnemyCombat
     public override void PrepareAttack()
     {
         GetTurnAttack();
-        _attackIntentionText.text = GetChosenAttackName();
+        DisplayEnemyIntentions();
+        
     }
-
-    public String GetChosenAttackName()
-    {
-        return _chosenAttack.AttackName;
-    } 
 
     private void GetTurnAttack()
     {
-        _attacksPool = new List<EnemyAttack>();
+        _attacksPool = new List<EnemyAttack<OniAttacks>>();
 
-        foreach (EnemyAttack enemyAttack in _oniPossibleAttacks)
+        foreach (EnemyAttack<OniAttacks> enemyAttack in _oniPossibleAttacks)
         {
             if (enemyAttack.AttackCooldown > 0)
             {
@@ -106,9 +88,17 @@ public class Oni : EnemyCombat
                 _attacksPool.Add(enemyAttack);
             }
         }
-
         _chosenAttack = _attacksPool.ElementAt(UnityEngine.Random.Range(0, _attacksPool.Count));
         _chosenAttack.AttackCooldown++;
+    }
+    public void DisplayEnemyIntentions()
+    {
+        _attackIntentionText.text = _chosenAttack.AttackName;
+        _attackDescriptionText.text = _chosenAttack.Description;
+        AttackTypes attackType = _chosenAttack.AttackType;
+        String iconName = (attackType + "_icon").ToLower();
+        String iconPath = "Enemy Intention Icons/" + iconName;
+        _iconGameObject.GetComponent<Image>().sprite = Resources.Load<Sprite> (iconPath);
     }
 
     private void DealDamage(int damage)
@@ -155,4 +145,4 @@ public class Oni : EnemyCombat
     }
 }
 
-public enum OniAttackTypes { StrongAttack, StunAttack, BuffAttack, Berserk }
+public enum OniAttacks { StrongAttack, StunAttack, BuffAttack, Berserk }
