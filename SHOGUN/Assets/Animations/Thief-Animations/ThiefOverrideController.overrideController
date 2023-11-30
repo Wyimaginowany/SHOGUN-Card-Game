@@ -8,4 +8,16 @@ AnimatorOverrideController:
   m_PrefabAsset: {fileID: 0}
   m_Name: ThiefOverrideController
   m_Controller: {fileID: 9100000, guid: 04dbed158d230d54b8214ba72d9fe6b4, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: -203655887218126122, guid: d964178709983ac47b62bed337cdf451, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: d964178709983ac47b62bed337cdf451, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: b10a83b6bdd19134b9d12a8fe7d4952c, type: 2}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 2056a40674b725f42ab3014cbc178b3e, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: df779a3c3f9596443af91e7030cbae20, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: df779a3c3f9596443af91e7030cbae20, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 8b65f1f4907eded46bf8f45e613138af, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8b65f1f4907eded46bf8f45e613138af, type: 2}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 44a193bf846ceca42a2578d07499edac, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 44a193bf846ceca42a2578d07499edac, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 70bb3134d3832a244b573bb7b0207b35, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 70bb3134d3832a244b573bb7b0207b35, type: 3}

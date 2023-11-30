@@ -1,30 +1,44 @@
+using System;
+using TMPro;
 using UnityEngine;
 
 public abstract class EnemyCombat : MonoBehaviour
 {
     [Header("Settings")]
+    [SerializeField] protected TextMeshProUGUI _attackIntentionText;
+    [SerializeField] protected TextMeshProUGUI _attackDescriptionText;
     [SerializeField] protected int _damage;
     [SerializeField] protected float _turnTimeAmount = 2f;
-
-    [Header("To Attach")]
-    [SerializeField] private AnimatorOverrideController _overrideController;
+    [SerializeField] protected GameObject _iconGameObject;
+    
+    // [Header("To Attach")]
+    // [SerializeField] private AnimatorOverrideController _overrideController;
     
 
     protected Animator _animator;
-    private CombatManager _combatManager;
+    protected CombatManager _combatManager;
     protected PlayerHealth playerHealth;
     private float _turnTimer = 0;
     private bool _isThisEnemyTurn = false;
 
+    private void OnDestroy()
+    {
+        CombatManager.OnPlayerTurnStart -= PrepareAttack;
+    }
+
     protected virtual void Start()
     {
+        
         _animator = GetComponent<Animator>();
-        _animator.runtimeAnimatorController = _overrideController;
-
+        // _animator.runtimeAnimatorController = _overrideController;
+        CombatManager.OnPlayerTurnStart += PrepareAttack;
         playerHealth = (PlayerHealth)FindObjectOfType(typeof(PlayerHealth));
         _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
         //_playerEffects = ...
+        PrepareAttack();
     }
+    
+    public virtual void PrepareAttack(){}
 
     private void Update()
     {

@@ -1,119 +1,128 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Thief : EnemyCombat
 {
-    [Header("Max Cooldowns")]
-    [SerializeField] private int _basicAttackMaxCD = 0;
-    [SerializeField] private int _comboAttackMaxCD = 1;
-    [SerializeField] private int _blockActionMaxCD = 1;
-    [SerializeField] private int _buffBlockMaxCD = 5;
-    [Header("Moves")]
+    [Header("Attacks")]
+    [SerializeField] private List<EnemyAttack<ThiefAttacks>> _thiefPossibleAttacks = new List<EnemyAttack<ThiefAttacks>>();
+    [Space(5)]
+    [Header("Basic Attack")]
     [SerializeField] private int _basicAttackMinDmg = 3;
     [SerializeField] private int _basicAttackMaxDmg = 5;
+    [Space(5)]
+    [Header("Combo Attack")]
     [SerializeField] private int _comboAttackMinDmg = 2;
+    [Space(5)]
+    [Header("Block Move")]
     [SerializeField] private int _blockActionValue = 5;
+    [Space(5)]
+    [Header("Block buff")]
+    [SerializeField] private int _blockBuffPercentage = 50;
     
-
-    // public enum BeltColor
-    // {
-    //     White=100,
-    //     Orange=120,
-    //     Blue=140,
-    //     Yellow=160,
-    //     Green=180,
-    //     Brown=200,
-    //     Black=220
-    // }
-
-    // public Thief(BeltColor beltColor)
-    // {
-    //     _damageMultiplier = (double) beltColor / 100;
-    // }
-    private int _basicAttackCooldown;
-    private int _comboAttackCooldown;
-    private int _blockActionCooldown;
-    private int _buffBlockCooldown;
     private int _comboCounter = 1;
     private double _damageMultiplier;
+    private List<EnemyAttack<ThiefAttacks>> _attacksPool = new List<EnemyAttack<ThiefAttacks>>();
+    private EnemyAttack<ThiefAttacks> _chosenAttack;
     
     private EnemyHealth _enemyHealth;
-
-
+    
     protected override void Start()
     {
         base.Start();
         _enemyHealth = GetComponent<EnemyHealth>();
         string[] beltColors = { "white", "orange", "blue", "yellow", "green", "brown", "black" };
         int[] beltDamages = { 100, 120, 140, 160, 180, 200, 220 };
-        //int randomIndex = UnityEngine.Random.Range(0, beltColors.Length);
-        //_damageMultiplier = (double) beltDamages[randomIndex] / 100;
-        //Debug.Log(beltColors[randomIndex]);
+        int randomIndex = UnityEngine.Random.Range(0, beltColors.Length);
+        _damageMultiplier = (double) beltDamages[randomIndex] / 100;
+        Debug.Log("Belt color: " + beltColors[randomIndex]);
         
         //TODO: SET ENEMY MODEL TO ACCORDING BELTCOLOR
     }
     
     public override void HandleTurn()
     {
-        base.HandleTurn();
-        List<string> availableAbilities = new List<string>();
-        //if (_basicAttackCooldown <= 0) availableAbilities.Add("basicAttack");
-        //if (_comboAttackCooldown <= 0) availableAbilities.Add("comboAttack");
-        //if (_blockActionCooldown <= 0) availableAbilities.Add("blockAction");
-        //if (_buffBlockCooldown <= 0) availableAbilities.Add("buffBlock");
-        
-        _basicAttackCooldown--;
-        _comboAttackCooldown--;
-        _blockActionCooldown--;
-        _buffBlockCooldown--;
-        
-        //int selectedIndex = Random.Range(0, availableAbilities.Count);
-        //string selectedAbility = availableAbilities[selectedIndex];
-
-
-        _animator.SetTrigger("Kick");
-        /*switch (selectedAbility)
+        switch (_chosenAttack.Attack)
         {
-            case "basicAttack":
+            case ThiefAttacks.BasicAttack:
                 BasicAttack();
                 break;
-            case "comboAttack":
+            case ThiefAttacks.ComboAttack:
                 ComboAttack();
                 break;
-            case "blockAction":
+            case ThiefAttacks.BlockAction:
                 BlockAction();
                 break;
-            case "buffBlock":
+            case ThiefAttacks.BuffBlock:
                 BuffBlock();
-                break;
-            
-        }*/
+                break;           
+        }
+
+        _turnTimeAmount = _chosenAttack.AttackDuration;
+        _animator.SetTrigger(_chosenAttack.AnimatorTrigger);
+        _chosenAttack.AttackCooldown = _chosenAttack.AttackMaxCooldown;
+        if (_chosenAttack.RemoveAfterUsage) _thiefPossibleAttacks.Remove(_chosenAttack);
+
+        base.HandleTurn();
     }
 
-    public void DefaultAttack()
+    public override void PrepareAttack()
     {
-        playerHealth.TakeDamage(_damage);
+        GetTurnAttack();
+        DisplayEnemyIntentions();
     }
+
+    private void GetTurnAttack()
+    {
+        _attacksPool = new List<EnemyAttack<ThiefAttacks>>();
+
+        foreach (EnemyAttack<ThiefAttacks> enemyAttack in _thiefPossibleAttacks)
+        {
+            if (enemyAttack.AttackCooldown > 0)
+            {
+                enemyAttack.AttackCooldown--;
+                continue;
+            }
+
+            for (int i = 0; i < enemyAttack.AttackPriority; i++)
+            {
+                _attacksPool.Add(enemyAttack);
+            }
+        }
+        _chosenAttack = _attacksPool.ElementAt(UnityEngine.Random.Range(0, _attacksPool.Count));
+        _chosenAttack.AttackCooldown++;
+    }
+    
+    public void DisplayEnemyIntentions()
+    {
+        _attackIntentionText.text = _chosenAttack.AttackName;
+        _attackDescriptionText.text = _chosenAttack.Description;
+        AttackTypes attackType = _chosenAttack.AttackType;
+        String iconName = (attackType + "_icon").ToLower();
+        String iconPath = "Enemy Intention Icons/" + iconName;
+        _iconGameObject.GetComponent<Image>().sprite = Resources.Load<Sprite> (iconPath);
+    }
+
+    private void DealDamage(int damage)
+    {
+        damage *= (int) Math.Round(1 * _damageMultiplier);
+        Debug.Log(damage);
+        _combatManager.DealDamageToPlayer(damage);
+    }
+    
     private void BasicAttack()
     {
-        //_animator.SetTrigger("Kick");
-        Debug.Log(playerHealth);
-        //int damage = (int) Math.Round(Random.Range(_basicAttackMinDmg, _basicAttackMaxDmg) * _damageMultiplier);
-        //playerHealth.TakeDamage(damage);
-
-        _basicAttackCooldown = _basicAttackMaxCD;
+        int damage = (int) Math.Round(UnityEngine.Random.Range(_basicAttackMinDmg, _basicAttackMaxDmg) * _damageMultiplier);
+        DealDamage(damage);
         Debug.Log("basicAttack");
     }
 
     private void ComboAttack()
     {
-        //_animator.SetTrigger("Combo");
         int damage = (int) Math.Round(_comboAttackMinDmg * _comboCounter * _damageMultiplier);
-        Debug.Log(playerHealth);
-        playerHealth.TakeDamage(damage);
-        
-        _comboAttackCooldown = _comboAttackMaxCD;
+        DealDamage(damage);
         Debug.Log("comboAttack");
     }
 
@@ -121,16 +130,15 @@ public class Thief : EnemyCombat
     {
         //TODO: give 5 block
         _enemyHealth.GiveShield(_blockActionValue);
-
-        _blockActionCooldown = _blockActionMaxCD;
+        
         Debug.Log("blockAction");
     }
 
     private void BuffBlock()
     {
         //TODO: block multi 150% for the rest of the combat
-
-        _buffBlockCooldown = _buffBlockMaxCD;
+        
         Debug.Log("buffBlock");
     }
 }
+public enum ThiefAttacks { BasicAttack, ComboAttack, BlockAction ,BuffBlock}

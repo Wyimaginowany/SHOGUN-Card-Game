@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using CardEnums;
+[RequireComponent(typeof(CardVisual))]
 public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Settings")]
@@ -10,12 +11,16 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [SerializeField] private float _beginTransitionTime = 0.8f;
     [SerializeField] private float _drawTransitionTime = 4f;
     [Header("To Attach")]
-    [SerializeField] protected CardScriptableObject _cardData;
+    public CardScriptableObject CardData;
     [SerializeField] private Transform _cardVisualDisplayPoint;
     [SerializeField] private CardAnimation _cardAnimation;
 
     protected CombatManager _combatManager;
+    protected CardVisual _cardVisual;
     protected CanvasGroup _cardVisualCanvasGroup;
+    
+    protected int _currentCardCost;
+    protected int _currentCardValue;
     protected Vector3 _startingPosition;
 
     public static event Action<Card> OnCardPlayed;
@@ -35,15 +40,19 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private bool _isBeingDragged = false;
     private bool _isBeingDrawn = false;
     private bool _isInHand = false;
+    [HideInInspector]
     public bool _isInteractable = false;
 
     protected virtual void Start()
     {
         _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
         _cardVisualCanvasGroup = GetComponentInChildren<CanvasGroup>();
+        _cardVisual = GetComponent<CardVisual>();
 
         _rectTransform = GetComponent<RectTransform>();
         _startingPosition = _rectTransform.anchoredPosition;
+        _currentCardCost = CardData.Cost;
+        _currentCardValue = CardData.Value;
     }
 
     protected virtual void BeginDragging()
@@ -67,7 +76,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         OnEndDragging?.Invoke();
     }
 
-    protected void PlayCard()
+    protected virtual void PlayCard()
     {
         OnCardPlayed?.Invoke(this);
         _rectTransform.anchoredPosition = _startingPosition;
@@ -116,12 +125,17 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public int GetCardCost()
     {
-        return _cardData.Cost;
+        return _currentCardCost;
     }
 
-    public CardScriptableObject GetCardData()
+    public int GetCardValue()
     {
-        return _cardData;
+        return _currentCardValue;
+    }
+
+    public Card GetCard()
+    {
+        return this;
     }
 
     private void Update()
@@ -185,6 +199,13 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public bool IsInHand()
     {
         return _isInHand;
+    }
+
+    public void ReduceCost(int reduceAmount)
+    {
+        _currentCardCost -= reduceAmount;
+        if (_currentCardCost < 0) _currentCardCost = 0;
+        _cardVisual.UpdateCostVisual();
     }
 
     #region InterfaceMethods

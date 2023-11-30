@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using CardEnums;
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour, IBleedable
 {
     [Header("Settings")]
     [SerializeField] private int _maxHealth = 100;
@@ -20,6 +20,9 @@ public class PlayerHealth : MonoBehaviour
 
     private int _currentShield = 0;
     private int _currentHealth;
+    private int _currentBleedStacks = 0;
+
+
     private void Start()
     {
         _currentHealth = _maxHealth;
@@ -27,18 +30,19 @@ public class PlayerHealth : MonoBehaviour
         _healthbarAmountText.text = _currentHealth.ToString() + "/" + _maxHealth.ToString();
         _healthbarSlider.value=1;
 
-        CombatManager.OnPlayerTurnStart += ResetShield;
+        CombatManager.OnPlayerTurnStart += HandlePlayerTurnStart;
     }
 
     private void OnDestroy()
     {
-        CombatManager.OnPlayerTurnStart -= ResetShield;
+        CombatManager.OnPlayerTurnStart -= HandlePlayerTurnStart;
     }
 
-    private void ResetShield()
+    private void HandlePlayerTurnStart()
     {
         _shieldAmountText.text = "";
         _currentShield = 0;
+        TakeBleedDamage();
     }
 
     public void TakeDamage(int damage)
@@ -46,6 +50,7 @@ public class PlayerHealth : MonoBehaviour
         int damageToPlayer = damage - _currentShield;
         _currentShield = Mathf.Clamp(_currentShield - damage, 0, 10000);
         UpdateShieldDisplay();
+        Debug.Log("Player has taken:  "+ damage);
         
         if (damageToPlayer <= 0) {
             DisplayBlockedPopup();
@@ -121,5 +126,13 @@ public class PlayerHealth : MonoBehaviour
     public int GetPlayerShield()
     {
         return _currentShield;
+    }
+
+    public void TakeBleedDamage()
+    {
+        if (_currentBleedStacks <= 0) return;
+
+        TakeDamage(_currentBleedStacks);
+        _currentBleedStacks--;
     }
 }
