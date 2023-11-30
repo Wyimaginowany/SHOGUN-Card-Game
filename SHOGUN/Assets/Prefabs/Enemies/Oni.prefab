@@ -298,7 +298,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3749962143088792187}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -340,8 +340,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1.0074755
-  m_Height: 5.418025
+  m_Radius: 1.1193205
+  m_Height: 5.619346
   m_Direction: 1
   m_Center: {x: -0.18887079, y: 2.2008204, z: -0.45979607}
 --- !u!114 &3212080953198315012
@@ -388,7 +388,7 @@ MonoBehaviour:
     AttackMaxCooldown: 2
     RemoveAfterUsage: 0
     Description: Deals huge amount of damage
-    AnimatorTrigger: 
+    AnimatorTrigger: StrongAttack
     AttackDuration: 0
   - Attack: 1
     AttackName: Stun Attack
@@ -399,7 +399,7 @@ MonoBehaviour:
     RemoveAfterUsage: 0
     Description: Stuns target if his block value isn't enough to block all incoming
       damaga
-    AnimatorTrigger: 
+    AnimatorTrigger: StunAttack
     AttackDuration: 0
   - Attack: 2
     AttackName: Buff Attack
@@ -409,7 +409,7 @@ MonoBehaviour:
     AttackMaxCooldown: 1
     RemoveAfterUsage: 0
     Description: Buffs damage
-    AnimatorTrigger: 
+    AnimatorTrigger: BuffDamage
     AttackDuration: 0
   - Attack: 3
     AttackName: Berserk
@@ -419,7 +419,7 @@ MonoBehaviour:
     AttackMaxCooldown: 1
     RemoveAfterUsage: 1
     Description: Buffs damage at a cost of health
-    AnimatorTrigger: 
+    AnimatorTrigger: Berserk
     AttackDuration: 0
   _strongHitMinDmg: 12
   _strongHitMaxDmg: 20
