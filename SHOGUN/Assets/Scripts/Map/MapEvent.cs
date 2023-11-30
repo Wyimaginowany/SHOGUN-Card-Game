@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using System;
+using Microsoft.Unity.VisualStudio.Editor;
 
 public class MapEvent : MonoBehaviour, IPointerClickHandler
 {
@@ -13,6 +14,7 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
     [SerializeField] private LineController _line;
     [SerializeField] private Sprite _visited;
     [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private Image _imageControler;
 
     
     public void OnPointerClick(PointerEventData eventData)
@@ -39,6 +41,7 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
     }
 
     private void UpdateMap(){
+        // gameObject.GetComponent<UnityEngine.UI.Image>().overrideSprite=_visited;
         _spriteRenderer.sprite=_visited;
 
         foreach (MapEvent enabled in _enabledEvents){

@@ -26,6 +26,9 @@ public class MapObject : MonoBehaviour
     public void ShowMap(){
         _mapCanvas.SetActive(true);
     }
+    public void SetCamera(Camera camera){
+        _mapCanvas.GetComponent<Canvas>().worldCamera=camera;
+    }
 
    
 }
