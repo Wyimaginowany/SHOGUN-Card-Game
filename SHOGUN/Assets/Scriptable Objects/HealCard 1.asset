@@ -15,3 +15,5 @@ MonoBehaviour:
   Value: 10
   Cost: 3
   CardColor: {r: 0.13231826, g: 1, b: 0, a: 1}
+  Description: "Przywr\xF3\u0107 10 punkt\xF3w zdrowia"
+  CardName: Uzdrowienie

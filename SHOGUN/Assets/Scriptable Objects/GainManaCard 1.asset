@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Value: 2
   Cost: 0
-  CardColor: {r: 0, g: 0.24035478, b: 1, a: 1}
+  CardColor: {r: 0.43867922, g: 0.572956, b: 1, a: 1}
+  Description: Dodaj sobie 2 punkty energi
+  CardName: Medytacja
