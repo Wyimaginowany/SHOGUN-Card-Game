@@ -16,6 +16,8 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Image _imageControler;
 
+    public static event Action OnPlayerTurnEnd;
+
     
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -67,7 +69,7 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
 
     public void OpenScene()
     {
+        OnPlayerTurnEnd?.Invoke();
         MapObject.MapInstance.GetComponent<MapObject>().HideMap();
-        SceneManager.LoadScene("Scene 1");
     }
 }
