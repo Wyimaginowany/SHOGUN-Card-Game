@@ -39,11 +39,12 @@ public class CombatManager : MonoBehaviour
         _currentMana = _maxMana;
         _manaAmountText.text = _currentMana.ToString();
         turnCounter = 0;
-        MapEvent.OnPlayerTurnEnd+=Test;
+        MapEvent.OnPlayerTurnEnd+=StartCombat;
         
     }
 
-    private void Test(){
+    private void StartCombat(){
+        
         SpawnNewEnemies();
 
     }
@@ -66,7 +67,7 @@ public class CombatManager : MonoBehaviour
     {
         Card.OnCardPlayed -= HandleCardPlayed;
         EnemyHealth.OnEnemyDeath -= HandleEnemyDeath;
-        MapEvent.OnPlayerTurnEnd-=Test;
+        MapEvent.OnPlayerTurnEnd-=StartCombat;
     }
 
     public void FullHandDrawn()
