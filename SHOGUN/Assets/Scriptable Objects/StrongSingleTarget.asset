@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6619d22e990afe94ea5b77854f56d8df, type: 3}
-  m_Name: EnemyDamageCard 1
+  m_Name: StrongSingleTarget
   m_EditorClassIdentifier: 
-  Value: 5
-  Cost: 1
-  CardColor: {r: 1, g: 0, b: 0, a: 1}
+  Value: 12
+  Cost: 4
+  CardColor: {r: 1, g: 0.86971503, b: 0.48584908, a: 1}
+  Description: "Zadaj 12 obra\u017Ce\u0144 przeciwnikowi"
+  CardName: "Zmia\u017Cd\u017Cenie"

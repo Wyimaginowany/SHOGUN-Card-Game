@@ -95,8 +95,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4613986096018786981, guid: cb2dbdf3ce09af649ac1bf33ad4b61b4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6c2570e9fe482c849af7615d055b6cc7, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb2dbdf3ce09af649ac1bf33ad4b61b4, type: 3}
+--- !u!224 &1312546570839467973 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7809130326637499912, guid: cb2dbdf3ce09af649ac1bf33ad4b61b4, type: 3}
+  m_PrefabInstance: {fileID: 9108671596850999757}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5393205888181511437 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3796539575214855360, guid: cb2dbdf3ce09af649ac1bf33ad4b61b4, type: 3}
@@ -118,6 +127,6 @@ MonoBehaviour:
   _beginTransitionTime: 0.8
   _drawTransitionTime: 4
   CardData: {fileID: 11400000, guid: caea7f6898ce3dc43b92fe23a16bff37, type: 2}
-  _cardVisualDisplayPoint: {fileID: 6992488157017958519, guid: c03ff8dd9c793cf449b26fbafa816ee3, type: 3}
+  _cardVisualDisplayPoint: {fileID: 1312546570839467973}
   _cardAnimation: 2
   _isInteractable: 0

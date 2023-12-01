@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6619d22e990afe94ea5b77854f56d8df, type: 3}
   m_Name: AllEnemiesDamageCard 1
   m_EditorClassIdentifier: 
-  Value: 10
+  Value: 8
   Cost: 5
-  CardColor: {r: 1, g: 0.45313016, b: 0, a: 1}
+  CardColor: {r: 0.764151, g: 0.29535705, b: 0.26312745, a: 1}
+  Description: "Zadaj 8 obra\u017Ce\u0144 wszystkim przeciwnikom"
+  CardName: Gniew Shinobi

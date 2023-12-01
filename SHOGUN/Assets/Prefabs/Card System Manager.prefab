@@ -1637,7 +1637,6 @@ MonoBehaviour:
   - {fileID: 3861451003651662031}
   - {fileID: 2444461918411366719}
   - {fileID: 583740157007749268}
-  - {fileID: 583740157007749268}
   _usedCards: []
 --- !u!114 &8927327222898265332
 MonoBehaviour:
@@ -1654,7 +1653,7 @@ MonoBehaviour:
   _cardVisualPrefab: {fileID: 3963401418228218900}
   _hiddenCardsPoint: {fileID: 8927327222954449897}
   _drawCardDisplayPoint: {fileID: 44179244861212550}
-  _startMaxHandSize: 8
+  _startMaxHandSize: 7
   _spaceBetweenCards: 600
   _middlePositionY: 100
   _positionPerCardAmplitudeY: 3

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6619d22e990afe94ea5b77854f56d8df, type: 3}
-  m_Name: ReduceCardsCostCard 1
+  m_Name: SingleTarget
   m_EditorClassIdentifier: 
-  Value: 1
-  Cost: 2
-  CardColor: {r: 0.5613208, g: 1, b: 0.9879578, a: 1}
-  Description: Zmniejsz koszt kart o 1
-  CardName: Rozwaga wojownika
+  Value: 5
+  Cost: 1
+  CardColor: {r: 1, g: 0.86971503, b: 0.48584908, a: 1}
+  Description: "Zadaj 5 obra\u017Ce\u0144 przeciwnikowi"
+  CardName: "B\u0142yskawiczne ci\u0119cie"

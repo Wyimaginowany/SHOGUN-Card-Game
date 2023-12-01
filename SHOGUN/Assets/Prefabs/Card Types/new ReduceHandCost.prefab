@@ -97,6 +97,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb2dbdf3ce09af649ac1bf33ad4b61b4, type: 3}
+--- !u!224 &1312546570839467973 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7809130326637499912, guid: cb2dbdf3ce09af649ac1bf33ad4b61b4, type: 3}
+  m_PrefabInstance: {fileID: 9108671596850999757}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5393205888181511437 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3796539575214855360, guid: cb2dbdf3ce09af649ac1bf33ad4b61b4, type: 3}
@@ -118,6 +123,6 @@ MonoBehaviour:
   _beginTransitionTime: 0.8
   _drawTransitionTime: 4
   CardData: {fileID: 11400000, guid: 4994b13cd21410d4b9dd57d0a06dfe85, type: 2}
-  _cardVisualDisplayPoint: {fileID: 6992488157017958519, guid: bf5d80123724b6949a3ac91d90fa2c57, type: 3}
+  _cardVisualDisplayPoint: {fileID: 1312546570839467973}
   _cardAnimation: 3
   _isInteractable: 0

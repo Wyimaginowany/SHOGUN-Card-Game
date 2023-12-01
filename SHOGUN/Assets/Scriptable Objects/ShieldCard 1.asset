@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6619d22e990afe94ea5b77854f56d8df, type: 3}
   m_Name: ShieldCard 1
   m_EditorClassIdentifier: 
-  Value: 5
-  Cost: 1
+  Value: 10
+  Cost: 2
   CardColor: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 1}
+  Description: Dodaj sobie +10 do pancerza
+  CardName: Stalowa zbroja

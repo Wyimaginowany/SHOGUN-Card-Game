@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3796539575214855360, guid: cb2dbdf3ce09af649ac1bf33ad4b61b4, type: 3}
       propertyPath: m_Name
-      value: new Gain Mana
+      value: new Strong Singe Target Attack
       objectReference: {fileID: 0}
     - target: {fileID: 3796539575214855367, guid: cb2dbdf3ce09af649ac1bf33ad4b61b4, type: 3}
       propertyPath: m_Pivot.x
@@ -95,10 +95,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4613986096018786981, guid: cb2dbdf3ce09af649ac1bf33ad4b61b4, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 11eb53a35ec040c42980ad3663b21ee6, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb2dbdf3ce09af649ac1bf33ad4b61b4, type: 3}
 --- !u!224 &1312546570839467973 stripped
@@ -111,7 +107,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3796539575214855360, guid: cb2dbdf3ce09af649ac1bf33ad4b61b4, type: 3}
   m_PrefabInstance: {fileID: 9108671596850999757}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-5202284504728628633
+--- !u!114 &-5249126270927456984
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,13 +116,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 5393205888181511437}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d370ee2cca32954eb7d588e9c17c9c7, type: 3}
+  m_Script: {fileID: 11500000, guid: 0469dba820ebde14d9cb2241530b4732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _returnTransitionTime: 0.3
   _beginTransitionTime: 0.8
   _drawTransitionTime: 4
-  CardData: {fileID: 11400000, guid: ed6b55a20a09197469c8084461e6d941, type: 2}
+  CardData: {fileID: 11400000, guid: 6da93d1bb713a454c9bfffdf536e8d64, type: 2}
   _cardVisualDisplayPoint: {fileID: 1312546570839467973}
-  _cardAnimation: 3
+  _cardAnimation: 0
   _isInteractable: 0
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 128
