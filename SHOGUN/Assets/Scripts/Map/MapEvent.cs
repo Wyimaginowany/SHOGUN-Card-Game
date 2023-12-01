@@ -1,14 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
-using System;
-using Microsoft.Unity.VisualStudio.Editor;
 
-public class MapEvent : MonoBehaviour, IPointerClickHandler
+public class MapEvent : MonoBehaviour//, IPointerClickHandler
 {
-    private List<MapEvent> _childrenEvents,_parentEvents,_enabledEvents;
+    /*private List<MapEvent> _childrenEvents,_parentEvents,_enabledEvents;
     public RectTransform _rectTransform;
 
     [SerializeField] private LineController _line;
@@ -71,5 +65,5 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
     {
         OnPlayerTurnEnd?.Invoke();
         MapObject.MapInstance.GetComponent<MapObject>().HideMap();
-    }
+    }*/
 }

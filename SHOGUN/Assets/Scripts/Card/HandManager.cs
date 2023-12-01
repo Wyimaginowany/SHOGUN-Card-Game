@@ -24,9 +24,10 @@ public class HandManager : MonoBehaviour
     [SerializeField] private float _timeBeforeNextCardDraw = 0.7f;
     [Space(10)]
     [Header("Card Hover Settings")]
-    [SerializeField] private TMP_Text _cardText;
+    [SerializeField] private TMP_Text _cardNameText;
     [SerializeField] private TMP_Text _cardCostText;
-    [SerializeField] private RawImage _cardColorImage;
+    [SerializeField] private TMP_Text _cardDescriptionText;
+    [SerializeField] private Image _cardColorImage;
 
 
     [SerializeField] private List<Card> _hand = new List<Card>(); //serialize to see in editor remove later
@@ -97,7 +98,8 @@ public class HandManager : MonoBehaviour
     private void SetupCardHoverVisual(Card card)
     {
         CardScriptableObject cardData = card.CardData;
-        _cardText.text = card.GetCardValue().ToString();
+        _cardDescriptionText.text = cardData.Description;
+        _cardNameText.text = cardData.CardName;
         _cardColorImage.color = cardData.CardColor;
         _cardCostText.text = card.GetCardCost().ToString();
     }
@@ -124,7 +126,7 @@ public class HandManager : MonoBehaviour
         }
     }
 
-    private void DrawFullHand()
+    public void DrawFullHand()
     {
         StartCoroutine(drawCard(_timeBeforeNextCardDraw));
     }
@@ -214,6 +216,15 @@ public class HandManager : MonoBehaviour
         foreach(Card card in _hand)
         {
             card.ReduceCost(reduceAmount);
+        }
+    }
+
+    public void ShuffleHandIntoDeck()
+    {
+        Card[] cardsInHand = _hand.ToArray();
+        for (int i = 0; i < cardsInHand.Length; i++)
+        {
+            cardsInHand[i].ShuffleCardIntoDeck();
         }
     }
 }

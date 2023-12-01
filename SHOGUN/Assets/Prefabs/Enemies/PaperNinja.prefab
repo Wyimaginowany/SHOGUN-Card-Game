@@ -148,7 +148,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 1.565, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.112, y: 2.957}
+  m_AnchoredPosition: {x: -1.25, y: 3.42}
   m_SizeDelta: {x: 600, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &6598579519039535675
@@ -466,7 +466,7 @@ MonoBehaviour:
     RemoveAfterUsage: 0
     Description: Deals small amount of damage
     AnimatorTrigger: ShurikenThrow
-    AttackDuration: 2
+    AttackDuration: 1
   - Attack: 1
     AttackName: Paper Cut
     AttackType: 3
@@ -476,7 +476,7 @@ MonoBehaviour:
     RemoveAfterUsage: 0
     Description: Deals small damage to target and applies bleed
     AnimatorTrigger: PaperCut
-    AttackDuration: 2
+    AttackDuration: 1
   - Attack: 2
     AttackName: Vanish
     AttackType: 2
@@ -486,7 +486,7 @@ MonoBehaviour:
     RemoveAfterUsage: 0
     Description: Makes caster untargetable for one round
     AnimatorTrigger: Vanish
-    AttackDuration: 2
+    AttackDuration: 1
   _shurikenThrowMinDmg: 3
   _shurikenThrowMaxDmg: 5
   _paperCutMinDmg: 2
@@ -715,7 +715,7 @@ GameObject:
   - component: {fileID: 6379758222072995870}
   - component: {fileID: 8547905110810435068}
   - component: {fileID: 3705220738378473718}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -950,7 +950,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6940128814649416425, guid: 2b2f467202a2dd94caf684579095e1d2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.773
+      value: -1.85
       objectReference: {fileID: 0}
     - target: {fileID: 6940128814649416425, guid: 2b2f467202a2dd94caf684579095e1d2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -970,11 +970,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6940128814649416425, guid: 2b2f467202a2dd94caf684579095e1d2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.47
+      value: -0.28
       objectReference: {fileID: 0}
     - target: {fileID: 6940128814649416425, guid: 2b2f467202a2dd94caf684579095e1d2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.464
+      value: 0.64
       objectReference: {fileID: 0}
     - target: {fileID: 6940128814649416425, guid: 2b2f467202a2dd94caf684579095e1d2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1042,15 +1042,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3281cd8c4347fb144a5300c1779e8664, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.156
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3281cd8c4347fb144a5300c1779e8664, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.981
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3281cd8c4347fb144a5300c1779e8664, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.446
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 3281cd8c4347fb144a5300c1779e8664, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1194,6 +1194,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6939994642315872439}
     m_Modifications:
+    - target: {fileID: 1312207017814294115, guid: 007e2460d041ad14fa48467bc6224937, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3645157906219732427, guid: 007e2460d041ad14fa48467bc6224937, type: 3}
       propertyPath: m_Name
       value: Damage Popup
@@ -1264,7 +1268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7842547251544483606, guid: 007e2460d041ad14fa48467bc6224937, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.011993408
+      value: -1.04
       objectReference: {fileID: 0}
     - target: {fileID: 7842547251544483606, guid: 007e2460d041ad14fa48467bc6224937, type: 3}
       propertyPath: m_AnchoredPosition.y

@@ -298,7 +298,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3749962143088792187}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.48, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -389,7 +389,7 @@ MonoBehaviour:
     RemoveAfterUsage: 0
     Description: Deals huge amount of damage
     AnimatorTrigger: StrongAttack
-    AttackDuration: 0
+    AttackDuration: 1
   - Attack: 1
     AttackName: Stun Attack
     AttackType: 3
@@ -400,7 +400,7 @@ MonoBehaviour:
     Description: Stuns target if his block value isn't enough to block all incoming
       damaga
     AnimatorTrigger: StunAttack
-    AttackDuration: 0
+    AttackDuration: 1
   - Attack: 2
     AttackName: Buff Attack
     AttackType: 2
@@ -410,7 +410,7 @@ MonoBehaviour:
     RemoveAfterUsage: 0
     Description: Buffs damage
     AnimatorTrigger: BuffDamage
-    AttackDuration: 0
+    AttackDuration: 1
   - Attack: 3
     AttackName: Berserk
     AttackType: 2
@@ -420,7 +420,7 @@ MonoBehaviour:
     RemoveAfterUsage: 1
     Description: Buffs damage at a cost of health
     AnimatorTrigger: Berserk
-    AttackDuration: 0
+    AttackDuration: 1
   _strongHitMinDmg: 12
   _strongHitMaxDmg: 20
   _minShieldToBlockStun: 6
@@ -546,7 +546,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 1.565, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.5, y: 5.8}
+  m_AnchoredPosition: {x: -1.45, y: 5.3}
   m_SizeDelta: {x: 600, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8869494982923824921
@@ -623,7 +623,7 @@ GameObject:
   - component: {fileID: 1435735455906849370}
   - component: {fileID: 3567139949409453176}
   - component: {fileID: 6834450267889630018}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -745,7 +745,7 @@ Transform:
   m_GameObject: {fileID: 6776612027109573469}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 0.9, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4743048361567426892}
@@ -913,11 +913,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6940128814649416425, guid: 2b2f467202a2dd94caf684579095e1d2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.47
+      value: -0.28
       objectReference: {fileID: 0}
     - target: {fileID: 6940128814649416425, guid: 2b2f467202a2dd94caf684579095e1d2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.464
+      value: 0.36
       objectReference: {fileID: 0}
     - target: {fileID: 6940128814649416425, guid: 2b2f467202a2dd94caf684579095e1d2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -967,6 +967,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3749962143088792184}
     m_Modifications:
+    - target: {fileID: 1312207017814294115, guid: 007e2460d041ad14fa48467bc6224937, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3645157906219732427, guid: 007e2460d041ad14fa48467bc6224937, type: 3}
       propertyPath: m_Name
       value: Enemy Damage Canvas
@@ -1037,7 +1041,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7842547251544483606, guid: 007e2460d041ad14fa48467bc6224937, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.012
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7842547251544483606, guid: 007e2460d041ad14fa48467bc6224937, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1103,15 +1107,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 239fef92b24592f4c855da2697e09136, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.3962183
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 239fef92b24592f4c855da2697e09136, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.57
+      value: -0.06
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 239fef92b24592f4c855da2697e09136, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.54
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 239fef92b24592f4c855da2697e09136, type: 3}
       propertyPath: m_LocalRotation.w

@@ -85,7 +85,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     }
 
-    protected void ShuffleCardIntoDeck()
+    public void ShuffleCardIntoDeck()
     {
         OnCardThrownAway?.Invoke(this);
         _rectTransform.anchoredPosition = _startingPosition;

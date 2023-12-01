@@ -13,7 +13,7 @@ public class AllEnemiesDamageCard : AllTargetsCard
 
     private void OnDestroy()
     {
-        _combatManager.OnDamageCardBuff -= HandleBuffRecived;
+        if (gameObject.activeSelf) _combatManager.OnDamageCardBuff -= HandleBuffRecived;
     }
 
     private void HandleBuffRecived(int buffAmount)

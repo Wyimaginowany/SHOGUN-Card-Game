@@ -9,8 +9,10 @@ public class CardSelectionButton : MonoBehaviour
 {
     [Header("To Attach")]
     [SerializeField] private TMP_Text _cardCostText;
-    [SerializeField] private TMP_Text _cardValueText;
-    [SerializeField] private RawImage _cardColorImage;
+    //[SerializeField] private TMP_Text _cardValueText;
+    [SerializeField] private TMP_Text _cardNameText;
+    [SerializeField] private TMP_Text _cardDescriptionText;
+    [SerializeField] private Image _cardColorImage;
 
     private Card _cardToSelect;
     private Button _cardButton;
@@ -37,8 +39,10 @@ public class CardSelectionButton : MonoBehaviour
     {
         _cardToSelect = newCard;
         CardScriptableObject cardData = newCard.CardData;
-        _cardValueText.text = cardData.Value.ToString();
+        //_cardValueText.text = cardData.Value.ToString();
         _cardColorImage.color = cardData.CardColor;
         _cardCostText.text = cardData.Cost.ToString();
+        _cardDescriptionText.text = cardData.Description;
+        _cardNameText.text = cardData.CardName;
     }
 }

@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class GridManager : MonoBehaviour
 {
-    [Header("Generator Settings")]
+ /*   [Header("Generator Settings")]
     [SerializeField] private int _stages;
     [SerializeField] private int _locations;
     [SerializeField] private int _canvasStartX=170,_canvasStartY=200;
@@ -155,5 +155,5 @@ public class GridManager : MonoBehaviour
     }
 
 
-    
+    */
 }

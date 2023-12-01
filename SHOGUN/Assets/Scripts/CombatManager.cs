@@ -14,6 +14,10 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private TMP_Text _manaAmountText;
     [SerializeField] private GameObject _endTurnButton;
     [SerializeField] private GameObject _endTurnButtonBlocked;
+    [Space(5)]
+    [Header("Stages")]
+    [SerializeField] private EnemyGroupsScriptableObject enemyStages;
+
 
     public static event Action OnPlayerTurnStart;
     public static event Action OnPlayerTurnEnd;
@@ -27,6 +31,7 @@ public class CombatManager : MonoBehaviour
     private int _enemyOrderIndex = 0;
     public int turnCounter;
     private int _currentPlayerBleedStacks = 0;
+    private int _currentStage = 0;
 
     private void Start()
     {
@@ -39,7 +44,7 @@ public class CombatManager : MonoBehaviour
         _currentMana = _maxMana;
         _manaAmountText.text = _currentMana.ToString();
         turnCounter = 0;
-        MapEvent.OnPlayerTurnEnd+=StartCombat;
+        //MapEvent.OnPlayerTurnEnd+=StartCombat;
         
     }
 
@@ -59,7 +64,7 @@ public class CombatManager : MonoBehaviour
                 _aliveEnemies.Remove(enemy);
                 Destroy(enemy.gameObject);
             }
-            SpawnNewEnemies();
+            SpawnRandom();
         }
     }
 
@@ -67,7 +72,7 @@ public class CombatManager : MonoBehaviour
     {
         Card.OnCardPlayed -= HandleCardPlayed;
         EnemyHealth.OnEnemyDeath -= HandleEnemyDeath;
-        MapEvent.OnPlayerTurnEnd-=StartCombat;
+        //MapEvent.OnPlayerTurnEnd-=StartCombat;
     }
 
     public void FullHandDrawn()
@@ -82,15 +87,38 @@ public class CombatManager : MonoBehaviour
 
         if (_aliveEnemies.Count > 0) return;
 
-        
-
+       
         //chwilowe rozwiazanie
         //gdzies musi byc koniec poziomu
+        //tutaj dac event OnStageFinished
         CardSelectorManager tmp = (CardSelectorManager)FindObjectOfType(typeof(CardSelectorManager));
         tmp.SetupNewCardsToSelect();
+        //HandManager tmp2 = (HandManager)FindObjectOfType(typeof(HandManager));
+        //tmp2.ShuffleHandIntoDeck();
     }
 
     public void SpawnNewEnemies()
+    {
+        if (_currentStage >= enemyStages.enemyGroups.Length - 1)
+        {
+            _currentStage = 0;
+        }
+
+        int enemiesAmount = enemyStages.enemyGroups[_currentStage].EnemiesOnStage.Length;
+
+        for (int i = 0; i < enemiesAmount; i++)
+        {
+            GameObject newEnemy = Instantiate(enemyStages.enemyGroups[_currentStage].EnemiesOnStage[i],
+                                              _spawnPoints[i].position,
+                                              Quaternion.identity);
+
+            _aliveEnemies.Add(newEnemy.GetComponent<EnemyHealth>());
+        }
+
+        _currentStage++;
+    }
+
+    public void SpawnRandom()
     {
         int randomEnemiesAmount = UnityEngine.Random.Range(1, _spawnPoints.Length + 1);
 
@@ -99,7 +127,7 @@ public class CombatManager : MonoBehaviour
             GameObject newEnemy = Instantiate(_enemies[UnityEngine.Random.Range(0, _enemies.Length)].gameObject,
                                               _spawnPoints[i].position,
                                               Quaternion.identity);
-            
+
             _aliveEnemies.Add(newEnemy.GetComponent<EnemyHealth>());
         }
     }
