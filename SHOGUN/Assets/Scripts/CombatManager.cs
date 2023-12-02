@@ -26,6 +26,7 @@ public class CombatManager : MonoBehaviour
     private List<EnemyHealth> _aliveEnemies = new List<EnemyHealth>();
 
     private PlayerHealth _playerHealth;
+    private CardSelectorManager _cardSelectorManager;
     private HandManager _handManager;
     private int _currentMana;
     private int _enemyOrderIndex = 0;
@@ -37,6 +38,7 @@ public class CombatManager : MonoBehaviour
     {
         _playerHealth = (PlayerHealth)FindObjectOfType(typeof(PlayerHealth));
         _handManager = GetComponent<HandManager>();
+        _cardSelectorManager = GetComponent<CardSelectorManager>();
 
         Card.OnCardPlayed += HandleCardPlayed;
         EnemyHealth.OnEnemyDeath += HandleEnemyDeath;
@@ -91,8 +93,7 @@ public class CombatManager : MonoBehaviour
         //chwilowe rozwiazanie
         //gdzies musi byc koniec poziomu
         //tutaj dac event OnStageFinished
-        CardSelectorManager tmp = (CardSelectorManager)FindObjectOfType(typeof(CardSelectorManager));
-        tmp.SetupNewCardsToSelect();
+        _cardSelectorManager.SetupNewCardsToSelect();
         //HandManager tmp2 = (HandManager)FindObjectOfType(typeof(HandManager));
         //tmp2.ShuffleHandIntoDeck();
     }

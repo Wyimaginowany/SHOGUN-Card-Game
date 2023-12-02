@@ -13,6 +13,8 @@ public class AllEnemiesDamageCard : AllTargetsCard
 
     private void OnDestroy()
     {
+        //to wyrzuca b³¹d
+        //_combat manager nie jest przypisany do trzech kart do wyboru 
         if (gameObject.activeSelf) _combatManager.OnDamageCardBuff -= HandleBuffRecived;
     }
 
