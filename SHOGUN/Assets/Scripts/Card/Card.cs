@@ -21,6 +21,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     
     protected int _currentCardCost;
     protected int _currentCardValue;
+    protected String _cardDescriptionDefault;
     protected Vector3 _startingPosition;
 
     public static event Action<Card> OnCardPlayed;
@@ -53,6 +54,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _startingPosition = _rectTransform.anchoredPosition;
         _currentCardCost = CardData.Cost;
         _currentCardValue = CardData.Value;
+        _cardDescriptionDefault = CardData.Description;
     }
 
     protected virtual void BeginDragging()
@@ -131,6 +133,11 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public int GetCardValue()
     {
         return _currentCardValue;
+    }
+
+    public String GetCardDescriptionDefault()
+    {
+        return _cardDescriptionDefault;
     }
 
     public Card GetCard()

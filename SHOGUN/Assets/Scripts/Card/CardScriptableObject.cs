@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "NewCardData", menuName = "Card/New Card", order = 1)]
 public class CardScriptableObject : ScriptableObject
@@ -9,4 +10,5 @@ public class CardScriptableObject : ScriptableObject
     public Color CardColor;
     public String Description = "default text";
     public String CardName = "default name";
+    public Sprite CardImage;
 }

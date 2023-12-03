@@ -13,7 +13,7 @@ public class AllEnemiesDamageCard : AllTargetsCard
 
     private void OnDestroy()
     {
-        //to wyrzuca b³¹d
+        //to wyrzuca bï¿½ï¿½d
         //_combat manager nie jest przypisany do trzech kart do wyboru 
         if (gameObject.activeSelf) _combatManager.OnDamageCardBuff -= HandleBuffRecived;
     }
@@ -22,6 +22,7 @@ public class AllEnemiesDamageCard : AllTargetsCard
     {
         _currentCardValue += buffAmount;
         _cardVisual.UpdateCardValueVisual(buffAmount);
+        _cardVisual.UpdateAttackValueVisual();
     }
 
     protected override void PlayCard()

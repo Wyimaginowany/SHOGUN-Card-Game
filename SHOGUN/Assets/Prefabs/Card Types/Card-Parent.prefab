@@ -781,10 +781,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cardName: {fileID: 638633573295406918}
-  _cardText: {fileID: 8021735611633450076}
   _cardCostText: {fileID: 8498802255381080905}
   _cardColorImage: {fileID: 6717550483073157314}
-  _cardDesctiption: {fileID: 2745860170617517601}
+  _cardDescription: {fileID: 2745860170617517601}
+  _cardGraphicImage: {fileID: 4613986096018786981}
 --- !u!1 &8089557168645090597
 GameObject:
   m_ObjectHideFlags: 0

@@ -225,6 +225,7 @@ public class CombatManager : MonoBehaviour
     public void BuffPlayerDamage(int buffAmount)
     {
         OnDamageCardBuff?.Invoke(buffAmount);
+        
     }
 
     public void IncreasePlayerBleed(int bleedAmount)
