@@ -24,6 +24,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     protected int _currentCardCost;
     protected int _currentCardValue;
     protected Vector3 _startingPosition;
+    protected String _cardDescriptionDefault;
 
     //events
     public static event Action<Card> OnCardPlayed;
@@ -57,6 +58,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _startingPosition = _rectTransform.anchoredPosition;
         _currentCardCost = CardData.Cost;
         _currentCardValue = CardData.Value;
+        _cardDescriptionDefault = CardData.Description;
 
         CombatManager.OnPlayerTurnEnd += HandlePlayerTurnEnd;
     }
@@ -145,13 +147,13 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void ReduceCostPermanently(int reduceAmount)
     {
         _currentCardCost -= reduceAmount;
-        _cardVisual.UpdateCostVisual();
+        _cardVisual.UpdateVisual();
     }
 
     public void ReduceCostThisTurn(int reduceAmount)
     {
         _thisTurnCardCostReduction = reduceAmount;
-        _cardVisual.UpdateCostVisual();
+        _cardVisual.UpdateVisual();
     }
 
     public void HideCard()
@@ -213,6 +215,13 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     #endregion
 
     #region Getter functions
+
+    public String GetCardDescriptionDefault()
+    {
+        String cardDescription = CardData.Description.Replace("X", GetCardValue().ToString());
+        return cardDescription;
+    }
+
     public int GetCardCost()
     {
         int currentCardCost = _currentCardCost - _thisTurnCardCostReduction;
@@ -223,11 +232,6 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public int GetCardValue()
     {
         return _currentCardValue += _thisTurnCardValueBuff;
-    }
-
-    public Card GetCard()
-    {
-        return this;
     }
 
     public bool IsInHand()

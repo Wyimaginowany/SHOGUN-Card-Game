@@ -26,7 +26,7 @@ public class SingleEnemyDamageCard : SingleTargetCard
     private void HandleBuffRecived(int buffAmount)
     {
         _currentCardValue += buffAmount;
-        _cardVisual.UpdateCardValueVisual(buffAmount);
+        _cardVisual.UpdateVisual();
     }
 
     protected override void PlayCardOnTarget(EnemyHealth enemyHealth)

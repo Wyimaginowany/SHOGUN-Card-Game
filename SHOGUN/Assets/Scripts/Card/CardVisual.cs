@@ -11,37 +11,27 @@ public class CardVisual : MonoBehaviour
     [SerializeField] private Image _cardColorImage;
     [SerializeField] private TMP_Text _cardDescription;
     [SerializeField] private Image _cardGraphicImage;
-    
+
     private Card _card;
 
     void Start()
     {
-        _card = GetComponent<Card>().GetCard();
+        _card = GetComponent<Card>();
         SetupCard(_card.CardData);
     }
 
     private void SetupCard(CardScriptableObject cardData)
     {
         //_cardText.text = cardData.Value.ToString();
-        _cardColorImage.color = cardData.CardColor; 
-        _cardCostText.text = cardData.Cost.ToString();
-        _cardDescription.text = cardData.Description.Replace("X", cardData.Value.ToString());
+        _cardColorImage.color = cardData.CardColor;
         _cardName.text = cardData.CardName;
-        _cardGraphicImage.sprite= cardData.CardImage;
+        _cardGraphicImage.sprite = cardData.CardImage;
+        UpdateVisual();
     }
 
-    public void UpdateCostVisual()
+    public void UpdateVisual()
     {
         _cardCostText.text = _card.GetCardCost().ToString();
-    }
-
-    public void UpdateAttackValueVisual(){
-        _cardDescription.text = _card.GetCardDescriptionDefault().Replace("X", _card.GetCardValue().ToString());
-    }
-
-    public void UpdateCardValueVisual(int buffAmount)
-    {
-        //int currentValue = int.Parse(_cardText.text);
-        //_cardText.text = (buffAmount + currentValue).ToString();
+        _cardDescription.text = _card.GetCardDescriptionDefault();
     }
 }

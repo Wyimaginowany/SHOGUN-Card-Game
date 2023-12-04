@@ -90,7 +90,7 @@ public class HandManager : MonoBehaviour
 
         card.HideCard();
         _hoverCounter++;
-        SetupCardHoverVisual(card.GetCard());
+        SetupCardHoverVisual(card);
 
         _cardVisualPrefab.position = cardVisualNewPosition.position;
         _cardVisualPrefab.rotation = cardVisualNewPosition.rotation;
@@ -99,7 +99,7 @@ public class HandManager : MonoBehaviour
     private void SetupCardHoverVisual(Card card)
     {
         CardScriptableObject cardData = card.CardData;
-        _cardDescriptionText.text = cardData.Description.Replace("X", cardData.Value.ToString());
+        _cardDescriptionText.text = card.GetCardDescriptionDefault();
         _cardNameText.text = cardData.CardName;
         _cardColorImage.color = cardData.CardColor;
         _cardCostText.text = card.GetCardCost().ToString();
