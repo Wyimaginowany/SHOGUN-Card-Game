@@ -135,9 +135,10 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         return _currentCardValue;
     }
 
-    public String GetCardDescriptionDefault()
+    public String GetCurrentCardDescription()
     {
-        return _cardDescriptionDefault;
+        String tmp = _cardDescriptionDefault.Replace("X", _currentCardValue.ToString());
+        return tmp;
     }
 
     public Card GetCard()
@@ -212,7 +213,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         _currentCardCost -= reduceAmount;
         if (_currentCardCost < 0) _currentCardCost = 0;
-        _cardVisual.UpdateCostVisual();
+        _cardVisual.UpdateVisual();
     }
 
     #region InterfaceMethods

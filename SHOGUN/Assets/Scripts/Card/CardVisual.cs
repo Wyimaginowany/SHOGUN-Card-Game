@@ -25,19 +25,17 @@ public class CardVisual : MonoBehaviour
         //_cardText.text = cardData.Value.ToString();
         _cardColorImage.color = cardData.CardColor; 
         _cardCostText.text = cardData.Cost.ToString();
-        _cardDescription.text = cardData.Description.Replace("X", cardData.Value.ToString());
+        _cardDescription.text = _card.GetCurrentCardDescription();
         _cardName.text = cardData.CardName;
         _cardGraphicImage.sprite= cardData.CardImage;
     }
 
-    public void UpdateCostVisual()
+    public void UpdateVisual()
     {
         _cardCostText.text = _card.GetCardCost().ToString();
+        _cardDescription.text = _card.GetCurrentCardDescription();
     }
 
-    public void UpdateAttackValueVisual(){
-        _cardDescription.text = _card.GetCardDescriptionDefault().Replace("X", _card.GetCardValue().ToString());
-    }
 
     public void UpdateCardValueVisual(int buffAmount)
     {
