@@ -28,6 +28,7 @@ public class HandManager : MonoBehaviour
     [SerializeField] private TMP_Text _cardCostText;
     [SerializeField] private TMP_Text _cardDescriptionText;
     [SerializeField] private Image _cardColorImage;
+    [SerializeField] private Image _cardGraphicImage;
 
 
     [SerializeField] private List<Card> _hand = new List<Card>(); //serialize to see in editor remove later
@@ -98,10 +99,11 @@ public class HandManager : MonoBehaviour
     private void SetupCardHoverVisual(Card card)
     {
         CardScriptableObject cardData = card.CardData;
-        _cardDescriptionText.text = cardData.Description;
+        _cardDescriptionText.text = cardData.Description.Replace("X", cardData.Value.ToString());
         _cardNameText.text = cardData.CardName;
         _cardColorImage.color = cardData.CardColor;
         _cardCostText.text = card.GetCardCost().ToString();
+        _cardGraphicImage.sprite= cardData.CardImage;
     }
 
     private void CardMouseHoverEnd(Card card)

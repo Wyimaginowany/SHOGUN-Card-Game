@@ -13,6 +13,7 @@ public class CardSelectionButton : MonoBehaviour
     [SerializeField] private TMP_Text _cardNameText;
     [SerializeField] private TMP_Text _cardDescriptionText;
     [SerializeField] private Image _cardColorImage;
+    [SerializeField] private Image _cardGraphicImage;
 
     private Card _cardToSelect;
     private Button _cardButton;
@@ -42,7 +43,8 @@ public class CardSelectionButton : MonoBehaviour
         //_cardValueText.text = cardData.Value.ToString();
         _cardColorImage.color = cardData.CardColor;
         _cardCostText.text = cardData.Cost.ToString();
-        _cardDescriptionText.text = cardData.Description;
+        _cardDescriptionText.text = cardData.Description.Replace("X", cardData.Value.ToString());
         _cardNameText.text = cardData.CardName;
+        _cardGraphicImage.sprite= cardData.CardImage;
     }
 }

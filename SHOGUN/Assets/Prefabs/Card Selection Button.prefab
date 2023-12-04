@@ -352,6 +352,7 @@ MonoBehaviour:
   _cardNameText: {fileID: 1490765506086320247}
   _cardDescriptionText: {fileID: 2209319518285577265}
   _cardColorImage: {fileID: 4736542676446007896}
+  _cardGraphicImage: {fileID: 7855592811563615618}
 --- !u!1 &2060558755391868476
 GameObject:
   m_ObjectHideFlags: 0

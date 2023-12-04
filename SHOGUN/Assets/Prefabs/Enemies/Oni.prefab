@@ -414,7 +414,7 @@ MonoBehaviour:
   - Attack: 3
     AttackName: Berserk
     AttackType: 2
-    AttackPriority: 0
+    AttackPriority: 3
     AttackCooldown: 3
     AttackMaxCooldown: 1
     RemoveAfterUsage: 1

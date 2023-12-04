@@ -15,5 +15,6 @@ MonoBehaviour:
   Value: 8
   Cost: 5
   CardColor: {r: 0.764151, g: 0.29535705, b: 0.26312745, a: 1}
-  Description: "Zadaj 8 obra\u017Ce\u0144 wszystkim przeciwnikom"
+  Description: "Zadaj X obra\u017Ce\u0144 wszystkim przeciwnikom"
   CardName: Gniew Shinobi
+  CardImage: {fileID: 21300000, guid: e50964a68687f9746bf5e1e566333fe9, type: 3}

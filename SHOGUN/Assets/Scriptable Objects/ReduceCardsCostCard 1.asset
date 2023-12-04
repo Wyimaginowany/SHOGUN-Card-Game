@@ -15,5 +15,6 @@ MonoBehaviour:
   Value: 1
   Cost: 2
   CardColor: {r: 0.5613208, g: 1, b: 0.9879578, a: 1}
-  Description: Zmniejsz koszt kart o 1
+  Description: Zmniejsz koszt kart o X
   CardName: Rozwaga wojownika
+  CardImage: {fileID: 21300000, guid: 11eb53a35ec040c42980ad3663b21ee6, type: 3}

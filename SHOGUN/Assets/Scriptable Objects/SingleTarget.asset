@@ -15,5 +15,6 @@ MonoBehaviour:
   Value: 5
   Cost: 1
   CardColor: {r: 1, g: 0.86971503, b: 0.48584908, a: 1}
-  Description: "Zadaj 5 obra\u017Ce\u0144 przeciwnikowi"
+  Description: "Zadaj X obra\u017Ce\u0144 przeciwnikowi"
   CardName: "B\u0142yskawiczne ci\u0119cie"
+  CardImage: {fileID: 21300000, guid: e50964a68687f9746bf5e1e566333fe9, type: 3}
