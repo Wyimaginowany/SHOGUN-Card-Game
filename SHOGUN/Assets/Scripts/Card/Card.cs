@@ -15,15 +15,18 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [SerializeField] private Transform _cardVisualDisplayPoint;
     [SerializeField] private CardAnimation _cardAnimation;
 
+    //protected
     protected CombatManager _combatManager;
     protected CardVisual _cardVisual;
     protected CanvasGroup _cardVisualCanvasGroup;
-    
+    protected int _thisTurnCardCostReduction = 0;
+    protected int _thisTurnCardValueBuff = 0;
     protected int _currentCardCost;
     protected int _currentCardValue;
     protected String _cardDescriptionDefault;
     protected Vector3 _startingPosition;
 
+    //events
     public static event Action<Card> OnCardPlayed;
     public static event Action<Card> OnCardThrownAway;
     public static event Action<Card, Transform> OnCardMouseHoverStart;
@@ -31,6 +34,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public static event Action OnBeginDragging;
     public static event Action OnEndDragging;
 
+    //privates
     private RectTransform _rectTransform;
     private Quaternion _lastHandRotation;
     private Vector2 _newCardPosition;
@@ -55,95 +59,13 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _currentCardCost = CardData.Cost;
         _currentCardValue = CardData.Value;
         _cardDescriptionDefault = CardData.Description;
+
+        CombatManager.OnPlayerTurnEnd += HandlePlayerTurnEnd;
     }
 
-    protected virtual void BeginDragging()
+    private void OnDestroy()
     {
-        transform.rotation = Quaternion.Euler(Vector3.zero);
-        _cardVisualCanvasGroup.alpha = 1;
-        _isBeingDragged = true;
-        _timer = 0f;
-        _childIndexBeforeDrag = transform.GetSiblingIndex();
-        transform.SetAsLastSibling();
-        OnBeginDragging?.Invoke();
-    }
-    protected virtual void OnBeeingDragged()
-    {
-        //
-    }
-
-    protected virtual void EndDragging()
-    {
-        _isBeingDragged = false;
-        OnEndDragging?.Invoke();
-    }
-
-    protected virtual void PlayCard()
-    {
-        OnCardPlayed?.Invoke(this);
-        _rectTransform.anchoredPosition = _startingPosition;
-        PlayerCardAnimations.TriggerAnimation(_cardAnimation);
-        _isInteractable = false;
-
-    }
-
-    public void ShuffleCardIntoDeck()
-    {
-        OnCardThrownAway?.Invoke(this);
-        _rectTransform.anchoredPosition = _startingPosition;
-        _isInteractable = false;
-    }
-
-    protected void ReturnCardToHand()
-    {
-        transform.SetSiblingIndex(_childIndexBeforeDrag);
-        _rectTransform.rotation = _lastHandRotation;
-        _timer = 0;
-        _moveToNewHandPosition = true;
-    }
-
-    protected List<PossibleAreas> GetDropAreas()
-    {
-        List<PossibleAreas> allDropAreas = new List<PossibleAreas>();
-
-        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
-        pointerEventData.position = Input.mousePosition;
-
-        List<RaycastResult> raycastResultsList = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(pointerEventData, raycastResultsList);
-
-        for (int i = 0; i < raycastResultsList.Count; i++)
-        {
-            if (raycastResultsList[i].gameObject.GetComponent<CardDropArea>() != null)
-            {
-                if (allDropAreas.Contains(raycastResultsList[i].gameObject.GetComponent<CardDropArea>().GetDropArea())) continue;
-
-                allDropAreas.Add(raycastResultsList[i].gameObject.GetComponent<CardDropArea>().GetDropArea());
-            }
-        }
-
-        return allDropAreas;
-    }
-
-    public int GetCardCost()
-    {
-        return _currentCardCost;
-    }
-
-    public int GetCardValue()
-    {
-        return _currentCardValue;
-    }
-
-    public String GetCurrentCardDescription()
-    {
-        String tmp = _cardDescriptionDefault.Replace("X", _currentCardValue.ToString());
-        return tmp;
-    }
-
-    public Card GetCard()
-    {
-        return this;
+        CombatManager.OnPlayerTurnEnd -= HandlePlayerTurnEnd;
     }
 
     private void Update()
@@ -177,12 +99,73 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         }
     }
 
+    private void HandlePlayerTurnEnd()
+    {
+        _thisTurnCardCostReduction = 0;
+        _thisTurnCardValueBuff = 0;
+    }
+
+    protected List<PossibleAreas> GetDropAreas()
+    {
+        List<PossibleAreas> allDropAreas = new List<PossibleAreas>();
+
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+        pointerEventData.position = Input.mousePosition;
+
+        List<RaycastResult> raycastResultsList = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, raycastResultsList);
+
+        for (int i = 0; i < raycastResultsList.Count; i++)
+        {
+            if (raycastResultsList[i].gameObject.GetComponent<CardDropArea>() != null)
+            {
+                if (allDropAreas.Contains(raycastResultsList[i].gameObject.GetComponent<CardDropArea>().GetDropArea())) continue;
+
+                allDropAreas.Add(raycastResultsList[i].gameObject.GetComponent<CardDropArea>().GetDropArea());
+            }
+        }
+
+        return allDropAreas;
+    }
+
     public void DrawThisCard(Vector2 drawDisplayPoistion)
     {
         _cardDisplayPosition = drawDisplayPoistion;
         _isInHand = false;
         _timer = 0;
         _isBeingDrawn = true;
+    }
+
+    protected void ReturnCardToHand()
+    {
+        transform.SetSiblingIndex(_childIndexBeforeDrag);
+        _rectTransform.rotation = _lastHandRotation;
+        _timer = 0;
+        _moveToNewHandPosition = true;
+    }
+
+    public void ReduceCostPermanently(int reduceAmount)
+    {
+        _currentCardCost -= reduceAmount;
+        _cardVisual.UpdateVisual();
+    }
+
+    public void ReduceCostThisTurn(int reduceAmount)
+    {
+        _thisTurnCardCostReduction = reduceAmount;
+        _cardVisual.UpdateVisual();
+    }
+
+    public void HideCard()
+    {
+        _cardVisualCanvasGroup.alpha = 0;
+    }
+
+    public void ShuffleCardIntoDeck()
+    {
+        OnCardThrownAway?.Invoke(this);
+        _rectTransform.anchoredPosition = _startingPosition;
+        _isInteractable = false;
     }
 
     public void SetNewHandPosition(Vector2 newPosition)
@@ -199,9 +182,57 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _rectTransform.rotation = Quaternion.Euler(newRotation.x, newRotation.y, newRotation.z);
     }
 
-    public void HideCard()
-    {      
-        _cardVisualCanvasGroup.alpha = 0;
+
+    #region Virtual methods
+    protected virtual void BeginDragging()
+    {
+        transform.rotation = Quaternion.Euler(Vector3.zero);
+        _cardVisualCanvasGroup.alpha = 1;
+        _isBeingDragged = true;
+        _timer = 0f;
+        _childIndexBeforeDrag = transform.GetSiblingIndex();
+        transform.SetAsLastSibling();
+        OnBeginDragging?.Invoke();
+    }
+    protected virtual void OnBeeingDragged()
+    {
+        //
+    }
+
+    protected virtual void EndDragging()
+    {
+        _isBeingDragged = false;
+        OnEndDragging?.Invoke();
+    }
+
+    protected virtual void PlayCard()
+    {
+        OnCardPlayed?.Invoke(this);
+        _rectTransform.anchoredPosition = _startingPosition;
+        PlayerCardAnimations.TriggerAnimation(_cardAnimation);
+        _isInteractable = false;
+    }
+    #endregion
+
+    #region Getter functions
+    public int GetCardCost()
+    {
+        int currentCardCost = _currentCardCost - _thisTurnCardCostReduction;
+        if (currentCardCost < 0) currentCardCost = 0;
+        return currentCardCost;
+    }
+
+    public int GetCardValue()
+    {
+        return _currentCardValue += _thisTurnCardValueBuff;
+    }
+
+    public Card GetCard()
+    {
+        return this;
+    }
+    public String GetCurrentCardDescription(){
+        return _cardDescriptionDefault.Replace("X",_currentCardValue.ToString());
     }
 
     public bool IsInHand()
@@ -209,12 +240,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         return _isInHand;
     }
 
-    public void ReduceCost(int reduceAmount)
-    {
-        _currentCardCost -= reduceAmount;
-        if (_currentCardCost < 0) _currentCardCost = 0;
-        _cardVisual.UpdateVisual();
-    }
+    #endregion
 
     #region InterfaceMethods
 

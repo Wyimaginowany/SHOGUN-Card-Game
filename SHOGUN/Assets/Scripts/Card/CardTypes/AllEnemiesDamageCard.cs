@@ -8,14 +8,19 @@ public class AllEnemiesDamageCard : AllTargetsCard
     protected override void Start()
     {
         base.Start();
-        _combatManager.OnDamageCardBuff += HandleBuffRecived;
+        CombatManager.OnOneTurnDamageCardBuff += HandleOneTurnBuffRecived;
+        CombatManager.OnPermanentDamageCardBuff += HandleBuffRecived;
     }
 
     private void OnDestroy()
     {
-        //to wyrzuca b��d
-        //_combat manager nie jest przypisany do trzech kart do wyboru 
-        if (gameObject.activeSelf) _combatManager.OnDamageCardBuff -= HandleBuffRecived;
+        CombatManager.OnOneTurnDamageCardBuff -= HandleOneTurnBuffRecived;
+        CombatManager.OnPermanentDamageCardBuff -= HandleBuffRecived;
+    }
+
+    private void HandleOneTurnBuffRecived(int buffAmount)
+    {
+        _thisTurnCardValueBuff += buffAmount;
     }
 
     private void HandleBuffRecived(int buffAmount)
