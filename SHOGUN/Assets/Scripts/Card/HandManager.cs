@@ -211,11 +211,19 @@ public class HandManager : MonoBehaviour
         DrawFullHand();
     }
     
-    public void ReduceCardsCostInHand(int reduceAmount)
+    public void ReducePermenentCardsCostInHand(int reduceAmount)
     {
         foreach(Card card in _hand)
         {
-            card.ReduceCost(reduceAmount);
+            card.ReduceCostPermanently(reduceAmount);
+        }
+    }
+
+    public void ReduceOneTurnCardsCostInHand(int reduceAmount)
+    {
+        foreach (Card card in _hand)
+        {
+            card.ReduceCostThisTurn(reduceAmount);
         }
     }
 

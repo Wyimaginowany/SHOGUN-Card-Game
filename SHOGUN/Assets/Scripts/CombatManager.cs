@@ -21,7 +21,8 @@ public class CombatManager : MonoBehaviour
 
     public static event Action OnPlayerTurnStart;
     public static event Action OnPlayerTurnEnd;
-    public  event Action<int> OnDamageCardBuff;
+    public static event Action<int> OnPermanentDamageCardBuff;
+    public static event Action<int> OnOneTurnDamageCardBuff;
 
     private List<EnemyHealth> _aliveEnemies = new List<EnemyHealth>();
 
@@ -219,12 +220,12 @@ public class CombatManager : MonoBehaviour
 
     public void ReduceCardsCost(int reduceAmount)
     {
-        _handManager.ReduceCardsCostInHand(reduceAmount);
+        _handManager.ReducePermenentCardsCostInHand(reduceAmount);
     }
 
     public void BuffPlayerDamage(int buffAmount)
     {
-        OnDamageCardBuff?.Invoke(buffAmount);
+        OnPermanentDamageCardBuff?.Invoke(buffAmount);
     }
 
     public void IncreasePlayerBleed(int bleedAmount)
