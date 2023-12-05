@@ -46,10 +46,10 @@ public class CardSelectorManager : MonoBehaviour
         _deckManager.AddCardToDeck(cardSelected);
         _cardSelectionUI.SetActive(false);
         _inGameUI.SetActive(true);
-        //MapObject.MapInstance.GetComponent<MapObject>().ShowMap();
+        MapObject.MapInstance.GetComponent<MapObject>().ShowMap();
+        // GetComponent<HandManager>().DrawFullHand();
         //this below needs refactor
-        GetComponent<HandManager>().DrawFullHand();
-        GetComponent<CombatManager>().SpawnNewEnemies();
+        // GetComponent<CombatManager>().SpawnNewEnemies();
     }
 
     public void SetupNewCardsToSelect()

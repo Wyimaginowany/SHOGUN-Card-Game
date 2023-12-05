@@ -68,7 +68,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c60e980c2d9b016498ba8577c7ce64d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stages: 8
+  _stages: 10
   _locations: 7
   _canvasStartX: 170
   _canvasStartY: 200

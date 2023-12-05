@@ -1,13 +1,16 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class MapEvent : MonoBehaviour//, IPointerClickHandler
+public class MapEvent : MonoBehaviour, IPointerClickHandler
 {
-    /*private List<MapEvent> _childrenEvents,_parentEvents,_enabledEvents;
+    private List<MapEvent> _childrenEvents,_parentEvents,_enabledEvents;
     public RectTransform _rectTransform;
 
     [SerializeField] private LineController _line;
     [SerializeField] private Sprite _visited;
-    [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Image _imageControler;
 
     public static event Action OnPlayerTurnEnd;
@@ -38,16 +41,16 @@ public class MapEvent : MonoBehaviour//, IPointerClickHandler
 
     private void UpdateMap(){
         // gameObject.GetComponent<UnityEngine.UI.Image>().overrideSprite=_visited;
-        _spriteRenderer.sprite=_visited;
+        _imageControler.sprite=_visited;
 
         foreach (MapEvent enabled in _enabledEvents){
-            enabled.GetComponent<BoxCollider2D>().enabled=false;
+            enabled.GetComponent<Image>().raycastTarget=false;
         }
         _enabledEvents.Clear();
 
         _enabledEvents.AddRange(_childrenEvents);
         foreach (MapEvent child in _childrenEvents){
-            child.GetComponent<BoxCollider2D>().enabled=true;
+            child.GetComponent<Image>().raycastTarget=true;
             child.GetComponent<MapEvent>().ImportEnabledEvents(_enabledEvents);
 
         }
@@ -65,5 +68,5 @@ public class MapEvent : MonoBehaviour//, IPointerClickHandler
     {
         OnPlayerTurnEnd?.Invoke();
         MapObject.MapInstance.GetComponent<MapObject>().HideMap();
-    }*/
+    }
 }

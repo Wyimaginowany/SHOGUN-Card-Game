@@ -160,6 +160,12 @@ public class CombatManager : MonoBehaviour
         _enemyOrderIndex++;
     }
 
+    //chwilowo potrzebne do działania mapy
+    public void ResetMana(){
+        _currentMana = _maxMana;
+        _manaAmountText.text = _currentMana.ToString();
+    }
+
     private void HandlePlayerTurnStart()
     {
         OnPlayerTurnStart?.Invoke();
