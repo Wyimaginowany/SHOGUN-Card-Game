@@ -31,7 +31,7 @@ public abstract class AllTargetsCard : Card
             return;
         }
 
-        if (!_combatManager.HaveEnoughMana(CardData.Cost))
+        if (!_combatManager.HaveEnoughMana(GetCardCost()))
         {
             ReturnCardToHand();
             return;

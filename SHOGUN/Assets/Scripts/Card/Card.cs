@@ -17,6 +17,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     //protected
     protected CombatManager _combatManager;
+    protected HandManager _handManager;
     protected CardVisual _cardVisual;
     protected CanvasGroup _cardVisualCanvasGroup;
     protected int _thisTurnCardCostReduction = 0;
@@ -45,12 +46,12 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private bool _isBeingDragged = false;
     private bool _isBeingDrawn = false;
     private bool _isInHand = false;
-    [HideInInspector]
-    public bool _isInteractable = false;
+    private bool _isInteractable = false;
 
     protected virtual void Start()
     {
         _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
+        _handManager = (HandManager)FindObjectOfType(typeof(HandManager));
         _cardVisualCanvasGroup = GetComponentInChildren<CanvasGroup>();
         _cardVisual = GetComponent<CardVisual>();
 
@@ -87,6 +88,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             {
                 _moveToNewHandPosition = false;
                 _isInHand = true;
+                if (_handManager.FullHandDrawn()) _isInteractable = true;
             }
         }
 
@@ -101,6 +103,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private void HandlePlayerTurnEnd()
     {
+        _isInteractable = false;
         _thisTurnCardCostReduction = 0;
         _thisTurnCardValueBuff = 0;
     }
@@ -138,6 +141,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     protected void ReturnCardToHand()
     {
+        _isInteractable = false;
         transform.SetSiblingIndex(_childIndexBeforeDrag);
         _rectTransform.rotation = _lastHandRotation;
         _timer = 0;
