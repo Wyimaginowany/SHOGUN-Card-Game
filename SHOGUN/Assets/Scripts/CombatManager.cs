@@ -90,13 +90,12 @@ public class CombatManager : MonoBehaviour
 
         if (_aliveEnemies.Count > 0) return;
 
-       
+
         //chwilowe rozwiazanie
         //gdzies musi byc koniec poziomu
         //tutaj dac event OnStageFinished
+        _handManager.ShuffleHandIntoDeck();
         _cardSelectorManager.SetupNewCardsToSelect();
-        //HandManager tmp2 = (HandManager)FindObjectOfType(typeof(HandManager));
-        //tmp2.ShuffleHandIntoDeck();
     }
 
     public void SpawnNewEnemies()

@@ -45,7 +45,6 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private bool _moveToNewHandPosition = false;
     private bool _isBeingDragged = false;
     private bool _isBeingDrawn = false;
-    private bool _isInHand = false;
     private bool _isInteractable = false;
 
     protected virtual void Start()
@@ -87,7 +86,6 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             if (Vector2.Distance(_rectTransform.anchoredPosition, _newCardPosition) <= 0.1f)
             {
                 _moveToNewHandPosition = false;
-                _isInHand = true;
                 if (_handManager.FullHandDrawn()) _isInteractable = true;
             }
         }
@@ -134,7 +132,6 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void DrawThisCard(Vector2 drawDisplayPoistion)
     {
         _cardDisplayPosition = drawDisplayPoistion;
-        _isInHand = false;
         _timer = 0;
         _isBeingDrawn = true;
     }
@@ -167,9 +164,10 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void ShuffleCardIntoDeck()
     {
-        OnCardThrownAway?.Invoke(this);
-        _rectTransform.anchoredPosition = _startingPosition;
         _isInteractable = false;
+        _moveToNewHandPosition = false;
+        _rectTransform.anchoredPosition = _startingPosition;
+        OnCardThrownAway?.Invoke(this);
     }
 
     public void SetNewHandPosition(Vector2 newPosition)
@@ -236,11 +234,6 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public int GetCardValue()
     {
         return _currentCardValue += _thisTurnCardValueBuff;
-    }
-
-    public bool IsInHand()
-    {
-        return _isInHand;
     }
 
     #endregion

@@ -83,7 +83,6 @@ public class HandManager : MonoBehaviour
     private void CardMouseHoverVisualStart(Card card, Transform cardVisualNewPosition)
     {
         if (_isBeingDragged) return;
-        if (!card.IsInHand()) return;
         if (!_fullHandDrawn) return;
 
         card.HideCard();
@@ -221,6 +220,7 @@ public class HandManager : MonoBehaviour
         for (int i = 0; i < cardsInHand.Length; i++)
         {
             cardsInHand[i].ShuffleCardIntoDeck();
+            _hand.Remove(cardsInHand[i]);
         }
     }
 
