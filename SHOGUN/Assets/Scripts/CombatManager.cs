@@ -21,6 +21,7 @@ public class CombatManager : MonoBehaviour
 
     public static event Action OnPlayerTurnStart;
     public static event Action OnPlayerTurnEnd;
+    public static event Action OnAllEnemiesKilled;
     public static event Action<int> OnPermanentDamageCardBuff;
     public static event Action<int> OnOneTurnDamageCardBuff;
 
@@ -43,18 +44,19 @@ public class CombatManager : MonoBehaviour
 
         Card.OnCardPlayed += HandleCardPlayed;
         EnemyHealth.OnEnemyDeath += HandleEnemyDeath;
+        MapEvent.OnNewStageStarted += HandleNewStageStart;
 
         _currentMana = _maxMana;
         _manaAmountText.text = _currentMana.ToString();
         turnCounter = 0;
-        //MapEvent.OnPlayerTurnEnd+=StartCombat;
-        
+        StartGame();
     }
 
-    private void StartCombat(){
-        
-        SpawnNewEnemies();
-
+    private void OnDestroy()
+    {
+        Card.OnCardPlayed -= HandleCardPlayed;
+        EnemyHealth.OnEnemyDeath -= HandleEnemyDeath;
+        MapEvent.OnNewStageStarted -= HandleNewStageStart;
     }
 
     private void Update()
@@ -71,11 +73,18 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    private void StartGame()
     {
-        Card.OnCardPlayed -= HandleCardPlayed;
-        EnemyHealth.OnEnemyDeath -= HandleEnemyDeath;
-        //MapEvent.OnPlayerTurnEnd-=StartCombat;
+        MapObject.MapInstance.ShowMap();
+    }
+
+    private void HandleNewStageStart()
+    {
+        _endTurnButton.SetActive(false);
+        _endTurnButtonBlocked.SetActive(true);
+        ResetMana();
+        SpawnNewEnemies();
+        _handManager.DrawFullHand();
     }
 
     public void FullHandDrawn()
@@ -94,6 +103,8 @@ public class CombatManager : MonoBehaviour
         //chwilowe rozwiazanie
         //gdzies musi byc koniec poziomu
         //tutaj dac event OnStageFinished
+        OnAllEnemiesKilled?.Invoke();
+        //
         _handManager.ShuffleHandIntoDeck();
         _cardSelectorManager.SetupNewCardsToSelect();
     }

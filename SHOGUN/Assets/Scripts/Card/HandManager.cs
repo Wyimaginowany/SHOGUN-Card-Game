@@ -192,11 +192,6 @@ public class HandManager : MonoBehaviour
             _hand[i].SetNewHandRotation(newCardRotation);
         }
     }
-
-    public void StartButton()
-    {
-        DrawFullHand();
-    }
     
     public void ReducePermenentCardsCostInHand(int reduceAmount)
     {
