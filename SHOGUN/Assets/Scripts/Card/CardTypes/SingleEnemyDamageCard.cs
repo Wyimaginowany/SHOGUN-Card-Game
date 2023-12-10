@@ -31,6 +31,7 @@ public class SingleEnemyDamageCard : SingleTargetCard
     private void HandleOneTurnBuffRecived(int buffAmount)
     {
         _thisTurnCardValueBuff += buffAmount;
+        _cardVisual.UpdateVisual();
     }
 
     private void HandlePermenentBuffRecived(int buffAmount)

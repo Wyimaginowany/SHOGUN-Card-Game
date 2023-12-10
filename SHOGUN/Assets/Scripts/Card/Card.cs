@@ -233,7 +233,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public int GetCardValue()
     {
-        return _currentCardValue += _thisTurnCardValueBuff;
+        return Mathf.Clamp(_currentCardValue + _thisTurnCardValueBuff, 0, 10000);
     }
 
     #endregion
