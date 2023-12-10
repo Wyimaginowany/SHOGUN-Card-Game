@@ -35,7 +35,6 @@ public class CombatManager : MonoBehaviour
     private int _currentMana;
     private int _enemyOrderIndex = 0;
     public int turnCounter;
-    private int _currentPlayerBleedStacks = 0;
     private int _currentStage = 0;
     private bool _isPlayerStunned = false;
 
@@ -60,11 +59,6 @@ public class CombatManager : MonoBehaviour
         Card.OnCardPlayed -= HandleCardPlayed;
         EnemyHealth.OnEnemyDeath -= HandleEnemyDeath;
         MapEvent.OnNewStageStarted -= HandleNewStageStart;
-    }
-    private void OnDestroy()
-    {
-        Card.OnCardPlayed -= HandleCardPlayed;
-        EnemyHealth.OnEnemyDeath -= HandleEnemyDeath;
     }
 
 
@@ -96,24 +90,6 @@ public class CombatManager : MonoBehaviour
         _handManager.DrawFullHand();
     }
 
-    public void FullHandDrawn()
-    {
-        _endTurnButton.SetActive(true);
-        _endTurnButtonBlocked.SetActive(false);
-    }
-
-    private void HandleEnemyDeath(EnemyHealth deadEnemy)
-    {
-        _aliveEnemies.Remove(deadEnemy);
-
-        if (_aliveEnemies.Count > 0) return;
-
-
-        //chwilowe rozwiazanie
-        //gdzies musi byc koniec poziomu
-        //tutaj dac event OnStageFinished
-        OnAllEnemiesKilled?.Invoke();
-        //
     private void HandleStageComplete()
     {
         _handManager.ShuffleHandIntoDeck();
@@ -254,11 +230,6 @@ public class CombatManager : MonoBehaviour
     {
         if (cardCost > _currentMana) return false;
         return true;
-    }
-
-    public void IncreasePlayerBleed(int bleedAmount)
-    {
-        _currentPlayerBleedStacks += bleedAmount;
     }
 
     public void BuffPlayerDamagePermenent(int buffAmount)
