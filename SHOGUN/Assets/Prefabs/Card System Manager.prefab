@@ -1362,7 +1362,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8927327222898265334}
         m_TargetAssemblyTypeName: CombatManager, Assembly-CSharp
-        m_MethodName: EndTurnButton
+        m_MethodName: EndPlayerTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

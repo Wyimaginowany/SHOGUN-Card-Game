@@ -17,15 +17,15 @@ public class CardVisual : MonoBehaviour
     void Start()
     {
         _card = GetComponent<Card>();
-        SetupCard(_card.CardData);
+        SetupCard();
     }
 
-    private void SetupCard(CardScriptableObject cardData)
+    public void SetupCard()
     {
         //_cardText.text = cardData.Value.ToString();
-        _cardColorImage.color = cardData.CardColor;
-        _cardName.text = cardData.CardName;
-        _cardGraphicImage.sprite = cardData.CardImage;
+        _cardColorImage.color = _card.CardData.CardColor;
+        _cardName.text = _card.CardData.CardName;
+        _cardGraphicImage.sprite = _card.CardData.CardImage;
         UpdateVisual();
     }
 

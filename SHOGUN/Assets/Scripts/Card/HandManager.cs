@@ -135,7 +135,16 @@ public class HandManager : MonoBehaviour
             UpdateCardsRotation(_hand.Count);
         }
 
-        //drawn all cards
+        HandleFullHandDrawn();
+    }
+
+    private void HandleFullHandDrawn()
+    {
+        foreach (Card card in _hand)
+        {
+            card.MakeInteractable();
+        }
+
         _combatManager.FullHandDrawn();
         _fullHandDrawn = true;
     }
@@ -217,6 +226,10 @@ public class HandManager : MonoBehaviour
             cardsInHand[i].ShuffleCardIntoDeck();
             _hand.Remove(cardsInHand[i]);
         }
+
+        _fullHandDrawn = false;
+        _hoverCounter = 0;
+        _cardVisualPrefab.position = _hiddenCardsPoint.position;
     }
 
     public bool FullHandDrawn()
