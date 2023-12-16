@@ -7,6 +7,6 @@ public class BuffPlayerDamageCard : AllTargetsCard
     protected override void PlayCard()
     {
         base.PlayCard();
-        _combatManager.BuffPlayerDamage(CardData.Value);
+        _combatManager.BuffPlayerDamagePermenent(CardData.Value);
     }
 }

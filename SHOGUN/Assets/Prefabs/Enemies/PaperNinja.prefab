@@ -434,7 +434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 12
   _damageText: {fileID: 1668861245963486384}
-  _popupAnimator: {fileID: 4614470944404212109}
+  _enemyDamagePopupAnimator: {fileID: 7917096407318641829}
   _healthbarAmountText: {fileID: 5815777782598696047}
   _healthbarSlider: {fileID: 5815777781620996889}
   _timeAfterDeath: 2
@@ -1304,8 +1304,8 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7842547251544483606, guid: 007e2460d041ad14fa48467bc6224937, type: 3}
   m_PrefabInstance: {fileID: 6843124970453037358}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &4614470944404212109 stripped
+--- !u!95 &7917096407318641829 stripped
 Animator:
-  m_CorrespondingSourceObject: {fileID: 2233307159341725859, guid: 007e2460d041ad14fa48467bc6224937, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3686342371601730955, guid: 007e2460d041ad14fa48467bc6224937, type: 3}
   m_PrefabInstance: {fileID: 6843124970453037358}
   m_PrefabAsset: {fileID: 0}

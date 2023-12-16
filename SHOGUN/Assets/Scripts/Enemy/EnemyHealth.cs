@@ -12,7 +12,7 @@ public class EnemyHealth : MonoBehaviour
 
     [Header("To Attach")]
     [SerializeField] private TMP_Text _damageText;
-    [SerializeField] private Animator _popupAnimator;
+    [SerializeField] private Animator _enemyDamagePopupAnimator;
     [SerializeField] private TMP_Text _healthbarAmountText;
     [SerializeField] private Slider _healthbarSlider;
     [SerializeField] private float _timeAfterDeath=2f;
@@ -48,21 +48,27 @@ public class EnemyHealth : MonoBehaviour
         return _currentShield;
     }
 
-    public async void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         _damageText.text = "-" + damage.ToString();
-        _popupAnimator.SetTrigger("Take-damage");
+        _enemyDamagePopupAnimator.SetTrigger("damage");
         
         int damageToEnemy = damage - _currentShield;
         _currentShield = Mathf.Clamp(_currentShield - damage, 0, 10000);
 
-        _currentHealth -= damageToEnemy;
-        
-        if(_currentHealth >0){
-        _animator.SetTrigger("Take-damage");
-        }
-        if (_currentHealth <= 0)
+        if (damageToEnemy > 0)
         {
+            _currentHealth -= damageToEnemy;
+
+        }
+        
+        if(_currentHealth > 0)  
+        {
+            _animator.SetTrigger("Take-damage");
+        }
+        else
+        {
+            _currentHealth = 0;
             _animator.SetTrigger("Death");
             StartCoroutine(RunTimer());
         }

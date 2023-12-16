@@ -131,6 +131,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void DrawThisCard(Vector2 drawDisplayPoistion)
     {
+        _cardVisualCanvasGroup.alpha = 1;
         _cardDisplayPosition = drawDisplayPoistion;
         _timer = 0;
         _isBeingDrawn = true;
@@ -162,6 +163,11 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _cardVisualCanvasGroup.alpha = 0;
     }
 
+    public void ShowCard()
+    {
+        _cardVisualCanvasGroup.alpha = 1;
+    }
+
     public void ShuffleCardIntoDeck()
     {
         _isInteractable = false;
@@ -184,6 +190,10 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _rectTransform.rotation = Quaternion.Euler(newRotation.x, newRotation.y, newRotation.z);
     }
 
+    public void MakeInteractable()
+    {
+        _isInteractable = true;
+    }
 
     #region Virtual methods
     protected virtual void BeginDragging()
@@ -233,7 +243,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public int GetCardValue()
     {
-        return _currentCardValue += _thisTurnCardValueBuff;
+        return Mathf.Clamp(_currentCardValue + _thisTurnCardValueBuff, 0, 10000);
     }
 
     #endregion

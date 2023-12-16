@@ -410,7 +410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 20
   _damageText: {fileID: 4887756071848965310}
-  _popupAnimator: {fileID: 1510347266476620163}
+  _enemyDamagePopupAnimator: {fileID: 4117166414358285483}
   _healthbarAmountText: {fileID: 8241165089912182638}
   _healthbarSlider: {fileID: 8241165088742395928}
   _timeAfterDeath: 2
@@ -929,9 +929,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 007e2460d041ad14fa48467bc6224937, type: 3}
---- !u!95 &1510347266476620163 stripped
+--- !u!95 &4117166414358285483 stripped
 Animator:
-  m_CorrespondingSourceObject: {fileID: 2233307159341725859, guid: 007e2460d041ad14fa48467bc6224937, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3686342371601730955, guid: 007e2460d041ad14fa48467bc6224937, type: 3}
   m_PrefabInstance: {fileID: 723841289446244640}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &4887756071848965310 stripped
