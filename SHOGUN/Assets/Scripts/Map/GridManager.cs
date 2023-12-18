@@ -84,15 +84,15 @@ public class GridManager : MonoBehaviour
 
 
     private List<int> GenerateEntryLocations(){
-        var firstRoom=Random.Range(0,_locations);
-        var secondRoom=Random.Range(0,_locations);
-        while(secondRoom==firstRoom){
-            secondRoom=Random.Range(0,_locations);
-        }
+        var firstRoom=_locations/2;
+        // var secondRoom=Random.Range(0,_locations);
+        // while(secondRoom==firstRoom){
+        //     secondRoom=Random.Range(0,_locations);
+        // }
         var entryRooms= new List<int>
         {
-            firstRoom,
-            secondRoom
+            firstRoom
+            // secondRoom
         };
         return entryRooms;
     }
