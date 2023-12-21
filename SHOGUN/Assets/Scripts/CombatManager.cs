@@ -283,5 +283,10 @@ public class CombatManager : MonoBehaviour
         _manaAmountText.text = _currentMana.ToString();
     }
 
+    public void AddBleedStacksToPlayer(int stackCount)
+    {
+        _playerHealth.AddBleedStacks(stackCount);
+    }
+
     #endregion
 }

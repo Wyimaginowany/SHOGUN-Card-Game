@@ -89,7 +89,17 @@ public abstract class SingleTargetCard : Card
             RaycastHit targetEnemyHit;
             if (Physics.Raycast(ray, out targetEnemyHit, Mathf.Infinity, _enemyLayer))
             {
-                PlayCardOnTarget(targetEnemyHit.collider.GetComponent<EnemyHealth>());
+                EnemyHealth enemy = targetEnemyHit.collider.GetComponent<EnemyHealth>();
+                
+                if (enemy.isTargetable)
+                {
+                    PlayCardOnTarget(enemy);
+                }
+                else
+                {
+                    _cardVisualCanvasGroup.alpha = 1;
+                    ReturnCardToHand();
+                }
                 return;
             }
         }

@@ -155,6 +155,11 @@ public class PlayerHealth : MonoBehaviour, IBleedable
         return _currentShield;
     }
 
+    public void AddBleedStacks(int stackCount)
+    {
+        _currentBleedStacks += stackCount;
+    }
+
     public void TakeBleedDamage()
     {
         if (_currentBleedStacks <= 0) return;

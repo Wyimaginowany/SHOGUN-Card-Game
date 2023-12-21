@@ -19,7 +19,13 @@ public class PaperNinja : EnemyCombat
     
     private List<EnemyAttack<PaperNinjaAttacks>> _attacksPool = new List<EnemyAttack<PaperNinjaAttacks>>();
     private EnemyAttack<PaperNinjaAttacks> _chosenAttack;
+    private EnemyHealth _enemyHealth;
     
+    protected override void Start()
+    {
+        base.Start();
+        _enemyHealth = GetComponent<EnemyHealth>();
+    }
     public override void HandleTurn()
     {
         switch (_chosenAttack.Attack)
@@ -93,8 +99,7 @@ public class PaperNinja : EnemyCombat
         int damage = _paperCutMinDmg;
         int bleedStacks = Random.Range(2, 3);
         _combatManager.DealDamageToPlayer(damage);
-        
-        //TODO: playerEffect z bleedStacks
+        _combatManager.AddBleedStacksToPlayer(bleedStacks);
         
         Debug.Log("PaperCut");
     }
@@ -102,7 +107,7 @@ public class PaperNinja : EnemyCombat
     private void Vanish()
     {
         //TODO: nietykalnosc na 1 ture
-        
+        _enemyHealth.MakeUntargetable();
         Debug.Log("vanish");
     }
 }

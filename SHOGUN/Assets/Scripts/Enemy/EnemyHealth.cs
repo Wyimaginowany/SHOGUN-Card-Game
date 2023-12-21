@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : MonoBehaviour, IBleedable
 {
     [Header("Settings")]
     [SerializeField] private int _maxHealth;
@@ -21,6 +21,8 @@ public class EnemyHealth : MonoBehaviour
 
     private int _currentHealth;
     private int _currentShield = 0;
+    private int _currentBleedStacks = 0;
+    public bool isTargetable = true;
     protected Animator _animator;
 
     private void Start()
@@ -31,6 +33,8 @@ public class EnemyHealth : MonoBehaviour
         _healthbarSlider.value = 1;
         
         CombatManager.OnPlayerTurnEnd += ResetShield;
+        CombatManager.OnPlayerTurnEnd += TakeBleedDamage;
+        CombatManager.OnPlayerTurnEnd += MakeTargetable;
     }
     
     private void ResetShield()
@@ -46,6 +50,16 @@ public class EnemyHealth : MonoBehaviour
     public int GetEnemyShield()
     {
         return _currentShield;
+    }
+
+    public void MakeTargetable()
+    {
+        isTargetable = true;
+    }
+    
+    public void MakeUntargetable()
+    {
+        isTargetable = false;
     }
 
     public void TakeDamage(int damage)
@@ -98,5 +112,12 @@ public class EnemyHealth : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void TakeBleedDamage()
+    {
+        if (_currentBleedStacks <= 0) return;
+
+        TakeDamage(_currentBleedStacks);
+        _currentBleedStacks--;
+    }
 
 }
