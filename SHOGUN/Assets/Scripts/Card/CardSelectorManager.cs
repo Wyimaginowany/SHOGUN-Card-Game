@@ -43,13 +43,10 @@ public class CardSelectorManager : MonoBehaviour
             Destroy(_currentCardsSelected[i].gameObject);
         }
 
+        cardSelected.gameObject.GetComponent<CardVisual>().SetupCard();
         _deckManager.AddCardToDeck(cardSelected);
         _cardSelectionUI.SetActive(false);
-        _inGameUI.SetActive(true);
-        //MapObject.MapInstance.GetComponent<MapObject>().ShowMap();
-        //this below needs refactor
-        GetComponent<HandManager>().DrawFullHand();
-        GetComponent<CombatManager>().SpawnNewEnemies();
+        MapObject.MapInstance.ShowMap();
     }
 
     public void SetupNewCardsToSelect()
@@ -60,7 +57,7 @@ public class CardSelectorManager : MonoBehaviour
                                              _hiddenCardsPoint.position,
                                              Quaternion.identity,
                                              _cardsParent);
-            _currentCardsSelected[i] = newCard.GetComponent<Card>(); 
+            _currentCardsSelected[i] = newCard.GetComponent<Card>();  
             _cardSelectionButtons[i].SetupNewCard(_currentCardsSelected[i]);
         }
 

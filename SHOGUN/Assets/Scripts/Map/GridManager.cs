@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class GridManager : MonoBehaviour
 {
- /*   [Header("Generator Settings")]
+    [Header("Generator Settings")]
     [SerializeField] private int _stages;
     [SerializeField] private int _locations;
     [SerializeField] private int _canvasStartX=170,_canvasStartY=200;
@@ -74,7 +75,7 @@ public class GridManager : MonoBehaviour
 
             if(stage==0){
                 foreach(MapEvent startEvent in previousStageEvents.Values){
-                    startEvent.GetComponent<Collider2D>().enabled=true;
+                    startEvent.GetComponent<Image>().raycastTarget=true;
                     startEvent.GetComponent<MapEvent>().ImportEnabledEvents(previousStageEvents.Values.ToList());
                 }
             }
@@ -83,15 +84,15 @@ public class GridManager : MonoBehaviour
 
 
     private List<int> GenerateEntryLocations(){
-        var firstRoom=Random.Range(0,_locations);
-        var secondRoom=Random.Range(0,_locations);
-        while(secondRoom==firstRoom){
-            secondRoom=Random.Range(0,_locations);
-        }
+        var firstRoom=_locations/2;
+        // var secondRoom=Random.Range(0,_locations);
+        // while(secondRoom==firstRoom){
+        //     secondRoom=Random.Range(0,_locations);
+        // }
         var entryRooms= new List<int>
         {
-            firstRoom,
-            secondRoom
+            firstRoom
+            // secondRoom
         };
         return entryRooms;
     }
@@ -155,5 +156,5 @@ public class GridManager : MonoBehaviour
     }
 
 
-    */
+    
 }

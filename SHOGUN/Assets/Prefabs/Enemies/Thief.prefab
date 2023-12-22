@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 1049697594469095638}
   - component: {fileID: 8264531628157376048}
   - component: {fileID: 1406941322288294432}
-  m_Layer: 0
-  m_Name: Cube
+  m_Layer: 6
+  m_Name: HoverArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1986984277926376016}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.249, z: 0}
-  m_LocalScale: {x: 6, y: 6.2009997, z: 5}
+  m_LocalPosition: {x: 0, y: -0.32, z: 0}
+  m_LocalScale: {x: 3, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7983732709622384737}
@@ -145,7 +145,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -2.15}
+  m_AnchoredPosition: {x: 0, y: -1.72}
   m_SizeDelta: {x: 6, y: 2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2015759530178828004
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 2151818664561485534}
   - component: {fileID: 8060790844149451408}
   - component: {fileID: 948090409224375962}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Attack Description Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,7 +410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 20
   _damageText: {fileID: 4887756071848965310}
-  _popupAnimator: {fileID: 1510347266476620163}
+  _enemyDamagePopupAnimator: {fileID: 4117166414358285483}
   _healthbarAmountText: {fileID: 8241165089912182638}
   _healthbarSlider: {fileID: 8241165088742395928}
   _timeAfterDeath: 2
@@ -517,7 +517,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 1.565, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -1.45, y: 3.753}
+  m_AnchoredPosition: {x: 0, y: 4.297}
   m_SizeDelta: {x: 600, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3316546256399827349
@@ -649,7 +649,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.8}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4412917624539387224
 CanvasRenderer:
@@ -700,7 +700,7 @@ GameObject:
   - component: {fileID: 7456181352915158983}
   - component: {fileID: 2515871865378650545}
   - component: {fileID: 152663231155467166}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Attack Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -929,9 +929,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 007e2460d041ad14fa48467bc6224937, type: 3}
---- !u!95 &1510347266476620163 stripped
+--- !u!95 &4117166414358285483 stripped
 Animator:
-  m_CorrespondingSourceObject: {fileID: 2233307159341725859, guid: 007e2460d041ad14fa48467bc6224937, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3686342371601730955, guid: 007e2460d041ad14fa48467bc6224937, type: 3}
   m_PrefabInstance: {fileID: 723841289446244640}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &4887756071848965310 stripped

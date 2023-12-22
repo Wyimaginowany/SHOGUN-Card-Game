@@ -17,14 +17,15 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     //protected
     protected CombatManager _combatManager;
+    protected HandManager _handManager;
     protected CardVisual _cardVisual;
     protected CanvasGroup _cardVisualCanvasGroup;
     protected int _thisTurnCardCostReduction = 0;
     protected int _thisTurnCardValueBuff = 0;
     protected int _currentCardCost;
     protected int _currentCardValue;
-    protected String _cardDescriptionDefault;
     protected Vector3 _startingPosition;
+    protected String _cardDescriptionDefault;
 
     //events
     public static event Action<Card> OnCardPlayed;
@@ -44,13 +45,12 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private bool _moveToNewHandPosition = false;
     private bool _isBeingDragged = false;
     private bool _isBeingDrawn = false;
-    private bool _isInHand = false;
-    [HideInInspector]
-    public bool _isInteractable = false;
+    private bool _isInteractable = false;
 
     protected virtual void Start()
     {
         _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
+        _handManager = (HandManager)FindObjectOfType(typeof(HandManager));
         _cardVisualCanvasGroup = GetComponentInChildren<CanvasGroup>();
         _cardVisual = GetComponent<CardVisual>();
 
@@ -86,7 +86,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             if (Vector2.Distance(_rectTransform.anchoredPosition, _newCardPosition) <= 0.1f)
             {
                 _moveToNewHandPosition = false;
-                _isInHand = true;
+                if (_handManager.FullHandDrawn()) _isInteractable = true;
             }
         }
 
@@ -101,6 +101,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     private void HandlePlayerTurnEnd()
     {
+        _isInteractable = false;
         _thisTurnCardCostReduction = 0;
         _thisTurnCardValueBuff = 0;
     }
@@ -130,14 +131,15 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void DrawThisCard(Vector2 drawDisplayPoistion)
     {
+        _cardVisualCanvasGroup.alpha = 1;
         _cardDisplayPosition = drawDisplayPoistion;
-        _isInHand = false;
         _timer = 0;
         _isBeingDrawn = true;
     }
 
     protected void ReturnCardToHand()
     {
+        _isInteractable = false;
         transform.SetSiblingIndex(_childIndexBeforeDrag);
         _rectTransform.rotation = _lastHandRotation;
         _timer = 0;
@@ -161,11 +163,17 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _cardVisualCanvasGroup.alpha = 0;
     }
 
+    public void ShowCard()
+    {
+        _cardVisualCanvasGroup.alpha = 1;
+    }
+
     public void ShuffleCardIntoDeck()
     {
-        OnCardThrownAway?.Invoke(this);
-        _rectTransform.anchoredPosition = _startingPosition;
         _isInteractable = false;
+        _moveToNewHandPosition = false;
+        _rectTransform.anchoredPosition = _startingPosition;
+        OnCardThrownAway?.Invoke(this);
     }
 
     public void SetNewHandPosition(Vector2 newPosition)
@@ -182,6 +190,10 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _rectTransform.rotation = Quaternion.Euler(newRotation.x, newRotation.y, newRotation.z);
     }
 
+    public void MakeInteractable()
+    {
+        _isInteractable = true;
+    }
 
     #region Virtual methods
     protected virtual void BeginDragging()
@@ -215,6 +227,13 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     #endregion
 
     #region Getter functions
+
+    public String GetCardDescriptionDefault()
+    {
+        String cardDescription = CardData.Description.Replace("X", GetCardValue().ToString());
+        return cardDescription;
+    }
+
     public int GetCardCost()
     {
         int currentCardCost = _currentCardCost - _thisTurnCardCostReduction;
@@ -224,20 +243,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public int GetCardValue()
     {
-        return _currentCardValue += _thisTurnCardValueBuff;
-    }
-
-    public Card GetCard()
-    {
-        return this;
-    }
-    public String GetCurrentCardDescription(){
-        return _cardDescriptionDefault.Replace("X",_currentCardValue.ToString());
-    }
-
-    public bool IsInHand()
-    {
-        return _isInHand;
+        return Mathf.Clamp(_currentCardValue + _thisTurnCardValueBuff, 0, 10000);
     }
 
     #endregion

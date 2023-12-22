@@ -50,7 +50,6 @@ public class HandManager : MonoBehaviour
         _combatManager = GetComponent<CombatManager>();
 
         CombatManager.OnPlayerTurnStart += HandlePlayerTurnStart;
-        CombatManager.OnPlayerTurnEnd += HandlePlayerTurnEnd;
         Card.OnCardPlayed += RemoveFromHand;
         Card.OnCardThrownAway += RemoveFromHand;
         Card.OnCardMouseHoverStart += CardMouseHoverVisualStart;
@@ -62,7 +61,6 @@ public class HandManager : MonoBehaviour
     private void OnDestroy()
     {
         CombatManager.OnPlayerTurnStart -= HandlePlayerTurnStart;
-        CombatManager.OnPlayerTurnEnd -= HandlePlayerTurnEnd;
         Card.OnCardPlayed -= RemoveFromHand;
         Card.OnCardThrownAway -= RemoveFromHand;
         Card.OnCardMouseHoverStart -= CardMouseHoverVisualStart;
@@ -85,12 +83,11 @@ public class HandManager : MonoBehaviour
     private void CardMouseHoverVisualStart(Card card, Transform cardVisualNewPosition)
     {
         if (_isBeingDragged) return;
-        if (!card.IsInHand()) return;
         if (!_fullHandDrawn) return;
 
         card.HideCard();
         _hoverCounter++;
-        SetupCardHoverVisual(card.GetCard());
+        SetupCardHoverVisual(card);
 
         _cardVisualPrefab.position = cardVisualNewPosition.position;
         _cardVisualPrefab.rotation = cardVisualNewPosition.rotation;
@@ -99,7 +96,7 @@ public class HandManager : MonoBehaviour
     private void SetupCardHoverVisual(Card card)
     {
         CardScriptableObject cardData = card.CardData;
-        _cardDescriptionText.text = card.GetCurrentCardDescription();
+        _cardDescriptionText.text = card.GetCardDescriptionDefault();
         _cardNameText.text = cardData.CardName;
         _cardColorImage.color = cardData.CardColor;
         _cardCostText.text = card.GetCardCost().ToString();
@@ -120,14 +117,6 @@ public class HandManager : MonoBehaviour
         DrawFullHand();
     }
 
-    private void HandlePlayerTurnEnd()
-    {
-        foreach (Card card in _hand)
-        {
-            card._isInteractable = false;
-        }
-    }
-
     public void DrawFullHand()
     {
         StartCoroutine(drawCard(_timeBeforeNextCardDraw));
@@ -146,12 +135,17 @@ public class HandManager : MonoBehaviour
             UpdateCardsRotation(_hand.Count);
         }
 
-        //drawn all cards
-        _combatManager.FullHandDrawn();
+        HandleFullHandDrawn();
+    }
+
+    private void HandleFullHandDrawn()
+    {
         foreach (Card card in _hand)
         {
-            card._isInteractable = true;
+            card.MakeInteractable();
         }
+
+        _combatManager.FullHandDrawn();
         _fullHandDrawn = true;
     }
 
@@ -207,11 +201,6 @@ public class HandManager : MonoBehaviour
             _hand[i].SetNewHandRotation(newCardRotation);
         }
     }
-
-    public void StartButton()
-    {
-        DrawFullHand();
-    }
     
     public void ReducePermenentCardsCostInHand(int reduceAmount)
     {
@@ -235,6 +224,16 @@ public class HandManager : MonoBehaviour
         for (int i = 0; i < cardsInHand.Length; i++)
         {
             cardsInHand[i].ShuffleCardIntoDeck();
+            _hand.Remove(cardsInHand[i]);
         }
+
+        _fullHandDrawn = false;
+        _hoverCounter = 0;
+        _cardVisualPrefab.position = _hiddenCardsPoint.position;
+    }
+
+    public bool FullHandDrawn()
+    {
+        return _fullHandDrawn;
     }
 }

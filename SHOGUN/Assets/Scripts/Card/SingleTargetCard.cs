@@ -75,7 +75,7 @@ public abstract class SingleTargetCard : Card
             return;
         }
 
-        if (!_combatManager.HaveEnoughMana(CardData.Cost))
+        if (!_combatManager.HaveEnoughMana(GetCardCost()))
         {
             _cardVisualCanvasGroup.alpha = 1;
             ReturnCardToHand();

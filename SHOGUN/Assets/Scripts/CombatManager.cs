@@ -21,8 +21,11 @@ public class CombatManager : MonoBehaviour
 
     public static event Action OnPlayerTurnStart;
     public static event Action OnPlayerTurnEnd;
+    public static event Action OnAllEnemiesKilled;
     public static event Action<int> OnPermanentDamageCardBuff;
     public static event Action<int> OnOneTurnDamageCardBuff;
+    public static event Action<int> OnPermanentDamageCardDebuff;
+    public static event Action<int> OnOneTurnDamageCardDebuff;
 
     private List<EnemyHealth> _aliveEnemies = new List<EnemyHealth>();
 
@@ -32,8 +35,8 @@ public class CombatManager : MonoBehaviour
     private int _currentMana;
     private int _enemyOrderIndex = 0;
     public int turnCounter;
-    private int _currentPlayerBleedStacks = 0;
     private int _currentStage = 0;
+    private bool _isPlayerStunned = false;
 
     private void Start()
     {
@@ -43,19 +46,21 @@ public class CombatManager : MonoBehaviour
 
         Card.OnCardPlayed += HandleCardPlayed;
         EnemyHealth.OnEnemyDeath += HandleEnemyDeath;
+        MapEvent.OnNewStageStarted += HandleNewStageStart;
 
         _currentMana = _maxMana;
         _manaAmountText.text = _currentMana.ToString();
         turnCounter = 0;
-        //MapEvent.OnPlayerTurnEnd+=StartCombat;
-        
+        StartGame();
     }
 
-    private void StartCombat(){
-        
-        SpawnNewEnemies();
-
+    private void OnDestroy()
+    {
+        Card.OnCardPlayed -= HandleCardPlayed;
+        EnemyHealth.OnEnemyDeath -= HandleEnemyDeath;
+        MapEvent.OnNewStageStarted -= HandleNewStageStart;
     }
+
 
     private void Update()
     {
@@ -71,34 +76,42 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    private void StartGame()
     {
-        Card.OnCardPlayed -= HandleCardPlayed;
-        EnemyHealth.OnEnemyDeath -= HandleEnemyDeath;
-        //MapEvent.OnPlayerTurnEnd-=StartCombat;
+        MapObject.MapInstance.ShowMap();
     }
 
-    public void FullHandDrawn()
+    private void HandleNewStageStart()
     {
-        _endTurnButton.SetActive(true);
-        _endTurnButtonBlocked.SetActive(false);
+        _endTurnButton.SetActive(false);
+        _endTurnButtonBlocked.SetActive(true);
+        ResetMana();
+        SpawnNewEnemies();
+        _handManager.DrawFullHand();
     }
 
-    private void HandleEnemyDeath(EnemyHealth deadEnemy)
+    private void HandleStageComplete()
     {
-        _aliveEnemies.Remove(deadEnemy);
-
-        if (_aliveEnemies.Count > 0) return;
-
-       
-        //chwilowe rozwiazanie
-        //gdzies musi byc koniec poziomu
-        //tutaj dac event OnStageFinished
+        _handManager.ShuffleHandIntoDeck();
         _cardSelectorManager.SetupNewCardsToSelect();
-        //HandManager tmp2 = (HandManager)FindObjectOfType(typeof(HandManager));
-        //tmp2.ShuffleHandIntoDeck();
     }
 
+    public void EndPlayerTurn()
+    {
+        _enemyOrderIndex = 0;
+        _endTurnButton.SetActive(false);
+        _endTurnButtonBlocked.SetActive(true);
+
+
+        OnPlayerTurnEnd?.Invoke();
+        NextEnemyTurn();
+    }
+
+    //chwilowo potrzebne do działania mapy
+
+
+
+    #region Affect Enemy
     public void SpawnNewEnemies()
     {
         if (_currentStage >= enemyStages.enemyGroups.Length - 1)
@@ -133,18 +146,6 @@ public class CombatManager : MonoBehaviour
             _aliveEnemies.Add(newEnemy.GetComponent<EnemyHealth>());
         }
     }
-
-    public void EndTurnButton()
-    {
-        _enemyOrderIndex = 0;
-        _endTurnButton.SetActive(false);
-        _endTurnButtonBlocked.SetActive(true);
-
-
-        OnPlayerTurnEnd?.Invoke();
-        NextEnemyTurn();
-    }
-
     public void NextEnemyTurn()
     {
         if (_enemyOrderIndex == _aliveEnemies.Count)
@@ -160,27 +161,14 @@ public class CombatManager : MonoBehaviour
         _enemyOrderIndex++;
     }
 
-    private void HandlePlayerTurnStart()
+    private void HandleEnemyDeath(EnemyHealth deadEnemy)
     {
-        OnPlayerTurnStart?.Invoke();
+        _aliveEnemies.Remove(deadEnemy);
 
-        _currentMana = _maxMana;
-        _manaAmountText.text = _currentMana.ToString();
+        if (_aliveEnemies.Count > 0) return;
+
+        HandleStageComplete();
     }
-
-    public void HandleCardPlayed(Card cardPlayed)
-    {
-        //cards will have own targets later
-        _currentMana -= cardPlayed.GetCardCost();
-        _manaAmountText.text = _currentMana.ToString();
-    }
-
-    public bool HaveEnoughMana(int cardCost)
-    {
-        if (cardCost > _currentMana) return false;      
-        return true;
-    }
-
     public void DealDamageToEnemy(EnemyHealth enemy, int damage)
     {
         enemy.TakeDamage(damage);
@@ -195,6 +183,83 @@ public class CombatManager : MonoBehaviour
             enemy.TakeDamage(damage);
         }
 
+    }
+
+    #endregion
+
+    #region Affect Player
+    private void HandlePlayerTurnStart()
+    {
+        OnPlayerTurnStart?.Invoke();
+
+        _currentMana = _maxMana;
+        _manaAmountText.text = _currentMana.ToString();
+
+        if (_isPlayerStunned)
+        {
+            HandlePlayerStunned();
+        }
+    }
+
+    private void HandlePlayerStunned()
+    {
+        _isPlayerStunned = false;
+        EndPlayerTurn();
+    }
+
+    public void ResetMana()
+    {
+        _currentMana = _maxMana;
+        _manaAmountText.text = _currentMana.ToString();
+    }
+
+    public void HandleCardPlayed(Card cardPlayed)
+    {
+        //cards will have own targets later
+        _currentMana -= cardPlayed.GetCardCost();
+        _manaAmountText.text = _currentMana.ToString();
+    }
+
+    public void FullHandDrawn()
+    {
+        _endTurnButton.SetActive(true);
+        _endTurnButtonBlocked.SetActive(false);
+    }
+
+    public bool HaveEnoughMana(int cardCost)
+    {
+        if (cardCost > _currentMana) return false;
+        return true;
+    }
+
+    public void BuffPlayerDamagePermenent(int buffAmount)
+    {
+        OnPermanentDamageCardBuff?.Invoke(buffAmount);
+    }
+
+    public void BuffPlayerDamageOneTurn(int buffAmount)
+    {
+        OnOneTurnDamageCardBuff?.Invoke(buffAmount);
+    }
+
+    public void DebuffPlayerDamagePermement(int debuffAmount)
+    {
+        OnPermanentDamageCardBuff?.Invoke(debuffAmount);
+    }
+
+    public void DebuffPlayerDamageOneTurn(int debuffAmount)
+    {
+        OnOneTurnDamageCardBuff?.Invoke(debuffAmount);
+    }
+
+    public void StunPlayer()
+    {
+        _isPlayerStunned = true;
+    }
+
+    public void ReduceCardsCost(int reduceAmount)
+    {
+        _handManager.ReducePermenentCardsCostInHand(reduceAmount);
     }
 
     public void DealDamageToPlayer(int damage)
@@ -218,18 +283,5 @@ public class CombatManager : MonoBehaviour
         _manaAmountText.text = _currentMana.ToString();
     }
 
-    public void ReduceCardsCost(int reduceAmount)
-    {
-        _handManager.ReducePermenentCardsCostInHand(reduceAmount);
-    }
-
-    public void BuffPlayerDamage(int buffAmount)
-    {
-        OnPermanentDamageCardBuff?.Invoke(buffAmount);
-    }
-
-    public void IncreasePlayerBleed(int bleedAmount)
-    {
-        _currentPlayerBleedStacks += bleedAmount;
-    }
+    #endregion
 }
