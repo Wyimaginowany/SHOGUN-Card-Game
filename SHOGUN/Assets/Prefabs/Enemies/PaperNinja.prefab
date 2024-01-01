@@ -108,6 +108,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &3023242497503174447
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8444393838316246939}
+  m_Layer: 0
+  m_Name: Arrow End Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8444393838316246939
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3023242497503174447}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.119, y: 1.473, z: -0.08340931}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6939994642315872439}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4177451820281050982
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,6 +413,7 @@ Transform:
   - {fileID: 3612444126180742712}
   - {fileID: 5815777782411263832}
   - {fileID: 637231450906943845}
+  - {fileID: 8444393838316246939}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -438,6 +470,7 @@ MonoBehaviour:
   _healthbarAmountText: {fileID: 5815777782598696047}
   _healthbarSlider: {fileID: 5815777781620996889}
   _timeAfterDeath: 2
+  _arrowEndPoint: {fileID: 8444393838316246939}
 --- !u!114 &2090993243166166934
 MonoBehaviour:
   m_ObjectHideFlags: 0

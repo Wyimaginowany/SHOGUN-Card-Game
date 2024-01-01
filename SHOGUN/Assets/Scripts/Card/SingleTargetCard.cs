@@ -44,15 +44,17 @@ public abstract class SingleTargetCard : Card
 
             if (Physics.Raycast(ray, out _enemyHit, Mathf.Infinity, _enemyLayer))
             {
-                //enemy under pointer
-                lineEndPoint = _enemyHit.collider.gameObject.transform.position;
+                //enemy under pointer   
+                lineEndPoint = _enemyHit.collider.gameObject.GetComponent<EnemyHealth>().GetArrowEndPoint();
+                _lineRendererController.LockToEnemy(lineEndPoint);
+
             }
             else if (Physics.Raycast(ray, out _groudHit, Mathf.Infinity, _groundLayer))
             {
                //ground hit             
                 lineEndPoint = _groudHit.point;
+                _lineRendererController.DrawLineFromPlayer(lineEndPoint);
             }
-            _lineRendererController.DrawLineFromPlayer(lineEndPoint);
 
             return;
         }

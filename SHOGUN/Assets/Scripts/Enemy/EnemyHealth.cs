@@ -16,6 +16,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private TMP_Text _healthbarAmountText;
     [SerializeField] private Slider _healthbarSlider;
     [SerializeField] private float _timeAfterDeath=2f;
+    [SerializeField] private Transform _arrowEndPoint;
 
     public static event Action<EnemyHealth> OnEnemyDeath;
 
@@ -98,5 +99,9 @@ public class EnemyHealth : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public Vector3 GetArrowEndPoint()
+    {
+        return _arrowEndPoint.position;
+    }
 
 }
