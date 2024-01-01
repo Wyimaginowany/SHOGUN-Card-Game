@@ -116,6 +116,7 @@ public class EnemyHealth : MonoBehaviour
     public void SetCurrentHealth(int newHealth)
     {
         _currentHealth = newHealth;
+        UpdateHealthbarVisual();
     }
 
     IEnumerator RunTimer()
