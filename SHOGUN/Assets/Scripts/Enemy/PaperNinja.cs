@@ -10,11 +10,11 @@ public class PaperNinja : EnemyCombat
     [Header("Attacks")]
     [SerializeField] private List<EnemyAttack<PaperNinjaAttacks>> _paperNinjaPossibleAttacks = new List<EnemyAttack<PaperNinjaAttacks>>();
     [Space(5)]
-    [Header("Basic Attack")]
+    [Header("Shuriken Throw")]
     [SerializeField] private int _shurikenThrowMinDmg = 3;
     [SerializeField] private int _shurikenThrowMaxDmg = 5;
     [Space(5)]
-    [Header("Combo Attack")]
+    [Header("Paper Cut")]
     [SerializeField] private int _paperCutMinDmg = 2;
     
     private List<EnemyAttack<PaperNinjaAttacks>> _attacksPool = new List<EnemyAttack<PaperNinjaAttacks>>();
@@ -25,6 +25,7 @@ public class PaperNinja : EnemyCombat
     {
         base.Start();
         _enemyHealth = GetComponent<EnemyHealth>();
+        
     }
     public override void HandleTurn()
     {

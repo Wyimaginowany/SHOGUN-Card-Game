@@ -16,6 +16,7 @@ public class EnemyHealth : MonoBehaviour, IBleedable
     [SerializeField] private TMP_Text _healthbarAmountText;
     [SerializeField] private Slider _healthbarSlider;
     [SerializeField] private float _timeAfterDeath=2f;
+    [SerializeField] private GameObject _untargetableCanvas;
 
     public static event Action<EnemyHealth> OnEnemyDeath;
 
@@ -31,6 +32,7 @@ public class EnemyHealth : MonoBehaviour, IBleedable
         _currentHealth = _maxHealth;
         _healthbarAmountText.text = _currentHealth.ToString() + "/" + _maxHealth.ToString();
         _healthbarSlider.value = 1;
+        _untargetableCanvas.SetActive(false);
         
         CombatManager.OnPlayerTurnEnd += ResetShield;
         CombatManager.OnPlayerTurnEnd += TakeBleedDamage;
@@ -55,11 +57,13 @@ public class EnemyHealth : MonoBehaviour, IBleedable
     public void MakeTargetable()
     {
         isTargetable = true;
+        _untargetableCanvas.SetActive(false);
     }
     
     public void MakeUntargetable()
     {
         isTargetable = false;
+        _untargetableCanvas.SetActive(true);
     }
 
     public void TakeDamage(int damage)
