@@ -14,8 +14,11 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private TMP_Text _damageText;
     [SerializeField] private Animator _enemyDamagePopupAnimator;
     [SerializeField] private TMP_Text _healthbarAmountText;
+    [SerializeField] private TMP_Text _shieldAmountText;
     [SerializeField] private Slider _healthbarSlider;
+    [SerializeField] private Slider _shieldSlider;
     [SerializeField] private float _timeAfterDeath=2f;
+    [SerializeField] private Transform _arrowEndPoint;
 
     public static event Action<EnemyHealth> OnEnemyDeath;
 
@@ -27,20 +30,27 @@ public class EnemyHealth : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _currentHealth = _maxHealth;
-        _healthbarAmountText.text = _currentHealth.ToString() + "/" + _maxHealth.ToString();
-        _healthbarSlider.value = 1;
-        
+        UpdateHealthbarVisual();
+        UpdateShieldVisual();
+
         CombatManager.OnPlayerTurnEnd += ResetShield;
     }
-    
+
+    private void OnDestroy()
+    {
+        CombatManager.OnPlayerTurnEnd -= ResetShield;
+    }
+
     private void ResetShield()
     {
         _currentShield = 0;
+        _shieldSlider.gameObject.SetActive(false);
     }
     
     public void GiveShield(int shieldAmount)
     {
         _currentShield += shieldAmount;
+        UpdateShieldVisual();
     }
     
     public int GetEnemyShield()
@@ -52,17 +62,18 @@ public class EnemyHealth : MonoBehaviour
     {
         _damageText.text = "-" + damage.ToString();
         _enemyDamagePopupAnimator.SetTrigger("damage");
-        
+
         int damageToEnemy = damage - _currentShield;
-        _currentShield = Mathf.Clamp(_currentShield - damage, 0, 10000);
+        _currentShield -= damage;
+        if (_currentShield < 0) _currentShield = 0;
 
         if (damageToEnemy > 0)
         {
             _currentHealth -= damageToEnemy;
 
         }
-        
-        if(_currentHealth > 0)  
+
+        if (_currentHealth > 0)
         {
             _animator.SetTrigger("Take-damage");
         }
@@ -73,6 +84,26 @@ public class EnemyHealth : MonoBehaviour
             StartCoroutine(RunTimer());
         }
 
+        UpdateHealthbarVisual();
+        UpdateShieldVisual();
+    }
+
+    private void UpdateShieldVisual()
+    {
+        _shieldAmountText.text = _currentShield.ToString();
+        _shieldSlider.value = _currentShield;
+
+        if (_currentShield > 0)
+        {
+            _shieldSlider.gameObject.SetActive(true);
+            return;
+        }
+
+        _shieldSlider.gameObject.SetActive(false);
+    }
+
+    private void UpdateHealthbarVisual()
+    {
         _healthbarAmountText.text = _currentHealth.ToString() + "/" + _maxHealth.ToString();
         _healthbarSlider.value = ((float)_currentHealth) / ((float)_maxHealth);
     }
@@ -85,6 +116,7 @@ public class EnemyHealth : MonoBehaviour
     public void SetCurrentHealth(int newHealth)
     {
         _currentHealth = newHealth;
+        UpdateHealthbarVisual();
     }
 
     IEnumerator RunTimer()
@@ -98,5 +130,9 @@ public class EnemyHealth : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public Vector3 GetArrowEndPoint()
+    {
+        return _arrowEndPoint.position;
+    }
 
 }
