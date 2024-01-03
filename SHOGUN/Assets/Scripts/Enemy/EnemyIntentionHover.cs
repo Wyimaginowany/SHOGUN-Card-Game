@@ -13,7 +13,7 @@ public class EnemyIntentionHover : MonoBehaviour
         descriptionBackground.SetActive(true);
     }
 
-    void OnMouseExit()
+    void OnMouseExit()  
     {
         descriptionBackground.SetActive(false);
     }

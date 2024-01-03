@@ -103,7 +103,8 @@ public class Oni : EnemyCombat
 
     private void DealDamage(int damage)
     {
-        damage *= Mathf.RoundToInt((100 + _currentBerserkMuliplier) / 100);
+        damage += _currentDamageBuff;
+        damage *= Mathf.RoundToInt((100 + (float)_currentBerserkMuliplier) / 100);
         _combatManager.DealDamageToPlayer(damage);
     }
 
@@ -120,10 +121,9 @@ public class Oni : EnemyCombat
         int damage = UnityEngine.Random.Range(_stunAttackMinDmg, _stunAttackMaxDmg);
         DealDamage(damage);
 
-        if (playerHealth.GetPlayerShield() < _minShieldToBlockStun)
+        if (playerHealth.GetPlayerShield() <= _minShieldToBlockStun)
         {
-            //TODO: Stun player
-            Debug.Log("stunPlayer");
+            _combatManager.StunPlayer();
         }
         
         Debug.Log("stunAttack");
@@ -131,14 +131,13 @@ public class Oni : EnemyCombat
 
     private void BuffDamage()
     {
-        //TODO: buff dmg by 2 for the rest of the combat (effect stacks)
         _currentDamageBuff += _damageBuffPerUse;
         Debug.Log("buffDamage");
     }
 
     private void Berserk()
     {
-        //TODO: decrease currentHealth by 50%, but increase damage by 30% for the rest of the combat (one time use)
+        //TODO: Visual Update MAX HP w Healthbarze
         _enemyHealth.SetCurrentHealth(_enemyHealth.GetCurrentHealth()/(100 / _berserkHealthLossPercentage));
         _currentBerserkMuliplier = _berserkDamageBuffPercentage;
         Debug.Log("berserk");

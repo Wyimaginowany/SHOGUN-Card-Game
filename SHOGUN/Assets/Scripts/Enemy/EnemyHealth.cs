@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : MonoBehaviour, IBleedable
 {
     [Header("Settings")]
     [SerializeField] private int _maxHealth;
@@ -19,11 +20,14 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private Slider _shieldSlider;
     [SerializeField] private float _timeAfterDeath=2f;
     [SerializeField] private Transform _arrowEndPoint;
+    [SerializeField] private GameObject _untargetableCanvas;
 
     public static event Action<EnemyHealth> OnEnemyDeath;
 
     private int _currentHealth;
     private int _currentShield = 0;
+    private int _currentBleedStacks = 0;
+    public bool isTargetable = true;
     protected Animator _animator;
 
     private void Start()
@@ -33,7 +37,13 @@ public class EnemyHealth : MonoBehaviour
         UpdateHealthbarVisual();
         UpdateShieldVisual();
 
+        _healthbarAmountText.text = _currentHealth.ToString() + "/" + _maxHealth.ToString();
+        _healthbarSlider.value = 1;
+        _untargetableCanvas.SetActive(false);
+        
         CombatManager.OnPlayerTurnEnd += ResetShield;
+        CombatManager.OnPlayerTurnEnd += TakeBleedDamage;
+        CombatManager.OnPlayerTurnEnd += MakeTargetable;
     }
 
     private void OnDestroy()
@@ -56,6 +66,18 @@ public class EnemyHealth : MonoBehaviour
     public int GetEnemyShield()
     {
         return _currentShield;
+    }
+
+    public void MakeTargetable()
+    {
+        isTargetable = true;
+        _untargetableCanvas.SetActive(false);
+    }
+    
+    public void MakeUntargetable()
+    {
+        isTargetable = false;
+        _untargetableCanvas.SetActive(true);
     }
 
     public void TakeDamage(int damage)
@@ -133,6 +155,12 @@ public class EnemyHealth : MonoBehaviour
     public Vector3 GetArrowEndPoint()
     {
         return _arrowEndPoint.position;
+    public void TakeBleedDamage()
+    {
+        if (_currentBleedStacks <= 0) return;
+
+        TakeDamage(_currentBleedStacks);
+        _currentBleedStacks--;
     }
 
 }

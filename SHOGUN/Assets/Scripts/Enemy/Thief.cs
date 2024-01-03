@@ -24,6 +24,7 @@ public class Thief : EnemyCombat
     
     private int _comboCounter = 1;
     private double _damageMultiplier;
+    private double _currentBlockMultiplier = 1.0;
     private List<EnemyAttack<ThiefAttacks>> _attacksPool = new List<EnemyAttack<ThiefAttacks>>();
     private EnemyAttack<ThiefAttacks> _chosenAttack;
     
@@ -128,17 +129,18 @@ public class Thief : EnemyCombat
 
     private void BlockAction()
     {
-        //TODO: give 5 block
-        _enemyHealth.GiveShield(_blockActionValue);
+        double block = _blockActionValue;
+        block *= _currentBlockMultiplier;
+        _enemyHealth.GiveShield((int)Math.Round(block));
         
-        Debug.Log("blockAction");
+        Debug.Log("blockAction: " + block);
     }
 
     private void BuffBlock()
     {
-        //TODO: block multi 150% for the rest of the combat
-        
-        Debug.Log("buffBlock");
+        if (_currentBlockMultiplier == 1.0) _currentBlockMultiplier = 0.0;
+        _currentBlockMultiplier += (100 + _blockBuffPercentage) / 100.0;
+        Debug.Log("buffBlock: " + _currentBlockMultiplier);
     }
 }
 public enum ThiefAttacks { BasicAttack, ComboAttack, BlockAction ,BuffBlock}
