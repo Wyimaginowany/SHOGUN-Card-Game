@@ -473,6 +473,8 @@ MonoBehaviour:
   _shieldSlider: {fileID: 4961199295507346617}
   _timeAfterDeath: 2
   _arrowEndPoint: {fileID: 8444393838316246939}
+  _untargetableCanvas: {fileID: 4177451820281050982}
+  isTargetable: 1
 --- !u!114 &2090993243166166934
 MonoBehaviour:
   m_ObjectHideFlags: 0

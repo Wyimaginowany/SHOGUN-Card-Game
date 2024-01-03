@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4208,6 +4208,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card System Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 8927327222898265330, guid: 7bfba9a0caae515489788f598ab8d1cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8927327222898265331, guid: 7bfba9a0caae515489788f598ab8d1cf, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4306,7 +4310,7 @@ PrefabInstance:
       objectReference: {fileID: 133997675}
     - target: {fileID: 8927327223222915352, guid: 7bfba9a0caae515489788f598ab8d1cf, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -41.405823
+      value: -41.40576
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bfba9a0caae515489788f598ab8d1cf, type: 3}
@@ -8869,6 +8873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _arrowFromPlayerStartPoint: {fileID: 329041006}
   _arrowFromHandStartPoint: {fileID: 788011724}
+  _transitionTime: 0.5
 --- !u!120 &1560801364
 LineRenderer:
   m_ObjectHideFlags: 0

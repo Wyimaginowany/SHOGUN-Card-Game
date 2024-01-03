@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyHealth : MonoBehaviour
 public class EnemyHealth : MonoBehaviour, IBleedable
 {
     [Header("Settings")]
@@ -155,6 +154,8 @@ public class EnemyHealth : MonoBehaviour, IBleedable
     public Vector3 GetArrowEndPoint()
     {
         return _arrowEndPoint.position;
+    }
+
     public void TakeBleedDamage()
     {
         if (_currentBleedStacks <= 0) return;
