@@ -150,6 +150,11 @@ public class PlayerHealth : MonoBehaviour, IBleedable
         _currentHealth = _maxHealth;
     }
 
+    public int GetPlayerHealth()
+    {
+        return _currentHealth;
+    }
+
     public int GetPlayerShield()
     {
         return _currentShield;
@@ -158,6 +163,11 @@ public class PlayerHealth : MonoBehaviour, IBleedable
     public void AddBleedStacks(int stackCount)
     {
         _currentBleedStacks += stackCount;
+    }
+    
+    public int GetPlayerBleedStacks()
+    {
+        return _currentBleedStacks;
     }
 
     public void TakeBleedDamage()

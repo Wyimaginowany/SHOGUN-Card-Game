@@ -7,7 +7,7 @@ public class PlayerCardAnimations : MonoBehaviour
     {
         PlayerHealth playerHealth = GameObject.FindObjectOfType<PlayerHealth>();
         Animator playerAnimator =  playerHealth.GetAnimator();
-
+        
         switch(cardAnimation)
         {
             case CardAnimation.SingleTargetAttack :
@@ -22,7 +22,7 @@ public class PlayerCardAnimations : MonoBehaviour
             case CardAnimation.SelfArmoring :
                 playerAnimator.SetTrigger("SelfArmoring");
                 break;
-
+        
         }
     }
 }
