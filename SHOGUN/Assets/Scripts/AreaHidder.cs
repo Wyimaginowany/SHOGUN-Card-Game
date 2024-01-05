@@ -7,12 +7,12 @@ using UnityEngine.UI;
 public class AreaHidder : MonoBehaviour
 {
     private RawImage _areaImage;
-    private float _imageStartAlpha;
+    private float _imageStartAlpha = 0.3f;
 
     private void Start()
     {
         _areaImage = GetComponent<RawImage>();
-        _imageStartAlpha = _areaImage.color.a;
+        //_imageStartAlpha = _areaImage.color.a;
     }
 
     private void Update()
