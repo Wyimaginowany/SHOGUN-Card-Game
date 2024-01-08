@@ -48,6 +48,8 @@ public class EnemyHealth : MonoBehaviour, IBleedable
     private void OnDestroy()
     {
         CombatManager.OnPlayerTurnEnd -= ResetShield;
+        CombatManager.OnPlayerTurnEnd -= TakeBleedDamage;
+        CombatManager.OnPlayerTurnEnd -= MakeTargetable;
     }
 
     private void ResetShield()
