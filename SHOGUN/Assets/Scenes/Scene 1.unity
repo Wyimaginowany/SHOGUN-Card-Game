@@ -7828,6 +7828,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8775949720507498274, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: _combatEvent
+      value: 
+      objectReference: {fileID: 535752986656914330, guid: 683290888ab50fe448b6a801078bcd8e, type: 3}
+    - target: {fileID: 8775949720507498274, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: _combatChance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775949720507498274, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: _campfireEvent
+      value: 
+      objectReference: {fileID: 8604328983916435473, guid: f901c3bf7cd2c884db02cf9bc6e10079, type: 3}
+    - target: {fileID: 8775949720507498274, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: _treasureEvent
+      value: 
+      objectReference: {fileID: 1106577288549175103, guid: 2dcb64424126af344829a6ad33c9fb33, type: 3}
+    - target: {fileID: 8775949720507498274, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: _campfireChance
+      value: 0.455
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775949720507498274, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: _treasureChance
+      value: 0.108
+      objectReference: {fileID: 0}
     - target: {fileID: 8775949720590793616, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
       propertyPath: m_IsActive
       value: 0

@@ -96,6 +96,10 @@ public class CombatManager : MonoBehaviour
         _cardSelectorManager.SetupNewCardsToSelect();
     }
 
+    public void HandleTreasureChest(){
+        _cardSelectorManager.SetupNewCardsToSelect();
+    }
+
     public void EndPlayerTurn()
     {
         _enemyOrderIndex = 0;

@@ -8,10 +8,12 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
 {
     private List<MapEvent> _childrenEvents,_parentEvents,_enabledEvents;
     public RectTransform _rectTransform;
+    public string _eventType { get; private set; }
 
     [SerializeField] private LineController _line;
     [SerializeField] private Sprite _visited;
     [SerializeField] private Image _imageControler;
+    private CombatManager _combatManager;
 
     public static event Action OnNewStageStarted;
 
@@ -19,12 +21,23 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
        UpdateMap();
-       OpenScene();
+       if(_eventType=="Combat"){
+            OpenCombatScene();
+       }
+       else if(_eventType=="Campfire"){
+            HandleCampfire();
+       }
+       else if(_eventType=="Treasure"){
+            HandleTreasure();
+       }else{
+            Debug.Log("Unknown Event Type");
+       }
     }
 
     private void Awake() {
         _parentEvents=new List<MapEvent>();
         _childrenEvents=new List<MapEvent>();
+        _combatManager=GameObject.Find("/Main Canvas/Card System Manager").GetComponent<CombatManager>();
     }
 
     public void setParentEvent(MapEvent parentEvent){
@@ -37,6 +50,11 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
 
     public void addChildrenEvent(MapEvent child){
         _childrenEvents.Add(child);
+    }
+
+    public void setEventType(string type){
+        _eventType=type;
+
     }
 
     private void UpdateMap(){
@@ -61,10 +79,22 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
         _enabledEvents=new List<MapEvent>(events);
     }
 
+    private void HandleTreasure(){
+        _combatManager.HandleTreasureChest();
+        MapObject.MapInstance.GetComponent<MapObject>().HideMap();
+        Debug.Log("Choose Card");
+
+    }
+
+    private void HandleCampfire(){
+        _combatManager.HealPlayer(5);
+        Debug.Log("Healed player");
+    }
+
    
 
 
-    public void OpenScene()
+    public void OpenCombatScene()
     {
         MapObject.MapInstance.GetComponent<MapObject>().HideMap();
         OnNewStageStarted?.Invoke();
