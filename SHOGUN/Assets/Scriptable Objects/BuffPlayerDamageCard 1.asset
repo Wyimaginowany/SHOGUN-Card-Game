@@ -15,6 +15,6 @@ MonoBehaviour:
   Value: 3
   Cost: 2
   CardColor: {r: 0.6886792, g: 0.49052152, b: 0.67437917, a: 1}
-  Description: "Dodaj +X obra\u017Ce\u0144 do swoich kart ataku"
-  CardName: 'Harmonia '
+  Description: Your attack cards deal +X damage
+  CardName: Harmony
   CardImage: {fileID: 21300000, guid: e50964a68687f9746bf5e1e566333fe9, type: 3}
