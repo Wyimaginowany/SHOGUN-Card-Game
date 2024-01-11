@@ -71,14 +71,15 @@ public class GridManager : MonoBehaviour
     void GenerateGrid(){
         int newStageOrigin=0; //stage from which generation is started
         int visionBorder;
-        if(_nextStage>0) newStageOrigin=_nextStage-1+_visionDistance;
+        
 
         if(_scouting) visionBorder=_nextStage+_visionDistance+_scoutingDistance;
         else visionBorder=_nextStage+_visionDistance;
         
         if (visionBorder>=_stages) visionBorder=_stages;
         
-        if(_scouted+1<visionBorder){
+        if(_scouted<visionBorder-1||_scouted==0){
+        if(_nextStage>0) newStageOrigin=_scouted+1;
         for(int stage=newStageOrigin;stage<visionBorder;stage++){
             if(stage==0){
                 newStageEventsLocations=GenerateEntryLocation();
@@ -113,6 +114,7 @@ public class GridManager : MonoBehaviour
                     //Creating event
                     var spawnedEvent=Instantiate(drawnEventType.Item1,transform,false);
                     spawnedEvent.name=$"Event {stage}-{location}";
+                    Debug.Log(spawnedEvent.name);
                     spawnedEvent.setEventType(drawnEventType.Item2);
                     spawnedEvent.setEventPlacement(new Vector2(stage,location));
 
@@ -151,8 +153,8 @@ public class GridManager : MonoBehaviour
             
             
         }
-        _scouted=visionBorder-1;
-        Debug.Log(_scouted);
+        if(visionBorder-1>_scouted) _scouted=visionBorder-1;
+        
 
         if(_scouting) _scouting=false;
     }
