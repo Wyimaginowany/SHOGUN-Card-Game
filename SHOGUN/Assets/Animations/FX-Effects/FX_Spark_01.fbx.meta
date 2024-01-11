@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ea297b672c36a1b44b7970e099bfa5f3
+guid: 08fa20af3c915894aadb47176c9533c8
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Statue
-    second: {fileID: 2100000, guid: a08cc4713e6b6c44db5324588efad527, type: 2}
+      name: lambert1
+    second: {fileID: 2100000, guid: 099cad5ee19fd45469b38499f4e8992b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
