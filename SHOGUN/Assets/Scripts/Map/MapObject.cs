@@ -24,6 +24,7 @@ public class MapObject : MonoBehaviour
     }
 
     public void HideMap(){
+
         _gameCanvas.SetActive(true);
         _mapCanvas.SetActive(false);
         //if(!_startButton.active){
@@ -33,8 +34,12 @@ public class MapObject : MonoBehaviour
     }
     public void ShowMap(){
         _mapCanvas.SetActive(true);
+        
+        
         _gameCanvas.SetActive(false);
     }
+
+   
 
    
 }

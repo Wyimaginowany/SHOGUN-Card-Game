@@ -11,19 +11,33 @@ public class GridManager : MonoBehaviour
     [Header("Generator Settings")]
     [SerializeField] private int _stages; //stage- event x value
     [SerializeField] private int _locations; //location- event y value
+    [SerializeField] private int _visionDistance=2; //location- event y value
+    [SerializeField] [Range(0,3)] private int _maxPaths=2; //location- event y value
+    [SerializeField] [Range(0,3)] private int _minPaths=1; //location- event y value
     [SerializeField] private Canvas _canvas;
     [SerializeField] private int _canvasStartX=170,_canvasStartY=200; //canvas size
     [SerializeField] [Range(0,1)] private float _maxOffsetX=(float)0.6,_maxOffsetY=(float)0.6;//max potential shift of event position on canvas
-    [SerializeField] private MapEvent _combatEvent,_treasureEvent,_campfireEvent; //types of events
-    [SerializeField] [Range(0,1)] private float _combatChance=(float)0.6,_treasureChance=(float)0.2,_campfireChance=(float)0.2;//the chances of drawing a specific type of event in a given location
-    private Dictionary<Vector2,MapEvent> _allEvents;
+    [SerializeField] private MapEvent _combatEvent,_treasureEvent,_campfireEvent,_scoutingEvent,_bossEvent; //types of events
+    [SerializeField] [Range(0,1)] private float _combatChance=(float)0.6,_treasureChance=(float)0.2,_campfireChance=(float)0.2,_scoutingChance=(float)0.2;//the chances of drawing a specific type of event in a given location
+    [SerializeField] private int _scoutingDistance=1;
+    private List<MapEvent> _allEvents;
     private Dictionary<MapEvent,ValueTuple<float,string>> _eventTypes;
     public static GameObject MapInstance;
+    private int _nextStage=0, _scouted=0; 
+    private int eventTileWidth,eventTileHeight;
+    private List<MapEvent> previousStageEvents;
+    private Dictionary<int,List<MapEvent>> newStageEvents;
+    private List<int> newStageEventsLocations;
+    private MapEvent _currentEvent;
+    private bool _scouting=false;
 
     void Start()
     {
-        GenerateGrid();
+        CreateMap();
     }
+
+    
+
     private void Awake() {
         if (MapInstance != null){
             Destroy(gameObject);
@@ -34,29 +48,44 @@ public class GridManager : MonoBehaviour
         }
     }
 
-
-    //Generate Grid-based map of connected events
-    void GenerateGrid(){
-        _allEvents=new Dictionary<Vector2, MapEvent>();
+    private void CreateMap()
+    {
+        _allEvents=new List<MapEvent>();
 
         //connecting item types with their weight
         _eventTypes=new Dictionary<MapEvent,ValueTuple<float,string>>(){
             {_combatEvent,(_combatChance,"Combat")},
             {_treasureEvent,(_treasureChance,"Treasure")},
+            {_scoutingEvent,(_scoutingChance,"Scouting")},
             {_campfireEvent,(_campfireChance,"Campfire")}
         };
-        Dictionary<Vector2, MapEvent> previousStageEvents=new();
-        Dictionary<int,List<MapEvent>> newStageEvents=new();
-        List<int> newStageEventsLocations=new();
-        var eventTileWidth= (int)(_canvas.GetComponent<RectTransform>().rect.width-_canvasStartX*2)/_stages;
-        var eventTileHeight= (int)(_canvas.GetComponent<RectTransform>().rect.height-_canvasStartY*2)/_locations;
+        previousStageEvents=new List<MapEvent>();
+        newStageEvents=new Dictionary<int,List<MapEvent>> ();
+        // List<int> newStageEventsLocations=new();
+        eventTileWidth= (int)(_canvas.GetComponent<RectTransform>().rect.width-_canvasStartX*2)/_stages;
+        eventTileHeight= (int)(_canvas.GetComponent<RectTransform>().rect.height-_canvasStartY*2)/_locations;
+        GenerateGrid();
+    }
 
+    //Generate Grid-based map of connected events
+    void GenerateGrid(){
+        int newStageOrigin=0; //stage from which generation is started
+        int visionBorder;
+        if(_nextStage>0) newStageOrigin=_nextStage-1+_visionDistance;
+
+        if(_scouting) visionBorder=_nextStage+_visionDistance+_scoutingDistance;
+        else visionBorder=_nextStage+_visionDistance;
         
-        for(int stage=0;stage<_stages;stage++){
+        if (visionBorder>=_stages) visionBorder=_stages;
+        
+        if(_scouted+1<visionBorder){
+        for(int stage=newStageOrigin;stage<visionBorder;stage++){
             if(stage==0){
                 newStageEventsLocations=GenerateEntryLocation();
             }else{
-                newStageEvents=GenerateNewStageEvents(previousStageEvents);
+                
+                if(stage==1) newStageEvents=GenerateNewStageEvents(previousStageEvents);
+                else newStageEvents=GenerateNewStageEvents(previousStageEvents.Where(m=>m.GetPath().Contains(_currentEvent)).ToList());
                 newStageEventsLocations=newStageEvents.Keys.ToList();
             }
 
@@ -67,15 +96,14 @@ public class GridManager : MonoBehaviour
                     ValueTuple<MapEvent,string> drawnEventType;
 
                     //Drawing type of event
-                    if(stage==0||stage==_stages-1){
-                        drawnEventType=(_combatEvent,"Combat");
-                    }else{
-
+                    if(stage==0) drawnEventType=(_combatEvent,"Combat");
+                    else if(stage==_stages-1) drawnEventType=(_bossEvent,"Boss");
+                    else{
                         //checks if parent event wasn't combat
                         bool drawningEvent=true;
                         foreach(MapEvent mapEvent in newStageEvents[location]){
-                            if(mapEvent._eventType=="Treasure"||mapEvent._eventType=="Campfire")
-                                drawningEvent=false;
+                            if(mapEvent._eventType!="Combat") drawningEvent=false;
+                                
                         }
                         if(drawningEvent) drawnEventType=EventTypeSelector();
                         else drawnEventType=(_combatEvent,"Combat");
@@ -86,6 +114,7 @@ public class GridManager : MonoBehaviour
                     var spawnedEvent=Instantiate(drawnEventType.Item1,transform,false);
                     spawnedEvent.name=$"Event {stage}-{location}";
                     spawnedEvent.setEventType(drawnEventType.Item2);
+                    spawnedEvent.setEventPlacement(new Vector2(stage,location));
 
 
                     //drawing shift of event position on canvas
@@ -94,30 +123,38 @@ public class GridManager : MonoBehaviour
 
 
                     //adding event to list of all events and to previous stage list for next stage generating process
-                    _allEvents.Add(new Vector2(stage,location),spawnedEvent);
-                    previousStageEvents.Add(new Vector2(stage,location),spawnedEvent);
+                    _allEvents.Add(spawnedEvent);
+                    previousStageEvents.Add(spawnedEvent);
                     
 
                     //Skips parent assigning process if created event is entry location
                     if(newStageEvents.ContainsKey(location)){
+                        spawnedEvent.setParentEvents(newStageEvents[location]);
                         //assigning parents to child event in given location
                         foreach(MapEvent mapEvent in newStageEvents[location]){
-                           
-                           spawnedEvent.GetComponent<MapEvent>().setParentEvent(mapEvent);
                            mapEvent.GetComponent<MapEvent>().addChildrenEvent(spawnedEvent);
+                           spawnedEvent.GetComponent<MapEvent>().addToPath(mapEvent.GetPath());
                         }
                     }
                 }
             }
             //Enabling first event
             if(stage==0){
-                foreach(MapEvent startEvent in previousStageEvents.Values){
+                foreach(MapEvent startEvent in previousStageEvents){
+                    _currentEvent=startEvent;
                     startEvent.GetComponent<Image>().raycastTarget=true;
                     startEvent.setEventType("Combat");
-                    startEvent.GetComponent<MapEvent>().ImportEnabledEvents(previousStageEvents.Values.ToList());
+                    startEvent.GetComponent<MapEvent>().ImportEnabledEvents(previousStageEvents.ToList());
                 }
             }
         }
+            
+            
+        }
+        _scouted=visionBorder-1;
+        Debug.Log(_scouted);
+
+        if(_scouting) _scouting=false;
     }
 
     //Entry Event Location
@@ -143,27 +180,35 @@ public class GridManager : MonoBehaviour
     }
 
     //Creates dict that contains [location of the new child event, its parents]  
-    private Dictionary<int,List<MapEvent>> GenerateNewStageEvents(Dictionary<Vector2, MapEvent> previousStageEvents){
+    private Dictionary<int,List<MapEvent>> GenerateNewStageEvents(List<MapEvent> previousStageEvents){
         Dictionary<int,List<MapEvent>> newStageEventsLocations=new();
         List<int> childEventsLocations= new();
 
         foreach (var parentEvent in previousStageEvents){
             childEventsLocations.Clear();
-            childEventsLocations=CreateEvents(parentEvent.Key.y);
+            childEventsLocations=CreateEvents(parentEvent._eventPlacement.y);
             
             //assigning parents to given location
             foreach(int location in childEventsLocations){
                 if(!newStageEventsLocations.ContainsKey(location)){
                     newStageEventsLocations[location]= new List<MapEvent>
                     {
-                        parentEvent.Value
+                        parentEvent
                     };
                 }else{
-                    newStageEventsLocations[location].Add(parentEvent.Value);
+                    newStageEventsLocations[location].Add(parentEvent);
                 }
             }
         }
         return newStageEventsLocations;
+    }
+
+    public void HandleUpdate(MapEvent current, bool scouting){
+        _nextStage++;
+        _currentEvent=current;
+        _scouting=scouting;
+
+        GenerateGrid();
     }
 
 
@@ -171,17 +216,17 @@ public class GridManager : MonoBehaviour
     private List<int> CreateEvents(float y){
         List<int> eventLocations= new();
         int paths=0;
-        while(paths<1){
-            if(y+1<_locations&&Random.Range(0,2)==1){
+        while(paths<_minPaths){
+            if(paths<_maxPaths&&y+1<_locations&&Random.Range(0,2)==1){
                 eventLocations.Add((int)y+1);
                 paths++;
             }
-            if(y-1>=0&&Random.Range(0,2)==1){
+            if(paths<_maxPaths&&y-1>=0&&Random.Range(0,2)==1){
                 eventLocations.Add((int)y-1);
                 paths++;
             }
           
-            if(paths<2&&Random.Range(0,2)==1){
+            if(paths<_maxPaths&&Random.Range(0,2)==1){
                 eventLocations.Add((int)y);
                 paths++;
             }
