@@ -15,6 +15,6 @@ MonoBehaviour:
   Value: 12
   Cost: 4
   CardColor: {r: 1, g: 0.86971503, b: 0.48584908, a: 1}
-  Description: "Zadaj X obra\u017Ce\u0144 przeciwnikowi"
-  CardName: "Zmia\u017Cd\u017Cenie"
+  Description: Deal X damage to single unit
+  CardName: Crush
   CardImage: {fileID: 21300000, guid: e50964a68687f9746bf5e1e566333fe9, type: 3}
