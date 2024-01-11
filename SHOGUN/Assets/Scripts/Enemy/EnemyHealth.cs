@@ -125,7 +125,7 @@ public class EnemyHealth : MonoBehaviour, IBleedable
         _shieldSlider.gameObject.SetActive(false);
     }
 
-    private void UpdateHealthbarVisual()
+    public void UpdateHealthbarVisual()
     {
         _healthbarAmountText.text = _currentHealth.ToString() + "/" + _maxHealth.ToString();
         _healthbarSlider.value = ((float)_currentHealth) / ((float)_maxHealth);
