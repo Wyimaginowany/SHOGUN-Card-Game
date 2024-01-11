@@ -127,9 +127,19 @@ public class PlayerHealth : MonoBehaviour, IBleedable
         _healthAmountText.text = _currentHealth.ToString() + "/" + _maxHealth.ToString();
         _healthbarSlider.value = ((float) _currentHealth) / ((float)_maxHealth);
     }
-    private void UpdateShieldDisplay(){
+
+    private void UpdateShieldDisplay()
+    {
         _shieldAmountText.text = _currentShield.ToString();
         _shieldSlider.value = _currentShield;
+
+        if (_currentShield > 0)
+        {
+            _shieldSlider.gameObject.SetActive(true);
+            return;
+        }
+
+        _shieldSlider.gameObject.SetActive(false);
     }
 
     private void DisplayDamagePopup(int damage){

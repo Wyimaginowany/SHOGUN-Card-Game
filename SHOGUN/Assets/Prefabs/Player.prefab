@@ -164,6 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _arrowFromPlayerStartPoint: {fileID: 1827124690512224331}
   _arrowFromHandStartPoint: {fileID: 1827124690512224331}
+  _transitionTime: 0.5
 --- !u!1 &6697479499100096007
 GameObject:
   m_ObjectHideFlags: 0
