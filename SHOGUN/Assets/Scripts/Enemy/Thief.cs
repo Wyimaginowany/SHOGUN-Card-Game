@@ -124,6 +124,7 @@ public class Thief : EnemyCombat
     {
         int damage = (int) Math.Round(_comboAttackMinDmg * _comboCounter * _damageMultiplier);
         DealDamage(damage);
+        _comboCounter++;
         Debug.Log("comboAttack");
     }
 
@@ -138,6 +139,7 @@ public class Thief : EnemyCombat
 
     private void BuffBlock()
     {
+        BlockAction();
         if (_currentBlockMultiplier == 1.0) _currentBlockMultiplier = 0.0;
         _currentBlockMultiplier += (100 + _blockBuffPercentage) / 100.0;
         Debug.Log("buffBlock: " + _currentBlockMultiplier);
