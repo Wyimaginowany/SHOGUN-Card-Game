@@ -154,6 +154,7 @@ public class HandManager : MonoBehaviour
         _hand.Remove(cardPlayed);
         UpdateCardsPosition(_hand.Count);
         UpdateCardsRotation(_hand.Count);
+        _hoverCounter = 0;
     }
 
     private void UpdateCardsPosition(int newCardsAmount)

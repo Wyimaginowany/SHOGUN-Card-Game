@@ -53,6 +53,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _handManager = (HandManager)FindObjectOfType(typeof(HandManager));
         _cardVisualCanvasGroup = GetComponentInChildren<CanvasGroup>();
         _cardVisual = GetComponent<CardVisual>();
+        //_cardVisual.UpdateVisual();
 
         _rectTransform = GetComponent<RectTransform>();
         _startingPosition = _rectTransform.anchoredPosition;
@@ -133,6 +134,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         _cardVisualCanvasGroup.alpha = 1;
         _cardDisplayPosition = drawDisplayPoistion;
+        _cardVisual.UpdateVisual();
         _timer = 0;
         _isBeingDrawn = true;
     }
