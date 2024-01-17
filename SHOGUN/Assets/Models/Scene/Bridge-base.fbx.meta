@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ea297b672c36a1b44b7970e099bfa5f3
+guid: 59ea765bd2f41bc4991a47d4368931a6
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,8 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Statue
-    second: {fileID: 2100000, guid: a08cc4713e6b6c44db5324588efad527, type: 2}
+      name: base-red
+    second: {fileID: 2100000, guid: 0876d8a07e33cda4fbff3c8e5127bd34, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: light-wood
+    second: {fileID: 2100000, guid: 213a99e3105e0da428e8e23e4f99edc9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: light-wood.001
+    second: {fileID: 2100000, guid: 213a99e3105e0da428e8e23e4f99edc9, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
