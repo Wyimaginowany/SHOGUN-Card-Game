@@ -1508,11 +1508,11 @@ PrefabInstance:
     - target: {fileID: -4612520378060379669, guid: ba93849ee1e5d7d468a895e85c81cf8d, type: 3}
       propertyPath: m_Materials.Array.data[5]
       value: 
-      objectReference: {fileID: 2100000, guid: 48931e9fc1c14b343a29aeffedb7bb71, type: 2}
+      objectReference: {fileID: 2100000, guid: 8bf7789b8185d2546879d7555c4578ff, type: 2}
     - target: {fileID: -4612520378060379669, guid: ba93849ee1e5d7d468a895e85c81cf8d, type: 3}
       propertyPath: m_Materials.Array.data[6]
       value: 
-      objectReference: {fileID: 2100000, guid: 48931e9fc1c14b343a29aeffedb7bb71, type: 2}
+      objectReference: {fileID: 2100000, guid: 8bf7789b8185d2546879d7555c4578ff, type: 2}
     - target: {fileID: 919132149155446097, guid: ba93849ee1e5d7d468a895e85c81cf8d, type: 3}
       propertyPath: m_Name
       value: Thief
