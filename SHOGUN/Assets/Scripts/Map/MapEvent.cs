@@ -83,12 +83,14 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
 
     private void UpdateMap(){
         // gameObject.GetComponent<UnityEngine.UI.Image>().overrideSprite=_visited;
+        
         _imageControler.sprite=_visited;
 
         foreach (MapEvent enabled in _enabledEvents){
             enabled.GetComponent<Image>().raycastTarget=false;
-            enabled.GetComponent<Image>().color=new Color(61,61,61,255);
+            enabled.GetComponent<Image>().color=new Color32(91,91,91,255);
         }
+        _imageControler.color=Color.white;
         _enabledEvents.Clear();
 
         _enabledEvents.AddRange(_childrenEvents);

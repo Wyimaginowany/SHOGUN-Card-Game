@@ -69,17 +69,18 @@ public class GridManager : MonoBehaviour
 
     //Generate Grid-based map of connected events
     void GenerateGrid(){
-        int newStageOrigin=0; //stage from which generation is started
+        int newStageOrigin=_scouted; //stage from which generation is started
         int visionBorder;
         
 
         if(_scouting) visionBorder=_nextStage+_visionDistance+_scoutingDistance;
+        else if(_scouted==0) visionBorder=1;
         else visionBorder=_nextStage+_visionDistance;
         
         if (visionBorder>=_stages) visionBorder=_stages;
         
         if(_scouted<visionBorder-1||_scouted==0){
-        if(_nextStage>0) newStageOrigin=_scouted+1;
+        if(_nextStage>1) newStageOrigin=_scouted+1;
         for(int stage=newStageOrigin;stage<visionBorder;stage++){
             if(stage==0){
                 newStageEventsLocations=GenerateEntryLocation();
@@ -147,8 +148,17 @@ public class GridManager : MonoBehaviour
                     startEvent.GetComponent<Image>().raycastTarget=true;
                     startEvent.GetComponent<Image>().color=Color.black;
                     startEvent.setEventType("Combat");
-                    startEvent.GetComponent<MapEvent>().ImportEnabledEvents(previousStageEvents.ToList());
+                    _scouted++;
                 }
+            }else if(stage==1){
+                foreach(MapEvent e in previousStageEvents){
+                    e.GetComponent<MapEvent>().ImportEnabledEvents(previousStageEvents.ToList());
+                    e.GetComponent<Image>().color=Color.black;
+                    e.GetComponent<Image>().raycastTarget=true;
+                    }
+
+
+
             }
         }
             
