@@ -27,6 +27,7 @@ public class EnemyHealth : MonoBehaviour, IBleedable
     private int _currentShield = 0;
     private int _currentBleedStacks = 0;
     public bool isTargetable = true;
+    public bool isAlive = true;
     protected Animator _animator;
 
     private void Start()
@@ -83,6 +84,8 @@ public class EnemyHealth : MonoBehaviour, IBleedable
 
     public void TakeDamage(int damage)
     {
+        if (!isAlive) return;
+
         _damageText.text = "-" + damage.ToString();
         _enemyDamagePopupAnimator.SetTrigger("damage");
 
@@ -103,7 +106,9 @@ public class EnemyHealth : MonoBehaviour, IBleedable
         else
         {
             _currentHealth = 0;
+            isAlive = false;
             _animator.SetTrigger("Death");
+            OnEnemyDeath?.Invoke(this);
             StartCoroutine(RunTimer());
         }
 
@@ -149,7 +154,6 @@ public class EnemyHealth : MonoBehaviour, IBleedable
     }
 
     public void EnemyDeath(){
-        OnEnemyDeath?.Invoke(this);
         Destroy(gameObject);
     }
 

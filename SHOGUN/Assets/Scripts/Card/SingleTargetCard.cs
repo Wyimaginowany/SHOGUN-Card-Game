@@ -93,7 +93,7 @@ public abstract class SingleTargetCard : Card
             {
                 EnemyHealth enemy = targetEnemyHit.collider.GetComponent<EnemyHealth>();
                 
-                if (enemy.isTargetable)
+                if (enemy.isTargetable && enemy.isAlive)
                 {
                     PlayCardOnTarget(enemy);
                 }
