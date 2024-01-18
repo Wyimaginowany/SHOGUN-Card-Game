@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HealCard 1
   m_EditorClassIdentifier: 
   Value: 10
-  Cost: 3
+  Cost: 4
   CardColor: {r: 0.13231826, g: 1, b: 0, a: 1}
   Description: Heal for X
   CardName: Cure
