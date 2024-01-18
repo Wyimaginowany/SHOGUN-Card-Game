@@ -14,7 +14,8 @@ public class Intro : MonoBehaviour
 
         _startGameButton.onClick.AddListener(() =>
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            LevelLoaderManager.LevelLoaderInstance.GetComponent<LevelLoaderManager>().LoadFirstLevel();
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         });
     }
 }

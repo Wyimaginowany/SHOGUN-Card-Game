@@ -17,7 +17,8 @@ public class MainMenu : MonoBehaviour
 
         _playButton.onClick.AddListener(() =>
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            LevelLoaderManager.LevelLoaderInstance.GetComponent<LevelLoaderManager>().LoadNextScene();
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         });
 
         _achievementsButton.onClick.AddListener(() =>
@@ -37,7 +38,8 @@ public class MainMenu : MonoBehaviour
 
         _introButton.onClick.AddListener(() =>
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+            LevelLoaderManager.LevelLoaderInstance.GetComponent<LevelLoaderManager>().LoadIntro();
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
         });
     }
 }

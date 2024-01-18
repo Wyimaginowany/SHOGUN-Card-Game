@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,5 +20,20 @@ public class MainCanvas : MonoBehaviour
 
             DontDestroyOnLoad(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        LevelLoaderManager.OnMainMenuLoading += DestroyThisGameObject;
+    }
+
+    private void OnDestroy()
+    {
+        LevelLoaderManager.OnMainMenuLoading -= DestroyThisGameObject;
+    }
+
+    private void DestroyThisGameObject()
+    {
+        Destroy(gameObject);
     }
 }
