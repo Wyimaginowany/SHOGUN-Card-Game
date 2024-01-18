@@ -441,7 +441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86fa13670df4c19439814b0f8ef1f50e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 20
+  _maxHealth: 45
   _damageText: {fileID: 4887756071848965310}
   _enemyDamagePopupAnimator: {fileID: 4117166414358285483}
   _healthbarAmountText: {fileID: 3987299875749734872}

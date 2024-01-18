@@ -459,7 +459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86fa13670df4c19439814b0f8ef1f50e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
+  _maxHealth: 500
   _damageText: {fileID: 7474835116594041188}
   _enemyDamagePopupAnimator: {fileID: 2111101517252159857}
   _healthbarAmountText: {fileID: 3942932242566249886}
