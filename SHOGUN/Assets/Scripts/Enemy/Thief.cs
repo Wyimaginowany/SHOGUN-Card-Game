@@ -23,7 +23,6 @@ public class Thief : EnemyCombat
     [SerializeField] private int _blockBuffPercentage = 50;
     
     private int _comboCounter = 1;
-    //private double _damageMultiplier;
     private double _currentBlockMultiplier = 1.0;
     private List<EnemyAttack<ThiefAttacks>> _attacksPool = new List<EnemyAttack<ThiefAttacks>>();
     private EnemyAttack<ThiefAttacks> _chosenAttack;
@@ -34,13 +33,6 @@ public class Thief : EnemyCombat
     {
         base.Start();
         _enemyHealth = GetComponent<EnemyHealth>();
-        //string[] beltColors = { "white", "orange", "blue", "yellow", "green", "brown", "black" };
-        //int[] beltDamages = { 100, 120, 140, 160, 180, 200, 220 };
-        //int randomIndex = UnityEngine.Random.Range(0, beltColors.Length);
-        //_damageMultiplier = (double) beltDamages[randomIndex] / 100;
-        //Debug.Log("Belt color: " + beltColors[randomIndex]);
-        
-        //TODO: SET ENEMY MODEL TO ACCORDING BELTCOLOR
     }
     
     public override void HandleTurn()
