@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Oni : EnemyCombat
 {
+    #region Fields
     [Header("Attacks")]
     [SerializeField] private List<EnemyAttack<OniAttacks>> _oniPossibleAttacks = new List<EnemyAttack<OniAttacks>>();
     [Space(5)]
@@ -30,6 +31,8 @@ public class Oni : EnemyCombat
     private int _currentDamageBuff = 0;
     private List<EnemyAttack<OniAttacks>> _attacksPool = new List<EnemyAttack<OniAttacks>>();
     private EnemyAttack<OniAttacks> _chosenAttack;
+    
+    #endregion
     
     protected override void Start()
     {
@@ -68,7 +71,6 @@ public class Oni : EnemyCombat
     {
         GetTurnAttack();
         DisplayEnemyIntentions();
-        
     }
 
     private void GetTurnAttack()

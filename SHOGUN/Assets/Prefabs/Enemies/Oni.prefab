@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4825478900585428957}
   - component: {fileID: 1641149834502733862}
   - component: {fileID: 1921610056811786315}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Attack Intention Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 6458899874724992026}
   - component: {fileID: 4219164727955654631}
   - component: {fileID: 3419290109382679099}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Attack Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -470,6 +470,7 @@ MonoBehaviour:
   _arrowEndPoint: {fileID: 1111063507540677708}
   _untargetableCanvas: {fileID: 2223886615321035635}
   isTargetable: 1
+  isAlive: 1
 --- !u!114 &4322817320335298431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -682,7 +683,7 @@ GameObject:
   - component: {fileID: 586734287102527189}
   - component: {fileID: 5558463088212821772}
   - component: {fileID: 953505679521185079}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Attack Description Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -760,7 +761,7 @@ GameObject:
   - component: {fileID: 8869494982923824921}
   - component: {fileID: 7679586548083388787}
   - component: {fileID: 1859058239310922415}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Enemy Intention Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -865,7 +866,7 @@ GameObject:
   - component: {fileID: 1435735455906849370}
   - component: {fileID: 3567139949409453176}
   - component: {fileID: 6834450267889630018}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HoverArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1036,7 +1037,7 @@ GameObject:
   - component: {fileID: 9079358499011935640}
   - component: {fileID: 2782386451716597663}
   - component: {fileID: 2787867789026855358}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Attack Intention Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

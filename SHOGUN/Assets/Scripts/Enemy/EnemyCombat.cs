@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class EnemyCombat : MonoBehaviour
 {
+    #region Fields
+    
     [Header("Settings")]
     [SerializeField] protected TextMeshProUGUI _attackIntentionText;
     [SerializeField] protected TextMeshProUGUI _attackDescriptionText;
@@ -11,16 +13,13 @@ public abstract class EnemyCombat : MonoBehaviour
     [SerializeField] protected float _turnTimeAmount = 2f;
     [SerializeField] protected GameObject _iconGameObject;
     
-    // [Header("To Attach")]
-    // [SerializeField] private AnimatorOverrideController _overrideController;
-    
-
     protected Animator _animator;
     protected CombatManager _combatManager;
     protected PlayerHealth playerHealth;
     private float _turnTimer = 0;
     private bool _isThisEnemyTurn = false;
 
+    #endregion
     private void OnDestroy()
     {
         CombatManager.OnPlayerTurnStart -= PrepareAttack;
@@ -30,11 +29,9 @@ public abstract class EnemyCombat : MonoBehaviour
     {
         
         _animator = GetComponent<Animator>();
-        // _animator.runtimeAnimatorController = _overrideController;
         CombatManager.OnPlayerTurnStart += PrepareAttack;
         playerHealth = (PlayerHealth)FindObjectOfType(typeof(PlayerHealth));
         _combatManager = (CombatManager)FindObjectOfType(typeof(CombatManager));
-        //_playerEffects = ...
         PrepareAttack();
     }
     
