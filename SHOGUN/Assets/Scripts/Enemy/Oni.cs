@@ -94,11 +94,34 @@ public class Oni : EnemyCombat
     public void DisplayEnemyIntentions()
     {
         _attackIntentionText.text = _chosenAttack.AttackName;
-        _attackDescriptionText.text = _chosenAttack.Description;
+        _attackDescriptionText.text = ChangeAttackDescription(_chosenAttack.Attack);
         AttackTypes attackType = _chosenAttack.AttackType;
         String iconName = (attackType + "_icon").ToLower();
         String iconPath = "Enemy Intention Icons/" + iconName;
         _iconGameObject.GetComponent<Image>().sprite = Resources.Load<Sprite> (iconPath);
+    }
+
+    private string ChangeAttackDescription(OniAttacks attackType)
+    {
+        string attackDescriptionText = _chosenAttack.Description;
+
+        if (attackType == OniAttacks.StrongAttack)
+        {
+            attackDescriptionText = attackDescriptionText.Replace("@", ((_strongHitMinDmg + _currentDamageBuff) * Mathf.RoundToInt((100 + (float)_currentBerserkMuliplier) / 100)).ToString());
+            attackDescriptionText = attackDescriptionText.Replace("#", ((_strongHitMaxDmg + _currentDamageBuff) * Mathf.RoundToInt((100 + (float)_currentBerserkMuliplier) / 100)).ToString());
+        }
+        if (attackType == OniAttacks.StunAttack)
+        {
+            attackDescriptionText = attackDescriptionText.Replace("@", ((_stunAttackMinDmg + _currentDamageBuff) * Mathf.RoundToInt((100 + (float)_currentBerserkMuliplier) / 100)).ToString());
+            attackDescriptionText = attackDescriptionText.Replace("#", ((_stunAttackMaxDmg + _currentDamageBuff) * Mathf.RoundToInt((100 + (float)_currentBerserkMuliplier) / 100)).ToString());
+            attackDescriptionText = attackDescriptionText.Replace("$", _minShieldToBlockStun.ToString());
+        }
+        if (attackType == OniAttacks.BuffAttack)
+        {
+            attackDescriptionText = attackDescriptionText.Replace("@", _damageBuffPerUse.ToString());
+        }
+
+        return attackDescriptionText;
     }
 
     private void DealDamage(int damage)

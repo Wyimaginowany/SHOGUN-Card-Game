@@ -23,7 +23,7 @@ public class Thief : EnemyCombat
     [SerializeField] private int _blockBuffPercentage = 50;
     
     private int _comboCounter = 1;
-    private double _damageMultiplier;
+    //private double _damageMultiplier;
     private double _currentBlockMultiplier = 1.0;
     private List<EnemyAttack<ThiefAttacks>> _attacksPool = new List<EnemyAttack<ThiefAttacks>>();
     private EnemyAttack<ThiefAttacks> _chosenAttack;
@@ -34,11 +34,11 @@ public class Thief : EnemyCombat
     {
         base.Start();
         _enemyHealth = GetComponent<EnemyHealth>();
-        string[] beltColors = { "white", "orange", "blue", "yellow", "green", "brown", "black" };
-        int[] beltDamages = { 100, 120, 140, 160, 180, 200, 220 };
-        int randomIndex = UnityEngine.Random.Range(0, beltColors.Length);
-        _damageMultiplier = (double) beltDamages[randomIndex] / 100;
-        Debug.Log("Belt color: " + beltColors[randomIndex]);
+        //string[] beltColors = { "white", "orange", "blue", "yellow", "green", "brown", "black" };
+        //int[] beltDamages = { 100, 120, 140, 160, 180, 200, 220 };
+        //int randomIndex = UnityEngine.Random.Range(0, beltColors.Length);
+        //_damageMultiplier = (double) beltDamages[randomIndex] / 100;
+        //Debug.Log("Belt color: " + beltColors[randomIndex]);
         
         //TODO: SET ENEMY MODEL TO ACCORDING BELTCOLOR
     }
@@ -99,30 +99,53 @@ public class Thief : EnemyCombat
     public void DisplayEnemyIntentions()
     {
         _attackIntentionText.text = _chosenAttack.AttackName;
-        _attackDescriptionText.text = _chosenAttack.Description;
+        _attackDescriptionText.text = ChangeAttackDescription(_chosenAttack.Attack);
         AttackTypes attackType = _chosenAttack.AttackType;
         String iconName = (attackType + "_icon").ToLower();
         String iconPath = "Enemy Intention Icons/" + iconName;
         _iconGameObject.GetComponent<Image>().sprite = Resources.Load<Sprite> (iconPath);
     }
 
+    private string ChangeAttackDescription(ThiefAttacks attackType)
+    {
+        string attackDescriptionText = _chosenAttack.Description;
+
+        if (attackType == ThiefAttacks.BasicAttack)
+        {
+            attackDescriptionText = attackDescriptionText.Replace("@", _basicAttackMinDmg.ToString());
+            attackDescriptionText = attackDescriptionText.Replace("#", _basicAttackMaxDmg.ToString());
+        }
+        if (attackType == ThiefAttacks.ComboAttack)
+        {
+            attackDescriptionText = attackDescriptionText.Replace("@", (_comboAttackMinDmg * _comboCounter).ToString());
+        }
+        if (attackType == ThiefAttacks.BlockAction)
+        {
+            attackDescriptionText = attackDescriptionText.Replace("@", ((int)Math.Round(_blockActionValue * _currentBlockMultiplier)).ToString());
+        }
+        if (attackType == ThiefAttacks.BuffBlock)
+        {
+            attackDescriptionText = attackDescriptionText.Replace("@", ((int)Math.Round(_blockActionValue * _currentBlockMultiplier)).ToString());
+        }
+
+        return attackDescriptionText;
+    }
+
     private void DealDamage(int damage)
     {
-        damage *= (int) Math.Round(1 * _damageMultiplier);
-        Debug.Log(damage);
         _combatManager.DealDamageToPlayer(damage);
     }
     
     private void BasicAttack()
     {
-        int damage = (int) Math.Round(UnityEngine.Random.Range(_basicAttackMinDmg, _basicAttackMaxDmg) * _damageMultiplier);
+        int damage = UnityEngine.Random.Range(_basicAttackMinDmg, _basicAttackMaxDmg);
         DealDamage(damage);
         Debug.Log("basicAttack");
     }
 
     private void ComboAttack()
     {
-        int damage = (int) Math.Round(_comboAttackMinDmg * _comboCounter * _damageMultiplier);
+        int damage = _comboAttackMinDmg * _comboCounter;
         DealDamage(damage);
         _comboCounter++;
         Debug.Log("comboAttack");

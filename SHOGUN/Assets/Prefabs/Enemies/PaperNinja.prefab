@@ -636,7 +636,7 @@ MonoBehaviour:
     AttackCooldown: 0
     AttackMaxCooldown: 0
     RemoveAfterUsage: 0
-    Description: Deals small amount of damage
+    Description: Deals @ - #  damage to player
     AnimatorTrigger: ShurikenThrow
     AttackDuration: 1
   - Attack: 1
@@ -646,7 +646,7 @@ MonoBehaviour:
     AttackCooldown: 0
     AttackMaxCooldown: 1
     RemoveAfterUsage: 0
-    Description: Deals small damage to target and applies bleed
+    Description: Deals @ damage to player and applies bleed
     AnimatorTrigger: PaperCut
     AttackDuration: 1
   - Attack: 2

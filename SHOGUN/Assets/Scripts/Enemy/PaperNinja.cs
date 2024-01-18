@@ -20,7 +20,7 @@ public class PaperNinja : EnemyCombat
     private List<EnemyAttack<PaperNinjaAttacks>> _attacksPool = new List<EnemyAttack<PaperNinjaAttacks>>();
     private EnemyAttack<PaperNinjaAttacks> _chosenAttack;
     private EnemyHealth _enemyHealth;
-    
+
     protected override void Start()
     {
         base.Start();
@@ -81,11 +81,28 @@ public class PaperNinja : EnemyCombat
     public void DisplayEnemyIntentions()
     {
         _attackIntentionText.text = _chosenAttack.AttackName;
-        _attackDescriptionText.text = _chosenAttack.Description;
+        _attackDescriptionText.text = ChangeAttackDescription(_chosenAttack.Attack);
         AttackTypes attackType = _chosenAttack.AttackType;
         String iconName = (attackType + "_icon").ToLower();
         String iconPath = "Enemy Intention Icons/" + iconName;
         _iconGameObject.GetComponent<Image>().sprite = Resources.Load<Sprite> (iconPath);
+    }
+
+    private string ChangeAttackDescription(PaperNinjaAttacks attackType)
+    {
+        string attackDescriptionText = _chosenAttack.Description;
+
+        if (attackType == PaperNinjaAttacks.ShurikenThrow)
+        {
+            attackDescriptionText = attackDescriptionText.Replace("@", _shurikenThrowMinDmg.ToString());
+            attackDescriptionText = attackDescriptionText.Replace("#", _shurikenThrowMaxDmg.ToString());
+        }
+        if (attackType == PaperNinjaAttacks.PaperCut)
+        {
+            attackDescriptionText = attackDescriptionText.Replace("@", _paperCutMinDmg.ToString());
+        }
+
+        return attackDescriptionText;
     }
 
     private void ShurikenThrow()
@@ -99,7 +116,7 @@ public class PaperNinja : EnemyCombat
     private void PaperCut()
     {
         int damage = _paperCutMinDmg;
-        int bleedStacks = Random.Range(2, 3);
+        int bleedStacks = Random.Range(2, 4);
         _combatManager.DealDamageToPlayer(damage);
         _combatManager.AddBleedStacksToPlayer(bleedStacks);
         

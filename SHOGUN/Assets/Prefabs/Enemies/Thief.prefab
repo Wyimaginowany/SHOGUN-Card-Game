@@ -477,7 +477,7 @@ MonoBehaviour:
     AttackCooldown: 0
     AttackMaxCooldown: 0
     RemoveAfterUsage: 0
-    Description: Deals small amount of damage
+    Description: Deals @ - #  damage to player
     AnimatorTrigger: Kick
     AttackDuration: 1
   - Attack: 1
@@ -487,7 +487,7 @@ MonoBehaviour:
     AttackCooldown: 0
     AttackMaxCooldown: 1
     RemoveAfterUsage: 0
-    Description: Deals more damage for each cast in current fight
+    Description: Deal @ damage to player
     AnimatorTrigger: Combo
     AttackDuration: 1
   - Attack: 2
@@ -497,7 +497,7 @@ MonoBehaviour:
     AttackCooldown: 0
     AttackMaxCooldown: 1
     RemoveAfterUsage: 0
-    Description: Shields protecting health
+    Description: Shields for @ points
     AnimatorTrigger: Block
     AttackDuration: 1
   - Attack: 3
@@ -507,7 +507,7 @@ MonoBehaviour:
     AttackCooldown: 0
     AttackMaxCooldown: 5
     RemoveAfterUsage: 0
-    Description: Shields himself and buffs strength of block
+    Description: Shields himself for @ and buffs strength of block
     AnimatorTrigger: Block
     AttackDuration: 1
   _basicAttackMinDmg: 3

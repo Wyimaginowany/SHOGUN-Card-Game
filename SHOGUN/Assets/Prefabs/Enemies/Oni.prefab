@@ -495,7 +495,7 @@ MonoBehaviour:
     AttackCooldown: 0
     AttackMaxCooldown: 2
     RemoveAfterUsage: 0
-    Description: Deals huge amount of damage
+    Description: Deals @ - # damage to player
     AnimatorTrigger: StrongAttack
     AttackDuration: 1
   - Attack: 1
@@ -505,8 +505,7 @@ MonoBehaviour:
     AttackCooldown: 0
     AttackMaxCooldown: 2
     RemoveAfterUsage: 0
-    Description: Stuns target if his block value isn't enough to block all incoming
-      damaga
+    Description: Deals @ - # to player and stuns him if his shield is less than $.
     AnimatorTrigger: StunAttack
     AttackDuration: 1
   - Attack: 2
@@ -516,7 +515,7 @@ MonoBehaviour:
     AttackCooldown: 0
     AttackMaxCooldown: 1
     RemoveAfterUsage: 0
-    Description: Buffs damage
+    Description: Buffs damage dealt by @
     AnimatorTrigger: BuffDamage
     AttackDuration: 1
   - Attack: 3
