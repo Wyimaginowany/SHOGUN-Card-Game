@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AllEnemiesDamageCard 1
   m_EditorClassIdentifier: 
   Value: 8
-  Cost: 5
+  Cost: 4
   CardColor: {r: 0.764151, g: 0.29535705, b: 0.26312745, a: 1}
   Description: Deal X damage to all eniemies
   CardName: Shinobi's Rage
