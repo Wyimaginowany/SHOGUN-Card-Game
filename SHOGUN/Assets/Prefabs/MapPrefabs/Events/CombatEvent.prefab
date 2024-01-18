@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.23921569, g: 0.23921569, b: 0.23921569, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -89,6 +89,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d37b28b27a92a4b91bafed2e265306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _childrenEvents: []
+  _parentEvents: []
+  _enabledEvents: []
+  _eventPath: []
   _rectTransform: {fileID: 8604236169874083532}
   _line: {fileID: 3625979888106531873, guid: 0ecc262a5e2d64248bd98442a955918f, type: 3}
   _visited: {fileID: 21300000, guid: 87c786aa95a0cc44c9a88e5c9c715269, type: 3}

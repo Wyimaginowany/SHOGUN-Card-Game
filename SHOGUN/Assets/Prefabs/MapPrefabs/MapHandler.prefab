@@ -150,7 +150,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapCanvas: {fileID: 8775949720590793616}
   _gameCanvas: {fileID: 0}
-  _startButton: {fileID: 0}
 --- !u!1 &8775949721462907404
 GameObject:
   m_ObjectHideFlags: 0
