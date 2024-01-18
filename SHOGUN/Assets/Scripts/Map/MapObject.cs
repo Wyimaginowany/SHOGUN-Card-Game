@@ -39,7 +39,20 @@ public class MapObject : MonoBehaviour
         _gameCanvas.SetActive(false);
     }
 
-   
 
-   
+    private void Start()
+    {
+        LevelLoaderManager.OnMainMenuLoading += DestroyThisGameObject;
+    }
+
+    private void OnDestroy()
+    {
+        LevelLoaderManager.OnMainMenuLoading -= DestroyThisGameObject;
+    }
+
+    private void DestroyThisGameObject()
+    {
+        Destroy(gameObject);
+    }
+
 }

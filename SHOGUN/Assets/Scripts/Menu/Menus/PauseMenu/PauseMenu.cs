@@ -47,7 +47,8 @@ public class PauseMenu : MonoBehaviour
 
         _mainMenuButton.onClick.AddListener(() =>
         {
-            SceneManager.LoadScene("Menu");
+            Time.timeScale = 1f;
+            LevelLoaderManager.LevelLoaderInstance.GetComponent<LevelLoaderManager>().LoadMainMenu();
         });
 
         _backButton.onClick.AddListener(() =>
