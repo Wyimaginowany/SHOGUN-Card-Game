@@ -22,7 +22,6 @@ public class GridManager : MonoBehaviour
     [SerializeField] private int _scoutingDistance=1;
     private List<MapEvent> _allEvents;
     private Dictionary<MapEvent,ValueTuple<float,string>> _eventTypes;
-    public static GameObject MapInstance;
     private int _nextStage=0, _scouted=0; 
     private int eventTileWidth,eventTileHeight;
     private List<MapEvent> previousStageEvents;
@@ -34,18 +33,6 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         CreateMap();
-    }
-
-    
-
-    private void Awake() {
-        if (MapInstance != null){
-            Destroy(gameObject);
-        }else{
-            
-            MapInstance=gameObject;
-            DontDestroyOnLoad(gameObject);
-        }
     }
 
     private void CreateMap()
