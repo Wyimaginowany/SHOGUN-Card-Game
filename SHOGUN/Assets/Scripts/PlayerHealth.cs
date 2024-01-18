@@ -32,6 +32,20 @@ public class PlayerHealth : MonoBehaviour, IBleedable
     private int _currentHealth;
     private int _currentBleedStacks = 0;
 
+    public static PlayerHealth PlayerHealthInstance;
+
+    private void Awake()
+    {
+        if (PlayerHealthInstance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            PlayerHealthInstance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -42,12 +56,14 @@ public class PlayerHealth : MonoBehaviour, IBleedable
 
         CombatManager.OnPlayerTurnStart += HandlePlayerTurnStart;
         CombatManager.OnAllEnemiesKilled += HandleStageEnd;
+        LevelLoaderManager.OnMainMenuLoading += DestroyThisGameObject;
     }
 
     private void OnDestroy()
     {
         CombatManager.OnPlayerTurnStart -= HandlePlayerTurnStart;
         CombatManager.OnAllEnemiesKilled -= HandleStageEnd;
+        LevelLoaderManager.OnMainMenuLoading -= DestroyThisGameObject;
     }
 
     private void HandleStageEnd()
@@ -186,5 +202,10 @@ public class PlayerHealth : MonoBehaviour, IBleedable
 
         TakeDamage(_currentBleedStacks);
         _currentBleedStacks--;
+    }
+
+    private void DestroyThisGameObject()
+    {
+        Destroy(gameObject);
     }
 }
