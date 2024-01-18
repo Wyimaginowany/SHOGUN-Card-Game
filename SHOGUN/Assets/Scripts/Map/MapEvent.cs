@@ -87,12 +87,14 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
 
         foreach (MapEvent enabled in _enabledEvents){
             enabled.GetComponent<Image>().raycastTarget=false;
+            enabled.GetComponent<Image>().color=new Color(61,61,61,255);
         }
         _enabledEvents.Clear();
 
         _enabledEvents.AddRange(_childrenEvents);
         foreach (MapEvent child in _childrenEvents){
             child.GetComponent<Image>().raycastTarget=true;
+            child.GetComponent<Image>().color=Color.black;
             child.GetComponent<MapEvent>().ImportEnabledEvents(_enabledEvents);
         }
         if(_eventType!="Scouting") GenerateNextStage(false);

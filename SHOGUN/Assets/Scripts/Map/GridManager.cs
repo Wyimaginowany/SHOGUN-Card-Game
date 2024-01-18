@@ -145,6 +145,7 @@ public class GridManager : MonoBehaviour
                 foreach(MapEvent startEvent in previousStageEvents){
                     _currentEvent=startEvent;
                     startEvent.GetComponent<Image>().raycastTarget=true;
+                    startEvent.GetComponent<Image>().color=Color.black;
                     startEvent.setEventType("Combat");
                     startEvent.GetComponent<MapEvent>().ImportEnabledEvents(previousStageEvents.ToList());
                 }
