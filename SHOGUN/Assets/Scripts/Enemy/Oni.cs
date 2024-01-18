@@ -137,10 +137,8 @@ public class Oni : EnemyCombat
 
     private void Berserk()
     {
-        //TODO: Visual Update MAX HP w Healthbarze
         _enemyHealth.SetCurrentHealth(_enemyHealth.GetCurrentHealth()/(100 / _berserkHealthLossPercentage));
         _currentBerserkMuliplier = _berserkDamageBuffPercentage;
-        
         Debug.Log("berserk");
     }
 }

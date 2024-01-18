@@ -55,6 +55,7 @@ public class PaperNinja : EnemyCombat
         GetTurnAttack();
         DisplayEnemyIntentions();
     }
+    
     private void GetTurnAttack()
     {
         _attacksPool = new List<EnemyAttack<PaperNinjaAttacks>>();

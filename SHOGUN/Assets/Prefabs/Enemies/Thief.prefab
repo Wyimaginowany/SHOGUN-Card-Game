@@ -507,7 +507,7 @@ MonoBehaviour:
     AttackCooldown: 0
     AttackMaxCooldown: 5
     RemoveAfterUsage: 0
-    Description: Buffs strength of block
+    Description: Shields himself and buffs strength of block
     AnimatorTrigger: Block
     AttackDuration: 1
   _basicAttackMinDmg: 3
