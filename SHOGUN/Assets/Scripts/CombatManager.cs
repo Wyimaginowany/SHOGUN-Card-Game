@@ -47,6 +47,7 @@ public class CombatManager : MonoBehaviour
         Card.OnCardPlayed += HandleCardPlayed;
         EnemyHealth.OnEnemyDeath += HandleEnemyDeath;
         MapEvent.OnNewStageStarted += HandleNewStageStart;
+        LevelLoaderManager.OnSceneReadyToPlay += GetNewSpawnPoints;
 
         _currentMana = _maxMana;
         _manaAmountText.text = _currentMana.ToString();
@@ -54,11 +55,17 @@ public class CombatManager : MonoBehaviour
         StartGame();
     }
 
+    private void GetNewSpawnPoints()
+    {
+        _spawnPoints = SpawnPointsGetter.Instance.GetNewSpawnPoints();
+    }
+
     private void OnDestroy()
     {
         Card.OnCardPlayed -= HandleCardPlayed;
         EnemyHealth.OnEnemyDeath -= HandleEnemyDeath;
         MapEvent.OnNewStageStarted -= HandleNewStageStart;
+        LevelLoaderManager.OnSceneReadyToPlay -= GetNewSpawnPoints;
     }
 
 
