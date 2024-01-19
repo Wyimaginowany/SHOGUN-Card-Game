@@ -58,102 +58,88 @@ public class GridManager : MonoBehaviour
     void GenerateGrid(){
         int newStageOrigin=_scouted; //stage from which generation is started
         int visionBorder;
-        
 
         if(_scouting) visionBorder=_nextStage+_visionDistance+_scoutingDistance;
         else if(_scouted==0) visionBorder=1;
         else visionBorder=_nextStage+_visionDistance;
-        
+
         if (visionBorder>=_stages) visionBorder=_stages;
-        
+
         if(_scouted<visionBorder-1||_scouted==0){
-        if(_nextStage>1) newStageOrigin=_scouted+1;
-        for(int stage=newStageOrigin;stage<visionBorder;stage++){
-            if(stage==0){
-                newStageEventsLocations=GenerateEntryLocation();
-            }else{
-                
-                if(stage==1) newStageEvents=GenerateNewStageEvents(previousStageEvents);
-                else newStageEvents=GenerateNewStageEvents(previousStageEvents.Where(m=>m.GetPath().Contains(_currentEvent)).ToList());
-                newStageEventsLocations=newStageEvents.Keys.ToList();
-            }
+            if(_nextStage>1) newStageOrigin=_scouted+1;
+            for(int stage=newStageOrigin;stage<visionBorder;stage++){
+                if(stage==0){
+                    newStageEventsLocations=GenerateEntryLocation();
+                }else{
+                    if(stage==1) newStageEvents=GenerateNewStageEvents(previousStageEvents);
+                    else newStageEvents=GenerateNewStageEvents(previousStageEvents.Where(m=>m.GetPath().Contains(_currentEvent)).ToList());
+                    newStageEventsLocations=newStageEvents.Keys.ToList();
+                }
 
-            previousStageEvents.Clear();
+                previousStageEvents.Clear();
 
-            for (int location=0; location<_locations;location++){
-                if(newStageEventsLocations.Contains(location)){
-                    ValueTuple<MapEvent,string> drawnEventType;
+                for (int location=0; location<_locations;location++){
+                    if(newStageEventsLocations.Contains(location)){
+                        ValueTuple<MapEvent,string> drawnEventType;
 
-                    //Drawing type of event
-                    if(stage==0) drawnEventType=(_combatEvent,"Combat");
-                    else if(stage==_stages-1) drawnEventType=(_bossEvent,"Boss");
-                    else{
-                        //checks if parent event wasn't combat
-                        bool drawningEvent=true;
-                        foreach(MapEvent mapEvent in newStageEvents[location]){
-                            if(mapEvent._eventType!="Combat") drawningEvent=false;
-                                
+                        //Drawing type of event
+                        if(stage==0) drawnEventType=(_combatEvent,"Combat");
+                        else if(stage==_stages-1) drawnEventType=(_bossEvent,"Boss");
+                        else{
+                            //checks if parent event wasn't combat
+                            bool drawningEvent=true;
+                            foreach(MapEvent mapEvent in newStageEvents[location]){
+                                if(mapEvent._eventType!="Combat") drawningEvent=false;
+                                    
+                            }
+                            if(drawningEvent) drawnEventType=EventTypeSelector();
+                            else drawnEventType=(_combatEvent,"Combat");
                         }
-                        if(drawningEvent) drawnEventType=EventTypeSelector();
-                        else drawnEventType=(_combatEvent,"Combat");
-                    }
 
+                        //Creating event
+                        var spawnedEvent=Instantiate(drawnEventType.Item1,transform,false);
+                        spawnedEvent.name=$"Event {stage}-{location}";
+                        Debug.Log(spawnedEvent.name);
+                        spawnedEvent.setEventType(drawnEventType.Item2);
+                        spawnedEvent.setEventPlacement(new Vector2(stage,location));
 
-                    //Creating event
-                    var spawnedEvent=Instantiate(drawnEventType.Item1,transform,false);
-                    spawnedEvent.name=$"Event {stage}-{location}";
-                    Debug.Log(spawnedEvent.name);
-                    spawnedEvent.setEventType(drawnEventType.Item2);
-                    spawnedEvent.setEventPlacement(new Vector2(stage,location));
+                        //drawing shift of event position on canvas
+                        var offset=GenerateEventPosition(eventTileWidth,eventTileHeight,stage,location);
+                        spawnedEvent.transform.localPosition=new Vector3(_canvasStartX+offset.x,_canvasStartY+offset.y);
 
+                        //adding event to list of all events and to previous stage list for next stage generating process
+                        _allEvents.Add(spawnedEvent);
+                        previousStageEvents.Add(spawnedEvent);
 
-                    //drawing shift of event position on canvas
-                    var offset=GenerateEventPosition(eventTileWidth,eventTileHeight,stage,location);
-                    spawnedEvent.transform.localPosition=new Vector3(_canvasStartX+offset.x,_canvasStartY+offset.y);
-
-
-                    //adding event to list of all events and to previous stage list for next stage generating process
-                    _allEvents.Add(spawnedEvent);
-                    previousStageEvents.Add(spawnedEvent);
-                    
-
-                    //Skips parent assigning process if created event is entry location
-                    if(newStageEvents.ContainsKey(location)){
-                        spawnedEvent.setParentEvents(newStageEvents[location]);
-                        //assigning parents to child event in given location
-                        foreach(MapEvent mapEvent in newStageEvents[location]){
-                           mapEvent.GetComponent<MapEvent>().addChildrenEvent(spawnedEvent);
-                           spawnedEvent.GetComponent<MapEvent>().addToPath(mapEvent.GetPath());
+                        //Skips parent assigning process if created event is entry location
+                        if(newStageEvents.ContainsKey(location)){
+                            spawnedEvent.setParentEvents(newStageEvents[location]);
+                            //assigning parents to child event in given location
+                            foreach(MapEvent mapEvent in newStageEvents[location]){
+                            mapEvent.GetComponent<MapEvent>().addChildrenEvent(spawnedEvent);
+                            spawnedEvent.GetComponent<MapEvent>().addToPath(mapEvent.GetPath());
+                            }
                         }
                     }
                 }
-            }
-            //Enabling first event
-            if(stage==0){
-                foreach(MapEvent startEvent in previousStageEvents){
-                    _currentEvent=startEvent;
-                    startEvent.GetComponent<Image>().raycastTarget=true;
-                    startEvent.GetComponent<Image>().color=Color.black;
-                    startEvent.setEventType("Combat");
-                    _scouted++;
-                }
-            }else if(stage==1){
-                foreach(MapEvent e in previousStageEvents){
-                    e.GetComponent<MapEvent>().ImportEnabledEvents(previousStageEvents.ToList());
-                    e.GetComponent<Image>().color=Color.black;
-                    e.GetComponent<Image>().raycastTarget=true;
+                //Enabling first event
+                if(stage==0){
+                    foreach(MapEvent startEvent in previousStageEvents){
+                        _currentEvent=startEvent;
+                        startEvent.GetComponent<Image>().raycastTarget=true;
+                        startEvent.GetComponent<Image>().color=Color.black;
+                        _scouted++;
                     }
-
-
-
-            }
-        }
-            
-            
+                }else if(stage==1){
+                    foreach(MapEvent e in previousStageEvents){
+                        e.GetComponent<MapEvent>().ImportEnabledEvents(previousStageEvents.ToList());
+                        e.GetComponent<Image>().color=Color.black;
+                        e.GetComponent<Image>().raycastTarget=true;
+                    }
+                }
+            }  
         }
         if(visionBorder-1>_scouted) _scouted=visionBorder-1;
-        
-
         if(_scouting) _scouting=false;
     }
 
@@ -211,7 +197,6 @@ public class GridManager : MonoBehaviour
         GenerateGrid();
     }
 
-
     //Draws amount of child events and their locations
     private List<int> CreateEvents(float y){
         List<int> eventLocations= new();
@@ -233,7 +218,6 @@ public class GridManager : MonoBehaviour
         }
         return eventLocations;
     }
-
     
     //Selecting random event choosed by Weighted Random Algorithm
     private ValueTuple<MapEvent,string> EventTypeSelector(){
@@ -249,9 +233,6 @@ public class GridManager : MonoBehaviour
                 return (item.Key,item.Value.Item2);
             }
         }
-        return default(ValueTuple<MapEvent,string>);
-    }
-
-
-    
+        return default;
+    }    
 }
