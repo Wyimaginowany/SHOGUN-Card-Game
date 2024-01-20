@@ -786,6 +786,9 @@ MonoBehaviour:
   _cardColorImage: {fileID: 6717550483073157314}
   _cardDescription: {fileID: 2745860170617517601}
   _cardGraphicImage: {fileID: 4613986096018786981}
+  _drawSound: {fileID: 8300000, guid: 06f3856eb235bb648bcb00d07f262bf9, type: 3}
+  _hoverSound: {fileID: 0}
+  _beginDragSound: {fileID: 8300000, guid: 2c1a5b6fc0ea49440b7eb59a087bb4b4, type: 3}
 --- !u!82 &5661885804347304157
 AudioSource:
   m_ObjectHideFlags: 0

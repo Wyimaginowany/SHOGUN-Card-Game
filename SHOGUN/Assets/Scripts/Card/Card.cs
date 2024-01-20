@@ -14,7 +14,6 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public CardScriptableObject CardData;
     [SerializeField] private Transform _cardVisualDisplayPoint;
     [SerializeField] private CardAnimation _cardAnimation;
-    [SerializeField] private AudioClip _hoverSound;
 
     //protected
     protected CombatManager _combatManager;
@@ -37,7 +36,6 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public static event Action OnEndDragging;
 
     //privates
-    private AudioSource _audioSource;
     private RectTransform _rectTransform;
     private Quaternion _lastHandRotation;
     private Vector2 _newCardPosition;
@@ -58,7 +56,6 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         //_cardVisual.UpdateVisual();
 
         _rectTransform = GetComponent<RectTransform>();
-        _audioSource = GetComponent<AudioSource>();
         _startingPosition = _rectTransform.anchoredPosition;
         _currentCardCost = CardData.Cost;
         _currentCardValue = CardData.Value;
@@ -140,6 +137,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _cardVisual.UpdateVisual();
         _timer = 0;
         _isBeingDrawn = true;
+        _cardVisual.PlayDrawDound();
     }
 
     protected void ReturnCardToHand()
@@ -210,6 +208,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _childIndexBeforeDrag = transform.GetSiblingIndex();
         transform.SetAsLastSibling();
         OnBeginDragging?.Invoke();
+        _cardVisual.PlayBeginDragSound();
     }
     protected virtual void OnBeeingDragged()
     {
@@ -259,7 +258,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         if (!_isInteractable) return;
         OnCardMouseHoverStart?.Invoke(this, _cardVisualDisplayPoint);
-        _audioSource.PlayOneShot(_hoverSound);
+        _cardVisual.PlayerHoverSound();
     }
 
     public void OnPointerExit(PointerEventData eventData)

@@ -11,12 +11,17 @@ public class CardVisual : MonoBehaviour
     [SerializeField] private Image _cardColorImage;
     [SerializeField] private TMP_Text _cardDescription;
     [SerializeField] private Image _cardGraphicImage;
+    [SerializeField] private AudioClip _drawSound;
+    [SerializeField] private AudioClip _hoverSound;
+    [SerializeField] private AudioClip _beginDragSound;
 
+    private AudioSource _audioSource;
     private Card _card;
 
     void Start()
     {
         _card = GetComponent<Card>();
+        _audioSource = GetComponent<AudioSource>();
         SetupCard();
     }
 
@@ -33,5 +38,23 @@ public class CardVisual : MonoBehaviour
     {
         _cardCostText.text = _card.GetCardCost().ToString();
         _cardDescription.text = _card.GetCardDescriptionDefault();
+    }
+
+    public void PlayerHoverSound()
+    {
+        if (_hoverSound == null) return;
+        _audioSource.PlayOneShot(_hoverSound);
+    }
+
+    public void PlayDrawDound()
+    {
+        if (_drawSound == null) return;
+        _audioSource.PlayOneShot(_drawSound);
+    }
+
+    public void PlayBeginDragSound()
+    {
+        if (_beginDragSound == null) return;
+        _audioSource.PlayOneShot(_beginDragSound);
     }
 }
