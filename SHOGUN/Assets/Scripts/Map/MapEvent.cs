@@ -16,6 +16,8 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image _imageControler;
     private CombatManager _combatManager;
     private GridManager _gridManager;
+    private int _stageScenChange=5;
+    private GameObject _map;
 
     public static event Action OnNewStageStarted;
     
@@ -47,6 +49,7 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
         _eventPath=new List<MapEvent>();
         _combatManager=GameObject.Find("/Main Canvas/Card System Manager").GetComponent<CombatManager>();
         _gridManager=gameObject.GetComponentInParent<GridManager>();
+        
     }
 
     public void ImportEnabledEvents(List<MapEvent> events){
@@ -74,6 +77,7 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
     }
 
     private void UpdateMap(){
+        _map=GameObject.FindWithTag("MapTag");
         _imageControler.sprite=_visited;
 
         foreach (MapEvent enabled in _enabledEvents){
@@ -98,9 +102,10 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
 
     private void HandleMapEvent()
     {
-        if(_eventType=="Combat"||_eventType=="Boss") OpenCombatScene();
+        if(_eventType=="Combat") OpenCombatScene();
         else if(_eventType=="Scouting") HandleScouting();
         else if(_eventType=="Campfire") HandleCampfire();
+        else if(_eventType=="Boss") HandleBoss();
         else if(_eventType=="Treasure") HandleTreasure();
         else Debug.Log("Unknown Event Type");
     }
@@ -117,9 +122,20 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
     private void HandleCampfire(){
         _combatManager.HealPlayer(5);
     }
+    private void HandleBoss(){
+        _map.transform.Find("Cave Scene").gameObject.SetActive(true);
+        _map.transform.Find("Village Scene").gameObject.SetActive(false);
+        MapObject.MapInstance.GetComponent<MapObject>().HideMap();
+        OnNewStageStarted?.Invoke();
+    }
 
     public void OpenCombatScene()
     {
+        
+        if(_stageScenChange>=_eventPlacement.x){
+            _map.transform.Find("Village Scene").gameObject.SetActive(true);
+            _map.transform.Find("Bridge Scene").gameObject.SetActive(false);
+        }
         MapObject.MapInstance.GetComponent<MapObject>().HideMap();
         OnNewStageStarted?.Invoke();
     }
