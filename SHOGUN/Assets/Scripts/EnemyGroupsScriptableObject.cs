@@ -9,5 +9,11 @@ public class EnemyGroupsScriptableObject : ScriptableObject
 [System.Serializable]
 public class SingleStageGroup
 {
+    public SingleStagePossibleGroup[] PossibleEnemyGroups;
+}
+
+[System.Serializable]
+public class SingleStagePossibleGroup
+{
     public GameObject[] EnemiesOnStage;
 }

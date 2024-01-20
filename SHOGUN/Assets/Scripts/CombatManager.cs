@@ -123,11 +123,13 @@ public class CombatManager : MonoBehaviour
             _currentStage = 0;
         }
 
-        int enemiesAmount = enemyStages.enemyGroups[_currentStage].EnemiesOnStage.Length;
+
+        int random = UnityEngine.Random.Range(0, enemyStages.enemyGroups[_currentStage].PossibleEnemyGroups.Length);
+        int enemiesAmount = enemyStages.enemyGroups[_currentStage].PossibleEnemyGroups[random].EnemiesOnStage.Length;
 
         for (int i = 0; i < enemiesAmount; i++)
         {
-            GameObject newEnemy = Instantiate(enemyStages.enemyGroups[_currentStage].EnemiesOnStage[i],
+            GameObject newEnemy = Instantiate(enemyStages.enemyGroups[_currentStage].PossibleEnemyGroups[random].EnemiesOnStage[i],
                                               _spawnPoints[i].position,
                                               Quaternion.identity);
 
@@ -135,6 +137,7 @@ public class CombatManager : MonoBehaviour
         }
 
         _currentStage++;
+        
     }
 
     public void SpawnRandom()
