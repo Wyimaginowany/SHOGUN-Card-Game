@@ -14,6 +14,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public CardScriptableObject CardData;
     [SerializeField] private Transform _cardVisualDisplayPoint;
     [SerializeField] private CardAnimation _cardAnimation;
+    [SerializeField] private AudioClip _hoverSound;
 
     //protected
     protected CombatManager _combatManager;
@@ -36,6 +37,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public static event Action OnEndDragging;
 
     //privates
+    private AudioSource _audioSource;
     private RectTransform _rectTransform;
     private Quaternion _lastHandRotation;
     private Vector2 _newCardPosition;
@@ -56,6 +58,7 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         //_cardVisual.UpdateVisual();
 
         _rectTransform = GetComponent<RectTransform>();
+        _audioSource = GetComponent<AudioSource>();
         _startingPosition = _rectTransform.anchoredPosition;
         _currentCardCost = CardData.Cost;
         _currentCardValue = CardData.Value;
@@ -255,7 +258,8 @@ public abstract class Card : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!_isInteractable) return;
-        OnCardMouseHoverStart?.Invoke(this, _cardVisualDisplayPoint);     
+        OnCardMouseHoverStart?.Invoke(this, _cardVisualDisplayPoint);
+        _audioSource.PlayOneShot(_hoverSound);
     }
 
     public void OnPointerExit(PointerEventData eventData)

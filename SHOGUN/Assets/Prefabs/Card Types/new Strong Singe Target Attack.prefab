@@ -125,7 +125,7 @@ MonoBehaviour:
   CardData: {fileID: 11400000, guid: 6da93d1bb713a454c9bfffdf536e8d64, type: 2}
   _cardVisualDisplayPoint: {fileID: 1312546570839467973}
   _cardAnimation: 0
-  _isInteractable: 0
+  _hoverSound: {fileID: 8300000, guid: 06f3856eb235bb648bcb00d07f262bf9, type: 3}
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 64

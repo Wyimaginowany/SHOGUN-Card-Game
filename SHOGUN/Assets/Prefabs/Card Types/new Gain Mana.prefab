@@ -129,4 +129,4 @@ MonoBehaviour:
   CardData: {fileID: 11400000, guid: ed6b55a20a09197469c8084461e6d941, type: 2}
   _cardVisualDisplayPoint: {fileID: 1312546570839467973}
   _cardAnimation: 3
-  _isInteractable: 0
+  _hoverSound: {fileID: 8300000, guid: 06f3856eb235bb648bcb00d07f262bf9, type: 3}
