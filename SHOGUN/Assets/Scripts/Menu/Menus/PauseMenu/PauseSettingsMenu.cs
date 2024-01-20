@@ -2,14 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Audio;
 
 public class PauseSettingsMenu : MonoBehaviour
 {
-    [SerializeField] private TMP_Text volumeValueText = null;
-    public void SetVolume(float volume)
+    [SerializeField] private TMP_Text volumeMasterValueText = null;
+    [SerializeField] private TMP_Text volumeMusicValueText = null;
+    [SerializeField] private TMP_Text volumeSFXValueText = null;
+
+    [SerializeField] private AudioMixer _audioMixer;
+    public void SetMasterVolume(float volume)
     {
         AudioListener.volume = volume;
-        volumeValueText.text = volume.ToString("0.0");
-        PlayerPrefs.SetFloat("masterVolume", AudioListener.volume);
+        volumeMasterValueText.text = volume.ToString("0.0");
+        _audioMixer.SetFloat("Master", AudioListener.volume);
     }
+    public void SetMusicVolume(float volume)
+    {
+        AudioListener.volume = volume;
+        volumeMusicValueText.text = volume.ToString("0.0");
+        _audioMixer.SetFloat("Music", AudioListener.volume);
+    }
+    public void SetSFXVolume(float volume)
+    {
+        AudioListener.volume = volume;
+        volumeSFXValueText.text = volume.ToString("0.0");
+        _audioMixer.SetFloat("SFX", AudioListener.volume);
+    }
+    
 }

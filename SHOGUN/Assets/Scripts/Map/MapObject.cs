@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class MapObject : MonoBehaviour
 {
-    [SerializeField] private GameObject _mapCanvas;
-    [SerializeField] private GameObject _gameCanvas;
+    [SerializeField] private GameObject _mapCanvas, _gameCanvas, _musicObject;
 
     public static MapObject MapInstance;
 
@@ -24,7 +23,7 @@ public class MapObject : MonoBehaviour
     }
 
     public void HideMap(){
-
+        _musicObject.GetComponent<MusicScript>().playCombatMusicAudio();
         _gameCanvas.SetActive(true);
         _mapCanvas.SetActive(false);
         //if(!_startButton.active){
@@ -33,10 +32,12 @@ public class MapObject : MonoBehaviour
         //_gameCanvas.transform.Find("Card System Manager").GetComponent<HandManager>().DrawFullHand();}
     }
     public void ShowMap(){
+        
+            _musicObject.GetComponent<MusicScript>().playMapMusicAudio();
+        
         _mapCanvas.SetActive(true);
-        
-        
         _gameCanvas.SetActive(false);
+        
     }
 
 
