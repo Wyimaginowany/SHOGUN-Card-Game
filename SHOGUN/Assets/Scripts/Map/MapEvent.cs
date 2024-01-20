@@ -16,7 +16,7 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image _imageControler;
     private CombatManager _combatManager;
     private GridManager _gridManager;
-    private int _stageScenChange=5;
+    private int _stageSceneChange=5;
     private GameObject _map;
 
     public static event Action OnNewStageStarted;
@@ -132,7 +132,7 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
     public void OpenCombatScene()
     {
         
-        if(_stageScenChange>=_eventPlacement.x){
+        if(_stageSceneChange<=_eventPlacement.x){
             _map.transform.Find("Village Scene").gameObject.SetActive(true);
             _map.transform.Find("Bridge Scene").gameObject.SetActive(false);
         }
