@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    private Button _playButton, _settingsButton, _achievementsButton, _quitButton,_introButton;
+    private Button _playButton, _settingsButton, _creditsButton, _quitButton, _introButton;
     public void Awake()
     {
         _playButton = GameObject.Find("PlayButton").gameObject.GetComponent<Button>();
-        _achievementsButton = GameObject.Find("AchievementsButton").gameObject.GetComponent<Button>();
+        _creditsButton = GameObject.Find("CreditsButton").gameObject.GetComponent<Button>();
         _settingsButton = GameObject.Find("SettingsButton").gameObject.GetComponent<Button>();
         _quitButton = GameObject.Find("QuitButton").gameObject.GetComponent<Button>();
         _introButton = GameObject.Find("IntroButton").gameObject.GetComponent<Button>();
@@ -18,17 +18,16 @@ public class MainMenu : MonoBehaviour
         _playButton.onClick.AddListener(() =>
         {
             LevelLoaderManager.LevelLoaderInstance.GetComponent<LevelLoaderManager>().LoadNextScene();
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         });
 
-        _achievementsButton.onClick.AddListener(() =>
+        _creditsButton.onClick.AddListener(() =>
         {
-            MenuManager.setActiveView(MenuManager.achievementsMenu);
+            MenuManager.SetActiveView(MenuManager.CreditsMenu);
         });
 
         _settingsButton.onClick.AddListener(() =>
         {
-            MenuManager.setActiveView(MenuManager.settingsMenu);
+            MenuManager.SetActiveView(MenuManager.SettingsMenu);
         });
 
         _quitButton.onClick.AddListener(() =>
@@ -39,7 +38,6 @@ public class MainMenu : MonoBehaviour
         _introButton.onClick.AddListener(() =>
         {
             LevelLoaderManager.LevelLoaderInstance.GetComponent<LevelLoaderManager>().LoadIntro();
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
         });
     }
 }
