@@ -5,10 +5,7 @@ using UnityEngine;
 
 public class LineController : MonoBehaviour
 {
-
-    
     public UILineRenderer _lineRenderer;
-    
     [SerializeField] private float _xOffset=(float)-2.5;
 
     private void Awake() {
@@ -24,9 +21,8 @@ public class LineController : MonoBehaviour
         float startOffsetY=LineEquation(lineTargetX,lineTargetY,_xOffset);
         float endOffsetY=LineEquation(lineTargetX,lineTargetY,lineTargetX-_xOffset);
 
-        _lineRenderer.points[0]=(new Vector2(_xOffset,startOffsetY));
-        _lineRenderer.points[1]=(new Vector2(lineTargetX-_xOffset,endOffsetY));
-        
+        _lineRenderer.points[0]=new Vector2(_xOffset,startOffsetY);
+        _lineRenderer.points[1]=new Vector2(lineTargetX-_xOffset,endOffsetY); 
     }
 
     private float LineEquation(float x2,float y2,float pointX){
