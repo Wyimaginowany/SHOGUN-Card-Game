@@ -4,53 +4,47 @@ using UnityEngine;
 
 public class PlayerSoundEffects : MonoBehaviour
 {
-    [SerializeField] private AudioClip attackClip;
-    [SerializeField] private AudioClip takeDamageClip;
-    [SerializeField] private AudioClip healClip;
-    [SerializeField] private AudioClip armorClip;
+    [SerializeField] private AudioClip _attackClip;
+    [SerializeField] private AudioClip _takeDamageClip;
+    [SerializeField] private AudioClip _healClip;
+    [SerializeField] private AudioClip _armorClip;
+    [SerializeField] private AudioClip _deathClip;
 
-    [SerializeField] private AudioClip deathClip;
-    
-    private AudioSource audioSource;
+    private AudioSource _audioSource;
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
 
-        if (audioSource == null)
+        if (_audioSource == null)
         {
             Debug.LogError("AudioSource not found");
         }
     }
-
-    void Update()
-    {
-        
-    }
-    
+  
     public void playSingleTargetAttackAudio(){
-        audioSource.clip = attackClip;
-        audioSource.Play();
+        if (_attackClip == null) return;
+        _audioSource.PlayOneShot(_attackClip);
     }
 
     public void playArmorAudio(){
-        audioSource.clip = armorClip;
-        audioSource.Play();
+        if (_armorClip == null) return;
+        _audioSource.PlayOneShot(_armorClip);
     }
 
     public void playHealAudio(){
-        audioSource.clip = healClip;
-        audioSource.Play();
+        if (_healClip == null) return;
+        _audioSource.PlayOneShot(_healClip);
     }
 
     public void playTakeDamageAudio(){
-        audioSource.clip = takeDamageClip;
-        audioSource.Play();
+        if (_takeDamageClip == null) return;
+        _audioSource.PlayOneShot(_takeDamageClip);
     }
 
     public void playDeathAudio(){
-        audioSource.clip = deathClip;
-        audioSource.Play();
+        if (_deathClip == null) return;
+        _audioSource.PlayOneShot(_deathClip);
     }
 
 }

@@ -2089,7 +2089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e4212228a4da9f438ae50c5ffe65f00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackClip: {fileID: 8300000, guid: 512c253c20c86424091faf449372426d, type: 3}
+  attackClip: {fileID: 8300000, guid: e73bfe769a7f65a4fb7e870f0b843da1, type: 3}
   takeDamageClip: {fileID: 8300000, guid: 1c09d4eca20dd8b4bb224063e949029b, type: 3}
   healClip: {fileID: 8300000, guid: f21d1abfc2a4b1346b60eefed83a55ef, type: 3}
   armorClip: {fileID: 8300000, guid: a6029ab7ebeaab448b4f3ec19012931b, type: 3}
