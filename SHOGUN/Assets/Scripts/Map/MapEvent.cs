@@ -8,6 +8,7 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
 {
     public List<MapEvent> _childrenEvents,_parentEvents,_enabledEvents,_eventPath;
     public RectTransform _rectTransform;
+    public int healValue=10;
     public string _eventType { get; private set; }
     public Vector2 _eventPlacement { get; private set; }
 
@@ -126,7 +127,7 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
 
     private void HandleCampfire(){
         playEventClipAudio();
-        _combatManager.HealPlayer(5);
+        _combatManager.HealPlayer(healValue);
     }
     private void HandleBoss(){
         _map.transform.Find("Cave Scene").gameObject.SetActive(true);
