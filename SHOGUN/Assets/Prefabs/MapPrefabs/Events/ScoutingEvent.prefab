@@ -97,3 +97,4 @@ MonoBehaviour:
   _line: {fileID: 3625979888106531873, guid: 0ecc262a5e2d64248bd98442a955918f, type: 3}
   _visited: {fileID: 21300000, guid: 1d3829134c25c2243ba1436538412679, type: 3}
   _imageControler: {fileID: 6068575235093950127}
+  _clip: {fileID: 8300000, guid: e899ade17a6468745bf4fe7cff96622e, type: 3}

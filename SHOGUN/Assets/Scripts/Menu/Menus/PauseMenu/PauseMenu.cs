@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject _pausePanel, _settingsPanel,_pauseButtonObject;
+    [SerializeField] private GameObject _pausePanel, _settingsPanel,_pauseButtonObject,_musicObject;
 
     public UnityEvent onGamePause;
     public UnityEvent onGameResume;
@@ -25,6 +25,7 @@ public class PauseMenu : MonoBehaviour
 
         _resumeButton.onClick.AddListener(() =>
         {
+            _musicObject.GetComponent<MusicScript>().musicPauseToggler();
             onGameResume.Invoke();
             Time.timeScale=1;
             _pausePanel.SetActive(false);
@@ -35,6 +36,7 @@ public class PauseMenu : MonoBehaviour
         {
             onGamePause.Invoke();
             Time.timeScale=0;
+            _musicObject.GetComponent<MusicScript>().musicPauseToggler();
             _pausePanel.SetActive(true);
             _pauseButtonObject.SetActive(false);
         });

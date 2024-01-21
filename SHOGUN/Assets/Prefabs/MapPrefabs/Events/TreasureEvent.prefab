@@ -59,6 +59,7 @@ MonoBehaviour:
   _line: {fileID: 3625979888106531873, guid: 0ecc262a5e2d64248bd98442a955918f, type: 3}
   _visited: {fileID: 21300000, guid: 126fee80569edfb42baa7376d63c6b7a, type: 3}
   _imageControler: {fileID: 4515396048056829530}
+  _clip: {fileID: 8300000, guid: 1cba7c3b155de8b4eab92e8d14d25d81, type: 3}
 --- !u!222 &1587935834469324399
 CanvasRenderer:
   m_ObjectHideFlags: 0

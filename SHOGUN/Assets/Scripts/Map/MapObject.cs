@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class MapObject : MonoBehaviour
 {
-    [SerializeField] private GameObject _mapCanvas;
-    [SerializeField] private GameObject _gameCanvas;
+    [SerializeField] private GameObject _mapCanvas, _gameCanvas, _musicObject;
 
     public static MapObject MapInstance;
 
     public static event Action OnMapShow;
+    
+    private AudioSource audioSource;
 
     private void Awake() {
         if (MapInstance != null){
@@ -21,23 +22,25 @@ public class MapObject : MonoBehaviour
 
             DontDestroyOnLoad(gameObject);
         }
+        
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void HideMap(){
-
+        _musicObject.GetComponent<MusicScript>().playCombatMusicAudio();
         _gameCanvas.SetActive(true);
         _mapCanvas.SetActive(false);
-        //if(!_startButton.active){
-        //_gameCanvas.transform.Find("Card System Manager").GetComponent<CombatManager>().ResetMana();
-        //_gameCanvas.transform.Find("Card System Manager").GetComponent<CombatManager>().SpawnNewEnemies();
-        //_gameCanvas.transform.Find("Card System Manager").GetComponent<HandManager>().DrawFullHand();}
+    }
+    public void ShowTreasure(){
+        _gameCanvas.SetActive(true);
+        _mapCanvas.SetActive(false);
     }
     public void ShowMap(){
+        _musicObject.GetComponent<MusicScript>().playMapMusicAudio();
         _mapCanvas.SetActive(true);
-        
-        
         _gameCanvas.SetActive(false);
     }
+    
 
 
     private void Start()
@@ -55,4 +58,11 @@ public class MapObject : MonoBehaviour
         Destroy(gameObject);
     }
 
+    internal void PlayEventSound(AudioClip clip)
+    {
+        if(audioSource!=null){
+            audioSource.PlayOneShot(clip);
+        }
+        
+    }
 }
