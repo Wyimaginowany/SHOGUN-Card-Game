@@ -99,7 +99,6 @@ public class GridManager : MonoBehaviour
                         //Creating event
                         var spawnedEvent=Instantiate(drawnEventType.Item1,transform,false);
                         spawnedEvent.name=$"Event {stage}-{location}";
-                        Debug.Log(spawnedEvent.name);
                         spawnedEvent.setEventType(drawnEventType.Item2);
                         spawnedEvent.setEventPlacement(new Vector2(stage,location));
 

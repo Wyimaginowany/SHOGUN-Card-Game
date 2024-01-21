@@ -15,16 +15,12 @@ public class MusicScript : MonoBehaviour
         if (audioSource == null)
         {
             Debug.LogError("AudioSource not found");
-        }
+        }else{
         audioSource.clip = mapClip;
         audioSource.Play();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void playCombatMusicAudio(){
         audioSource.clip = combatClip;
@@ -32,8 +28,8 @@ public class MusicScript : MonoBehaviour
     }
 
     public void playMapMusicAudio(){
-        if(mapClip!=null) audioSource.clip = mapClip;
-        audioSource.Play();
+        if(mapClip!=null&&audioSource!=null) {audioSource.clip = mapClip;
+        audioSource.Play();}
     }
 
     public void musicPauseToggler(){

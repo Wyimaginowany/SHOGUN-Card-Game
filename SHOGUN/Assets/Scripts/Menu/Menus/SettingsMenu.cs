@@ -20,25 +20,38 @@ public class SettingsMenu : MonoBehaviour
         {
             MenuManager.SetActiveView(MenuManager.MainMenu);
         });
+        LoadVolume();
     }
 
-    
-    public void SetMasterVolume(float volume)
+   
+
+   public void SetMasterVolume(float volume)
     {
-        AudioListener.volume = volume;
-        volumeMasterValueText.text = volume.ToString("0.0");
-        _audioMixer.SetFloat("Master", AudioListener.volume);
+        volumeMasterValueText.text = volume.ToString("0.00");
+        _audioMixer.SetFloat("Master",  Mathf.Log10(volume)*20);
+        PlayerPrefs.SetFloat("masterVolume", volume);
     }
     public void SetMusicVolume(float volume)
     {
-        AudioListener.volume = volume;
-        volumeMusicValueText.text = volume.ToString("0.0");
-        _audioMixer.SetFloat("Music", AudioListener.volume);
+        volumeMusicValueText.text = volume.ToString("0.00");
+        _audioMixer.SetFloat("Music", Mathf.Log10(volume)*20);
+        PlayerPrefs.SetFloat("musicVolume", volume);
     }
     public void SetSFXVolume(float volume)
     {
-        AudioListener.volume = volume;
-        volumeSFXValueText.text = volume.ToString("0.0");
-        _audioMixer.SetFloat("SFX", AudioListener.volume);
+        volumeSFXValueText.text = volume.ToString("0.00");
+        _audioMixer.SetFloat("SFX",  Mathf.Log10(volume)*20);
+        PlayerPrefs.SetFloat("SFXVolume", volume);
+    }
+    private void LoadVolume(){
+        float master=PlayerPrefs.GetFloat("masterVolume");
+        float music=PlayerPrefs.GetFloat("musicVolume");
+        float sfx=PlayerPrefs.GetFloat("SFXVolume");
+        SetMasterVolume(master);
+        SetMusicVolume(music);
+        SetSFXVolume(sfx);
+        gameObject.transform.Find("MasterVolumeSlider").GetComponent<Slider>().value=master;
+        gameObject.transform.Find("MusicVolumeSlider").GetComponent<Slider>().value=music;
+        gameObject.transform.Find("SFXVolumeSlider").GetComponent<Slider>().value=sfx;
     }
 }

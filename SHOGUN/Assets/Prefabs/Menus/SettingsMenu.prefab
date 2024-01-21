@@ -693,6 +693,9 @@ MonoBehaviour:
   volumeMasterValueText: {fileID: 367043507033653468}
   volumeMusicValueText: {fileID: 2699101738382894747}
   volumeSFXValueText: {fileID: 1167331564943956152}
+  _masterSlider: {fileID: 367043506589724460}
+  _musicSlider: {fileID: 6976529906090386229}
+  _sfxSlider: {fileID: 5722857108749315305}
   _audioMixer: {fileID: 24100000, guid: db581763ed0872e418e97002ea20ebe1, type: 2}
 --- !u!1 &367043506269635284
 GameObject:
@@ -952,7 +955,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 367043505768344262}
   m_HandleRect: {fileID: 367043506691036895}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.5
@@ -1668,7 +1671,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 2046316570810724496}
   m_HandleRect: {fileID: 4660007607851407551}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.5
@@ -2652,7 +2655,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 6439661893733533609}
   m_HandleRect: {fileID: 2064877925927173888}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.5

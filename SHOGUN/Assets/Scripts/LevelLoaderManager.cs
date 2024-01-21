@@ -8,6 +8,7 @@ public class LevelLoaderManager : MonoBehaviour
 {
     [SerializeField] private Animator _crossfadeCanvasAnimator;
     [SerializeField] private float _transitionTime = 1f;
+    
 
     public static event Action OnSceneLoaded;
     public static event Action OnSceneReadyToPlay;
@@ -80,6 +81,8 @@ public class LevelLoaderManager : MonoBehaviour
     {
         StartCoroutine(LoadLevel(1));
     }
+
+    
 
     IEnumerator LoadIntroScene()
     {

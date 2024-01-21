@@ -14,10 +14,12 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
     [SerializeField] private LineController _line;
     [SerializeField] private Sprite _visited;
     [SerializeField] private Image _imageControler;
+    [SerializeField] private AudioClip _clip;
     private CombatManager _combatManager;
     private GridManager _gridManager;
     private int _stageSceneChange=5;
     private GameObject _map;
+    private AudioSource audioSource;
 
     public static event Action OnNewStageStarted;
     
@@ -49,6 +51,7 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
         _eventPath=new List<MapEvent>();
         _combatManager=GameObject.Find("/Main Canvas/Card System Manager").GetComponent<CombatManager>();
         _gridManager=gameObject.GetComponentInParent<GridManager>();
+        audioSource = GetComponent<AudioSource>();
         
     }
 
@@ -102,6 +105,7 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
 
     private void HandleMapEvent()
     {
+        
         if(_eventType=="Combat") OpenCombatScene();
         else if(_eventType=="Scouting") HandleScouting();
         else if(_eventType=="Campfire") HandleCampfire();
@@ -111,15 +115,19 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
     }
 
     private void HandleTreasure(){
+        
+        playEventClipAudio();
         _combatManager.HandleTreasureChest();
         MapObject.MapInstance.GetComponent<MapObject>().HideMap();
     }
 
     private void HandleScouting(){
+        playEventClipAudio();
         GenerateNextStage(true);
     }
 
     private void HandleCampfire(){
+        playEventClipAudio();
         _combatManager.HealPlayer(5);
     }
     private void HandleBoss(){
@@ -128,10 +136,13 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
         MapObject.MapInstance.GetComponent<MapObject>().HideMap();
         OnNewStageStarted?.Invoke();
     }
+    private void playEventClipAudio(){
+        if(_clip!=null&&audioSource!=null){ audioSource.clip = _clip;
+        audioSource.Play();}
+    }
 
     public void OpenCombatScene()
     {
-        
         if(_stageSceneChange<=_eventPlacement.x){
             _map.transform.Find("Village Scene").gameObject.SetActive(true);
             _map.transform.Find("Bridge Scene").gameObject.SetActive(false);
