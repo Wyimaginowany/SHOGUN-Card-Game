@@ -8,17 +8,20 @@ using UnityEngine.Audio;
 public class SettingsMenu : MonoBehaviour
 {
     [SerializeField] private AudioMixer _audioMixer;
+    [SerializeField] private TMP_Text volumeMusicValueText = null,volumeSoundValueText = null;
     private void Awake() {
         LoadVolume();
     }
 
     public void SetMusicVolume(float volume)
     {
+        volumeMusicValueText.text = volume.ToString("0.00");
         _audioMixer.SetFloat("MusicVolume", Mathf.Log10(volume)*20);
         PlayerPrefs.SetFloat("musicVolume",volume);
     }
     public void SetSoundsVolume(float volume)
     {
+         volumeSoundValueText.text = volume.ToString("0.00");
         _audioMixer.SetFloat("SoundVolume", Mathf.Log10(volume)*20);
         PlayerPrefs.SetFloat("soundsVolume", volume);
     }
