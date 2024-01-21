@@ -24,7 +24,7 @@ public class MainMenu : MonoBehaviour
     {
         _playButton.onClick.AddListener(() =>
         {
-            LevelLoaderManager.LevelLoaderInstance.GetComponent<LevelLoaderManager>().LoadNextScene();
+            LevelLoaderManager.LevelLoaderInstance.LoadNextScene();
         });
 
         _creditsButton.onClick.AddListener(() =>
@@ -66,7 +66,7 @@ public class MainMenu : MonoBehaviour
 
         _introButton.onClick.AddListener(() =>
         {
-            LevelLoaderManager.LevelLoaderInstance.GetComponent<LevelLoaderManager>().LoadIntro();
+            LevelLoaderManager.LevelLoaderInstance.LoadIntro();
         });
     }
     private void Start() {

@@ -14,7 +14,7 @@ public class LevelLoaderManager : MonoBehaviour
     public static event Action OnSceneTransitionBegin;
     public static event Action OnMainMenuLoading;
 
-    public static GameObject LevelLoaderInstance;
+    public static LevelLoaderManager LevelLoaderInstance;
 
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class LevelLoaderManager : MonoBehaviour
         }
         else
         {
-            LevelLoaderInstance = this.gameObject;
+            LevelLoaderInstance = this;
             DontDestroyOnLoad(gameObject);
         }
     }
@@ -37,7 +37,7 @@ public class LevelLoaderManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (LevelLoaderInstance != this.gameObject) return;
+        if (LevelLoaderInstance != this) return;
 
         SceneManager.activeSceneChanged -= ActiveSceneChanged;
         SceneManager.sceneLoaded -= SceneLoaded;
