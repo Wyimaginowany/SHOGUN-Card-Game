@@ -6,15 +6,20 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    private Button _playButton, _settingsButton, _creditsButton, _quitButton, _introButton;
+    [SerializeField] private GameObject _mainMenuGameObject;
+    [SerializeField] private GameObject _creditsGameObject;
+    [SerializeField] private GameObject _settingsGameObject;
+
+    [SerializeField] private Button _playButton;
+    [SerializeField] private Button _settingsButton;
+    [SerializeField] private Button _settingsBackButton;
+    [SerializeField] private Button _creditsButton;
+    [SerializeField] private Button _creditsBackButton;
+    [SerializeField] private Button _quitButton;
+    [SerializeField] private Button _introButton;
+
     public void Awake()
     {
-        _playButton = GameObject.Find("PlayButton").gameObject.GetComponent<Button>();
-        _creditsButton = GameObject.Find("CreditsButton").gameObject.GetComponent<Button>();
-        _settingsButton = GameObject.Find("SettingsButton").gameObject.GetComponent<Button>();
-        _quitButton = GameObject.Find("QuitButton").gameObject.GetComponent<Button>();
-        _introButton = GameObject.Find("IntroButton").gameObject.GetComponent<Button>();
-
         _playButton.onClick.AddListener(() =>
         {
             LevelLoaderManager.LevelLoaderInstance.GetComponent<LevelLoaderManager>().LoadNextScene();
@@ -22,12 +27,34 @@ public class MainMenu : MonoBehaviour
 
         _creditsButton.onClick.AddListener(() =>
         {
-            MenuManager.SetActiveView(MenuManager.CreditsMenu);
+            _creditsGameObject.SetActive(true);
+            _settingsGameObject.SetActive(false);
+            _mainMenuGameObject.SetActive(false);
+            //MenuManager.SetActiveView(MenuManager.CreditsMenu);
+        });
+
+        _creditsBackButton.onClick.AddListener(() =>
+        {
+            _creditsGameObject.SetActive(false);
+            _settingsGameObject.SetActive(false);
+            _mainMenuGameObject.SetActive(true);
+            //MenuManager.SetActiveView(MenuManager.CreditsMenu);
         });
 
         _settingsButton.onClick.AddListener(() =>
         {
-            MenuManager.SetActiveView(MenuManager.SettingsMenu);
+            _creditsGameObject.SetActive(false);
+            _settingsGameObject.SetActive(true);
+            _mainMenuGameObject.SetActive(false);
+            //MenuManager.SetActiveView(MenuManager.SettingsMenu);
+        });
+
+        _settingsBackButton.onClick.AddListener(() =>
+        {
+            _creditsGameObject.SetActive(false);
+            _settingsGameObject.SetActive(false);
+            _mainMenuGameObject.SetActive(true);
+            //MenuManager.SetActiveView(MenuManager.SettingsMenu);
         });
 
         _quitButton.onClick.AddListener(() =>

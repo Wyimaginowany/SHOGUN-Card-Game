@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CreditsMenu : MonoBehaviour
 {
-    private Button _backButton;
+    /*private Button _backButton;
     public void Awake()
     {
         _backButton = GameObject.Find("BackButton").gameObject.GetComponent<Button>();
@@ -15,5 +15,5 @@ public class CreditsMenu : MonoBehaviour
             MenuManager.SetActiveView(MenuManager.MainMenu);
         });
     }
-
+    */
 }
