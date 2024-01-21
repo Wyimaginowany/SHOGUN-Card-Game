@@ -92,6 +92,7 @@ public class CombatManager : MonoBehaviour
 
     private void HandleStageComplete()
     {
+        OnAllEnemiesKilled?.Invoke();
         _handManager.ShuffleHandIntoDeck();
         _cardSelectorManager.SetupNewCardsToSelect();
     }

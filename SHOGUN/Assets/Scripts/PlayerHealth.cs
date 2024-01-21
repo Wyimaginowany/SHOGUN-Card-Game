@@ -69,6 +69,7 @@ public class PlayerHealth : MonoBehaviour, IBleedable
     private void HandleStageEnd()
     {
         _currentShield = 0;
+        _currentBleedStacks = 0;
         UpdateShieldDisplay();
     }
 
