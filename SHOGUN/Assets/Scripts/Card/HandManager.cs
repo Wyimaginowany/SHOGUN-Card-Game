@@ -72,12 +72,14 @@ public class HandManager : MonoBehaviour
     private void CardEndDragging()
     {
         _isBeingDragged = false;
+        _hoverCounter = 0;
     }
 
     private void CardBeginDrag()
     {
         _isBeingDragged = true;
         _cardVisualPrefab.position = _hiddenCardsPoint.position;
+        _hoverCounter = 0;
     }
 
     private void CardMouseHoverVisualStart(Card card, Transform cardVisualNewPosition)
