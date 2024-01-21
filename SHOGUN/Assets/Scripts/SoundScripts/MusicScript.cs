@@ -23,13 +23,17 @@ public class MusicScript : MonoBehaviour
 
 
     public void playCombatMusicAudio(){
+        if(combatClip!=null&&audioSource!=null&&audioSource.clip!=combatClip){
         audioSource.clip = combatClip;
         audioSource.Play();
+        }
     }
 
     public void playMapMusicAudio(){
-        if(mapClip!=null&&audioSource!=null) {audioSource.clip = mapClip;
-        audioSource.Play();}
+        if(mapClip!=null&&audioSource!=null&&audioSource.clip!=mapClip){
+        audioSource.clip = mapClip;
+        audioSource.Play();
+        }
     }
 
     public void musicPauseToggler(){

@@ -19,7 +19,6 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
     private GridManager _gridManager;
     private int _stageSceneChange=5;
     private GameObject _map;
-    private AudioSource audioSource;
 
     public static event Action OnNewStageStarted;
     
@@ -51,7 +50,6 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
         _eventPath=new List<MapEvent>();
         _combatManager=GameObject.Find("/Main Canvas/Card System Manager").GetComponent<CombatManager>();
         _gridManager=gameObject.GetComponentInParent<GridManager>();
-        audioSource = GetComponent<AudioSource>();
         
     }
 
@@ -118,7 +116,7 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
         
         playEventClipAudio();
         _combatManager.HandleTreasureChest();
-        MapObject.MapInstance.GetComponent<MapObject>().HideMap();
+        MapObject.MapInstance.GetComponent<MapObject>().ShowTreasure();
     }
 
     private void HandleScouting(){
@@ -137,8 +135,9 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
         OnNewStageStarted?.Invoke();
     }
     private void playEventClipAudio(){
-        if(_clip!=null&&audioSource!=null){ audioSource.clip = _clip;
-        audioSource.Play();}
+        if(_clip!=null){ 
+            MapObject.MapInstance.GetComponent<MapObject>().PlayEventSound(_clip);
+        }
     }
 
     public void OpenCombatScene()
