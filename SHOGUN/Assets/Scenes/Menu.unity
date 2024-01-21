@@ -2518,6 +2518,7 @@ MonoBehaviour:
   _creditsBackButton: {fileID: 1279024424}
   _quitButton: {fileID: 1936644106}
   _introButton: {fileID: 1723802147}
+  _audioMixer: {fileID: 24100000, guid: 320a4bd8682492a45aa5331fb085c808, type: 2}
 --- !u!1 &1636734697
 GameObject:
   m_ObjectHideFlags: 0

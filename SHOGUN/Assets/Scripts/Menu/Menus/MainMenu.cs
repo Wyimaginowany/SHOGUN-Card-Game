@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -17,6 +18,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Button _creditsBackButton;
     [SerializeField] private Button _quitButton;
     [SerializeField] private Button _introButton;
+    [SerializeField] private AudioMixer _audioMixer;
 
     public void Awake()
     {
@@ -66,5 +68,14 @@ public class MainMenu : MonoBehaviour
         {
             LevelLoaderManager.LevelLoaderInstance.GetComponent<LevelLoaderManager>().LoadIntro();
         });
+    }
+    private void Start() {
+        LoadAudioSettings();
+    }
+    private void LoadAudioSettings(){
+        float music=PlayerPrefs.GetFloat("musicVolume");
+        float sound=PlayerPrefs.GetFloat("soundsVolume");
+        _audioMixer.SetFloat("MusicVolume", Mathf.Log10(music)*20);
+        _audioMixer.SetFloat("SoundVolume", Mathf.Log10(sound)*20);
     }
 }
