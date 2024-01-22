@@ -201,16 +201,16 @@ public class GridManager : MonoBehaviour
         List<int> eventLocations= new();
         int paths=0;
         while(paths<_minPaths){
-            if(paths<_maxPaths&&y+1<_locations&&Random.Range(0,2)==1){
+            if(paths<_maxPaths&&y+1<_locations&&Random.Range(0,2)==1&&!eventLocations.Contains((int)y+1)){
                 eventLocations.Add((int)y+1);
                 paths++;
             }
-            if(paths<_maxPaths&&y-1>=0&&Random.Range(0,2)==1){
+            if(paths<_maxPaths&&y-1>=0&&Random.Range(0,2)==1&&!eventLocations.Contains((int)y-1)){
                 eventLocations.Add((int)y-1);
                 paths++;
             }
           
-            if(paths<_maxPaths&&Random.Range(0,2)==1){
+            if(paths<_maxPaths&&Random.Range(0,2)==1&&!eventLocations.Contains((int)y)){
                 eventLocations.Add((int)y);
                 paths++;
             }
