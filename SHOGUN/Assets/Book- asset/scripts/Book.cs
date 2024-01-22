@@ -71,6 +71,7 @@ public class Book : MonoBehaviour {
     {
         if (!canvas) canvas=GetComponentInParent<Canvas>();
         if (!canvas) Debug.LogError("Book should be a child to canvas");
+        
 
         Left.gameObject.SetActive(false);
         Right.gameObject.SetActive(false);

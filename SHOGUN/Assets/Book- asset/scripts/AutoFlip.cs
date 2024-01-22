@@ -9,9 +9,12 @@ public class AutoFlip : MonoBehaviour {
     public bool AutoStartFlip=true;
     public Book ControledBook;
     public int AnimationFramesCount = 40;
+    
+    private AudioSource audioSource;
     bool isFlipping = false;
     // Use this for initialization
     void Start () {
+        audioSource = GetComponent<AudioSource>();
         if (!ControledBook)
             ControledBook = GetComponent<Book>();
         if (AutoStartFlip)
@@ -24,12 +27,16 @@ public class AutoFlip : MonoBehaviour {
     }
 	public void StartFlipping()
     {
+        
         StartCoroutine(FlipToEnd());
     }
     public void FlipRightPage()
     {
         if (isFlipping) return;
         if (ControledBook.currentPage >= ControledBook.TotalPageCount) return;
+        if(audioSource!=null){
+            audioSource.Play();
+        }
         isFlipping = true;
         float frameTime = PageFlipTime / AnimationFramesCount;
         float xc = (ControledBook.EndBottomRight.x + ControledBook.EndBottomLeft.x) / 2;
@@ -43,6 +50,9 @@ public class AutoFlip : MonoBehaviour {
     {
         if (isFlipping) return;
         if (ControledBook.currentPage <= 0) return;
+        if(audioSource!=null){
+            audioSource.Play();
+        }
         isFlipping = true;
         float frameTime = PageFlipTime / AnimationFramesCount;
         float xc = (ControledBook.EndBottomRight.x + ControledBook.EndBottomLeft.x) / 2;
