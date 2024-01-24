@@ -127,6 +127,7 @@ public class GridManager : MonoBehaviour
                         _currentEvent=startEvent;
                         startEvent.GetComponent<Image>().raycastTarget=true;
                         startEvent.GetComponent<Image>().color=Color.black;
+                        startEvent.GetComponent<MapEvent>().ImportEnabledEvents(previousStageEvents.ToList());
                         _scouted++;
                     }
                 }else if(stage==1){
