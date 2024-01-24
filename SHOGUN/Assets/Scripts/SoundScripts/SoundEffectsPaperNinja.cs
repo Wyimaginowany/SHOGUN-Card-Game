@@ -55,7 +55,8 @@ public class SoundEffectsPaperNinja : MonoBehaviour
     }
 
     public void SpawnVanishFX()
-    {
+    {   
+        if(vanishFxEffect==null)return;
         Instantiate(vanishFxEffect, transform.position, Quaternion.identity);
     }
 }

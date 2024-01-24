@@ -10,6 +10,8 @@ public class SoundEffectsOni : MonoBehaviour
     [SerializeField] private AudioClip stunAttackClip;
     [SerializeField] private AudioClip berserkClip;
     [SerializeField] private AudioClip buffDamageClip;
+
+    [SerializeField] private GameObject berserkFXEffect;
     
     private AudioSource audioSource;
 
@@ -56,6 +58,10 @@ public class SoundEffectsOni : MonoBehaviour
         audioSource.Play();
     }
 
-
+    public void SpawnBerserkFX()
+    {   
+        if(berserkFXEffect==null)return;
+        Instantiate(berserkFXEffect, transform.position, Quaternion.identity);
+    }
 
 }

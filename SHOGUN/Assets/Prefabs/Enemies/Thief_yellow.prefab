@@ -444,6 +444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 35
+  _isBoss: 0
   _damageText: {fileID: 4887756071848965310}
   _enemyDamagePopupAnimator: {fileID: 4117166414358285483}
   _healthbarAmountText: {fileID: 3987299875749734872}
@@ -511,7 +512,7 @@ MonoBehaviour:
     AttackMaxCooldown: 5
     RemoveAfterUsage: 0
     Description: Shields himself for @ and buffs strength of block
-    AnimatorTrigger: Block
+    AnimatorTrigger: Buff-Block
     AttackDuration: 1
   _basicAttackMinDmg: 6
   _basicAttackMaxDmg: 8
@@ -535,6 +536,7 @@ MonoBehaviour:
   kickClip: {fileID: 8300000, guid: 8d3d092f26ea2f04eb536f9c1028cca3, type: 3}
   deathClip: {fileID: 8300000, guid: f699d7197c5c6ea43ae979f843049df9, type: 3}
   comboClip: {fileID: 8300000, guid: 8d3d092f26ea2f04eb536f9c1028cca3, type: 3}
+  blockFxEffect: {fileID: 1858714725665292, guid: 3ccd54180d4b3e54eaf3027dcaf14742, type: 3}
 --- !u!82 &258281906366745320
 AudioSource:
   m_ObjectHideFlags: 0

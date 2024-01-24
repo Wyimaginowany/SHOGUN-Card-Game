@@ -603,6 +603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 12
+  _isBoss: 0
   _damageText: {fileID: 1668861245963486384}
   _enemyDamagePopupAnimator: {fileID: 7917096407318641829}
   _healthbarAmountText: {fileID: 1566699567338095321}
