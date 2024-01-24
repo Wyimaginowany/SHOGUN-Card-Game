@@ -118,7 +118,6 @@ public class HandManager : MonoBehaviour
     {
         _fullHandDrawn = false;
         if (!_isDrawing) DrawFullHand();
-        _isDrawing = true;
     }
 
     public void DrawFullHand()
@@ -128,6 +127,7 @@ public class HandManager : MonoBehaviour
 
     private IEnumerator drawCard(float timeBeforeNextCardDraw)
     {
+        _isDrawing = true;
         for (int i = _hand.Count; i < _currentMaxHandSize; i++)
         {
             Card drawnCard = _deckManager.DrawTopCard();
