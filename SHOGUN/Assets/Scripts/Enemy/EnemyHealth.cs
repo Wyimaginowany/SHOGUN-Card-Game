@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour, IBleedable
 {
     [Header("Settings")]
     [SerializeField] private int _maxHealth;
+    [SerializeField] private bool _isBoss = false;
 
     [Header("To Attach")]
     [SerializeField] private TMP_Text _damageText;
@@ -22,6 +23,7 @@ public class EnemyHealth : MonoBehaviour, IBleedable
     [SerializeField] private GameObject _untargetableCanvas;
 
     public static event Action<EnemyHealth> OnEnemyDeath;
+    public static event Action<EnemyHealth> OnBossDeath;
 
     private int _currentHealth;
     private int _currentShield = 0;
@@ -108,7 +110,7 @@ public class EnemyHealth : MonoBehaviour, IBleedable
             _currentHealth = 0;
             isAlive = false;
             _animator.SetTrigger("Death");
-            OnEnemyDeath?.Invoke(this);
+            if (!_isBoss) OnEnemyDeath?.Invoke(this);
             StartCoroutine(RunTimer());
         }
 
@@ -154,6 +156,7 @@ public class EnemyHealth : MonoBehaviour, IBleedable
     }
 
     public void EnemyDeath(){
+        if (_isBoss) OnBossDeath?.Invoke(this);
         Destroy(gameObject);
     }
 

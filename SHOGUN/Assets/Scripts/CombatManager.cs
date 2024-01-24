@@ -47,6 +47,7 @@ public class CombatManager : MonoBehaviour
 
         Card.OnCardPlayed += HandleCardPlayed;
         EnemyHealth.OnEnemyDeath += HandleEnemyDeath;
+        EnemyHealth.OnBossDeath += HandleBossDeath;
         MapEvent.OnNewStageStarted += HandleNewStageStart;
         MapEvent.OnBossStageStarted += HandleBossStageStart;
 
@@ -60,8 +61,17 @@ public class CombatManager : MonoBehaviour
     {
         Card.OnCardPlayed -= HandleCardPlayed;
         EnemyHealth.OnEnemyDeath -= HandleEnemyDeath;
+        EnemyHealth.OnBossDeath -= HandleBossDeath;
         MapEvent.OnNewStageStarted -= HandleNewStageStart;
         MapEvent.OnBossStageStarted -= HandleBossStageStart;
+    }
+
+    private void HandleBossDeath(EnemyHealth deadEnemy)
+    {
+        _aliveEnemies.Remove(deadEnemy);
+        _handManager.ShuffleHandIntoDeck();
+        //show endgameMenu
+        Debug.Log("END");
     }
 
     private void HandleBossStageStart()
