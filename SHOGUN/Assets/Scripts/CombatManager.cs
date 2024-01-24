@@ -14,6 +14,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private TMP_Text _manaAmountText;
     [SerializeField] private GameObject _endTurnButton;
     [SerializeField] private GameObject _endTurnButtonBlocked;
+    [SerializeField] private GameObject[] _bossStageEnemies;
     [Space(5)]
     [Header("Stages")]
     [SerializeField] private EnemyGroupsScriptableObject enemyStages;
@@ -47,6 +48,7 @@ public class CombatManager : MonoBehaviour
         Card.OnCardPlayed += HandleCardPlayed;
         EnemyHealth.OnEnemyDeath += HandleEnemyDeath;
         MapEvent.OnNewStageStarted += HandleNewStageStart;
+        MapEvent.OnBossStageStarted += HandleBossStageStart;
 
         _currentMana = _maxMana;
         _manaAmountText.text = _currentMana.ToString();
@@ -59,8 +61,29 @@ public class CombatManager : MonoBehaviour
         Card.OnCardPlayed -= HandleCardPlayed;
         EnemyHealth.OnEnemyDeath -= HandleEnemyDeath;
         MapEvent.OnNewStageStarted -= HandleNewStageStart;
+        MapEvent.OnBossStageStarted -= HandleBossStageStart;
     }
 
+    private void HandleBossStageStart()
+    {
+        _endTurnButton.SetActive(false);
+        _endTurnButtonBlocked.SetActive(true);
+        ResetMana();
+        SpawnBossStage();
+        _handManager.DrawFullHand();
+    }
+
+    private void SpawnBossStage()
+    {
+        for (int i = 0; i < _bossStageEnemies.Length; i++)
+        {
+            GameObject newEnemy = Instantiate(_bossStageEnemies[i],
+                                              _spawnPoints[i].position,
+                                              Quaternion.identity);
+
+            _aliveEnemies.Add(newEnemy.GetComponent<EnemyHealth>());
+        }
+    }
 
     private void Update()
     {
