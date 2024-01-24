@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 [RequireComponent(typeof(Book))]
 public class AutoFlip : MonoBehaviour {
+    [SerializeField]
+    Button startGameButton;
     public FlipMode Mode;
     public float PageFlipTime = 1;
     public float TimeBetweenPages = 1;
@@ -45,6 +48,9 @@ public class AutoFlip : MonoBehaviour {
         float h = Mathf.Abs(ControledBook.EndBottomRight.y) * 0.9f;
         float dx = (xl)*2 / AnimationFramesCount;
         StartCoroutine(FlipRTL(xc, xl, h, frameTime, dx));
+        if(ControledBook.currentPage==ControledBook.TotalPageCount-2){
+            startGameButton.interactable=true;
+        }
     }
     public void FlipLeftPage()
     {
@@ -61,6 +67,9 @@ public class AutoFlip : MonoBehaviour {
         float h = Mathf.Abs(ControledBook.EndBottomRight.y) * 0.9f;
         float dx = (xl) * 2 / AnimationFramesCount;
         StartCoroutine(FlipLTR(xc, xl, h, frameTime, dx));
+        if(ControledBook.currentPage==ControledBook.TotalPageCount){
+            startGameButton.interactable=false;
+        }
     }
     IEnumerator FlipToEnd()
     {

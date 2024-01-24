@@ -22,6 +22,7 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
     private GameObject _map;
 
     public static event Action OnNewStageStarted;
+    public static event Action OnBossStageStarted;
     
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -133,7 +134,7 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
         _map.transform.Find("Cave Scene").gameObject.SetActive(true);
         _map.transform.Find("Village Scene").gameObject.SetActive(false);
         MapObject.MapInstance.GetComponent<MapObject>().HideMap();
-        OnNewStageStarted?.Invoke();
+        OnBossStageStarted?.Invoke();
     }
     private void playEventClipAudio(){
         if(_clip!=null){ 

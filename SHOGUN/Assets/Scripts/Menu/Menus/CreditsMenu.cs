@@ -16,4 +16,9 @@ public class CreditsMenu : MonoBehaviour
         });
     }
     */
+
+    public void ReturnToMainMenu()
+    {
+        LevelLoaderManager.LevelLoaderInstance.LoadMainMenu();
+    }
 }

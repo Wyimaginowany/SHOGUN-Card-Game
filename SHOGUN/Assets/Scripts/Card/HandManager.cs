@@ -40,6 +40,7 @@ public class HandManager : MonoBehaviour
     private int _hoverCounter = 0;
     private bool _isBeingDragged = false;
     private bool _fullHandDrawn = false;
+    private bool _isDrawing = false;
 
     private void Start()
     {
@@ -116,7 +117,8 @@ public class HandManager : MonoBehaviour
     private void HandlePlayerTurnStart()
     {
         _fullHandDrawn = false;
-        DrawFullHand();
+        if (!_isDrawing) DrawFullHand();
+        _isDrawing = true;
     }
 
     public void DrawFullHand()
@@ -149,6 +151,7 @@ public class HandManager : MonoBehaviour
 
         _combatManager.FullHandDrawn();
         _fullHandDrawn = true;
+        _isDrawing = false;
     }
 
     private void RemoveFromHand(Card cardPlayed)
