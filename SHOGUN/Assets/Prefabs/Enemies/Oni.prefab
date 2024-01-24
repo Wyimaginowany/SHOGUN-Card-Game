@@ -558,6 +558,7 @@ MonoBehaviour:
   stunAttackClip: {fileID: 8300000, guid: 6d2b7373fd6a4554fae17a17c0569530, type: 3}
   berserkClip: {fileID: 8300000, guid: 129c8286b0e378f4aabb9cc888af790f, type: 3}
   buffDamageClip: {fileID: 8300000, guid: a4552ae6f97db874da8e97b3887caa26, type: 3}
+  berserkFXEffect: {fileID: 1159970587636746, guid: e7473d9620ab29341b98bf21b400e598, type: 3}
 --- !u!82 &6420746700567475431
 AudioSource:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ public class SoundEffectsThief : MonoBehaviour
     [SerializeField] private AudioClip kickClip;
     [SerializeField] private AudioClip deathClip;
     [SerializeField] private AudioClip comboClip;
+
+    [SerializeField] private GameObject blockFxEffect;
     
     private AudioSource audioSource;
 
@@ -49,6 +51,12 @@ public class SoundEffectsThief : MonoBehaviour
     public void playComboClipAudio(){
         audioSource.clip = comboClip;
         audioSource.Play();
+    }
+
+    public void SpawnBuffBlockFX()
+    {
+        if(blockFxEffect==null)return;
+        Instantiate(blockFxEffect, transform.position, Quaternion.identity);
     }
 
 }

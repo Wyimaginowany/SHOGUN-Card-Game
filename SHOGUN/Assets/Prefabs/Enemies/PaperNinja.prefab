@@ -603,6 +603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 12
+  _isBoss: 0
   _damageText: {fileID: 1668861245963486384}
   _enemyDamagePopupAnimator: {fileID: 7917096407318641829}
   _healthbarAmountText: {fileID: 1566699567338095321}
@@ -682,6 +683,7 @@ MonoBehaviour:
   shurikenThrowClip: {fileID: 8300000, guid: a1093c0281b71a74d8e5bbb783a69d23, type: 3}
   takeDamageClip: {fileID: 8300000, guid: 63bb1b326046d4549a09825fdbd64c78, type: 3}
   deathClip: {fileID: 8300000, guid: e899ade17a6468745bf4fe7cff96622e, type: 3}
+  vanishFxEffect: {fileID: 1233254026376546, guid: b6ac78dbb6751514392e2f44f82cc21f, type: 3}
 --- !u!82 &6292389167236056924
 AudioSource:
   m_ObjectHideFlags: 0

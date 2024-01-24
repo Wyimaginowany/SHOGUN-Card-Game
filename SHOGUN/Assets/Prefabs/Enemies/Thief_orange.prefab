@@ -366,8 +366,8 @@ GameObject:
   - component: {fileID: 6082067057654592339}
   - component: {fileID: 8957048241304380330}
   - component: {fileID: 5397453104925595599}
-  - component: {fileID: 9179186585779666947}
   - component: {fileID: -6709598991275372816}
+  - component: {fileID: 9179186585779666947}
   m_Layer: 6
   m_Name: Thief_orange
   m_TagString: Untagged
@@ -444,6 +444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 25
+  _isBoss: 0
   _damageText: {fileID: 4887756071848965310}
   _enemyDamagePopupAnimator: {fileID: 4117166414358285483}
   _healthbarAmountText: {fileID: 3987299875749734872}
@@ -511,13 +512,31 @@ MonoBehaviour:
     AttackMaxCooldown: 5
     RemoveAfterUsage: 0
     Description: Shields himself for @ and buffs strength of block
-    AnimatorTrigger: Block
+    AnimatorTrigger: Buff-Block
     AttackDuration: 1
   _basicAttackMinDmg: 4
   _basicAttackMaxDmg: 6
   _comboAttackMinDmg: 2
   _blockActionValue: 5
   _blockBuffPercentage: 50
+--- !u!114 &-6709598991275372816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4281865848350242147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30b9ce5c2d6ea774b8b13ae03ae90516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  takeDamageClip: {fileID: 8300000, guid: e093a5d9923426d4c83d2613dac5fe04, type: 3}
+  blockClip: {fileID: 8300000, guid: bc12b215edb734e498e0ef57ac54aa1b, type: 3}
+  kickClip: {fileID: 8300000, guid: 8d3d092f26ea2f04eb536f9c1028cca3, type: 3}
+  deathClip: {fileID: 8300000, guid: f699d7197c5c6ea43ae979f843049df9, type: 3}
+  comboClip: {fileID: 8300000, guid: 8d3d092f26ea2f04eb536f9c1028cca3, type: 3}
+  blockFxEffect: {fileID: 1858714725665292, guid: 3ccd54180d4b3e54eaf3027dcaf14742, type: 3}
 --- !u!82 &9179186585779666947
 AudioSource:
   m_ObjectHideFlags: 0
@@ -614,23 +633,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-6709598991275372816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4281865848350242147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30b9ce5c2d6ea774b8b13ae03ae90516, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  takeDamageClip: {fileID: 8300000, guid: e093a5d9923426d4c83d2613dac5fe04, type: 3}
-  blockClip: {fileID: 8300000, guid: bc12b215edb734e498e0ef57ac54aa1b, type: 3}
-  kickClip: {fileID: 8300000, guid: 8d3d092f26ea2f04eb536f9c1028cca3, type: 3}
-  deathClip: {fileID: 8300000, guid: f699d7197c5c6ea43ae979f843049df9, type: 3}
-  comboClip: {fileID: 8300000, guid: 8d3d092f26ea2f04eb536f9c1028cca3, type: 3}
 --- !u!1 &4702104248948639849
 GameObject:
   m_ObjectHideFlags: 0
