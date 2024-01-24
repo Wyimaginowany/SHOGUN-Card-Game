@@ -81,6 +81,144 @@ MonoBehaviour:
   - PossibleEnemyGroups:
     - EnemiesOnStage:
       - {fileID: 6939994642315872436, guid: 9e831edb67f734043a1fa9aad12664a6, type: 3}
-      - {fileID: 3749962143088792187, guid: db9414f665640d549ba5f30a453cc6ca, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
     - EnemiesOnStage:
-      - {fileID: 3749962143088792187, guid: db9414f665640d549ba5f30a453cc6ca, type: 3}
+      - {fileID: 4281865848350242147, guid: fdb6dad6c4c623c47911b97c4f746f31, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+      - {fileID: 4281865848350242147, guid: fdb6dad6c4c623c47911b97c4f746f31, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 02eba81807d23ab4aac626907c5784ea, type: 3}
+      - {fileID: 4281865848350242147, guid: fdb6dad6c4c623c47911b97c4f746f31, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 0b79b7c42ceb0b34492932eaf5c29b5c, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+      - {fileID: 4281865848350242147, guid: 0b79b7c42ceb0b34492932eaf5c29b5c, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+  - PossibleEnemyGroups:
+    - EnemiesOnStage:
+      - {fileID: 6939994642315872436, guid: 9e831edb67f734043a1fa9aad12664a6, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: fdb6dad6c4c623c47911b97c4f746f31, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+      - {fileID: 4281865848350242147, guid: fdb6dad6c4c623c47911b97c4f746f31, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 02eba81807d23ab4aac626907c5784ea, type: 3}
+      - {fileID: 4281865848350242147, guid: fdb6dad6c4c623c47911b97c4f746f31, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 0b79b7c42ceb0b34492932eaf5c29b5c, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+      - {fileID: 4281865848350242147, guid: 0b79b7c42ceb0b34492932eaf5c29b5c, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+  - PossibleEnemyGroups:
+    - EnemiesOnStage:
+      - {fileID: 6939994642315872436, guid: 9e831edb67f734043a1fa9aad12664a6, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: fdb6dad6c4c623c47911b97c4f746f31, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+      - {fileID: 4281865848350242147, guid: fdb6dad6c4c623c47911b97c4f746f31, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 02eba81807d23ab4aac626907c5784ea, type: 3}
+      - {fileID: 4281865848350242147, guid: fdb6dad6c4c623c47911b97c4f746f31, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 0b79b7c42ceb0b34492932eaf5c29b5c, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+      - {fileID: 4281865848350242147, guid: 0b79b7c42ceb0b34492932eaf5c29b5c, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+  - PossibleEnemyGroups:
+    - EnemiesOnStage:
+      - {fileID: 6939994642315872436, guid: 9e831edb67f734043a1fa9aad12664a6, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: fdb6dad6c4c623c47911b97c4f746f31, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+      - {fileID: 4281865848350242147, guid: fdb6dad6c4c623c47911b97c4f746f31, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 02eba81807d23ab4aac626907c5784ea, type: 3}
+      - {fileID: 4281865848350242147, guid: fdb6dad6c4c623c47911b97c4f746f31, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 0b79b7c42ceb0b34492932eaf5c29b5c, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+      - {fileID: 4281865848350242147, guid: 0b79b7c42ceb0b34492932eaf5c29b5c, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+  - PossibleEnemyGroups:
+    - EnemiesOnStage:
+      - {fileID: 6939994642315872436, guid: 9e831edb67f734043a1fa9aad12664a6, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: fdb6dad6c4c623c47911b97c4f746f31, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+      - {fileID: 4281865848350242147, guid: fdb6dad6c4c623c47911b97c4f746f31, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 02eba81807d23ab4aac626907c5784ea, type: 3}
+      - {fileID: 4281865848350242147, guid: fdb6dad6c4c623c47911b97c4f746f31, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 0b79b7c42ceb0b34492932eaf5c29b5c, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+      - {fileID: 4281865848350242147, guid: 0b79b7c42ceb0b34492932eaf5c29b5c, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+  - PossibleEnemyGroups:
+    - EnemiesOnStage:
+      - {fileID: 6939994642315872436, guid: 9e831edb67f734043a1fa9aad12664a6, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: fdb6dad6c4c623c47911b97c4f746f31, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+      - {fileID: 4281865848350242147, guid: fdb6dad6c4c623c47911b97c4f746f31, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 02eba81807d23ab4aac626907c5784ea, type: 3}
+      - {fileID: 4281865848350242147, guid: fdb6dad6c4c623c47911b97c4f746f31, type: 3}
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 0b79b7c42ceb0b34492932eaf5c29b5c, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
+      - {fileID: 4281865848350242147, guid: 0b79b7c42ceb0b34492932eaf5c29b5c, type: 3}
+    - EnemiesOnStage:
+      - {fileID: 4281865848350242147, guid: 480403f0d9f65114697e20a74cc982c1, type: 3}
+      - {fileID: 4281865848350242147, guid: 14b2598afa117ce48937248528d2ee08, type: 3}
