@@ -14234,15 +14234,15 @@ PrefabInstance:
       objectReference: {fileID: 1106577288549175103, guid: 2dcb64424126af344829a6ad33c9fb33, type: 3}
     - target: {fileID: 8775949720507498274, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
       propertyPath: _campfireChance
-      value: 0.15
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 8775949720507498274, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
       propertyPath: _scoutingChance
-      value: 0.15
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 8775949720507498274, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
       propertyPath: _treasureChance
-      value: 0.25
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 8775949720507498274, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
       propertyPath: _visionDistance
