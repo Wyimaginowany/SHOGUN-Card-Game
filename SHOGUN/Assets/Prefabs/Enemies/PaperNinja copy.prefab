@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 7986171183642034804}
   - component: {fileID: 6292389167236056924}
   m_Layer: 6
-  m_Name: PaperNinja
+  m_Name: PaperNinja copy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -682,7 +682,7 @@ MonoBehaviour:
   shurikenThrowClip: {fileID: 8300000, guid: a1093c0281b71a74d8e5bbb783a69d23, type: 3}
   takeDamageClip: {fileID: 8300000, guid: 63bb1b326046d4549a09825fdbd64c78, type: 3}
   deathClip: {fileID: 8300000, guid: e899ade17a6468745bf4fe7cff96622e, type: 3}
-  vanishFxEffect: {fileID: 1233254026376546, guid: b6ac78dbb6751514392e2f44f82cc21f, type: 3}
+  vanishFxEffect: {fileID: 1231247210357622, guid: 41cbce41e6100bd4795fcf7202869c8e, type: 3}
 --- !u!82 &6292389167236056924
 AudioSource:
   m_ObjectHideFlags: 0

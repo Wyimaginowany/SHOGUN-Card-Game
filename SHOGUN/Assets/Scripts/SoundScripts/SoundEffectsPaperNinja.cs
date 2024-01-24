@@ -10,6 +10,8 @@ public class SoundEffectsPaperNinja : MonoBehaviour
     [SerializeField] private AudioClip takeDamageClip;
     [SerializeField] private AudioClip deathClip;
     
+    [SerializeField] private GameObject vanishFxEffect;
+
     private AudioSource audioSource;
 
     void Start()
@@ -39,6 +41,7 @@ public class SoundEffectsPaperNinja : MonoBehaviour
     public void playVanishAudio(){
         audioSource.clip = vanishClip;
         audioSource.Play();
+        SpawnVanishFX();
     }
 
     public void playTakeDamageAudio(){
@@ -49,5 +52,10 @@ public class SoundEffectsPaperNinja : MonoBehaviour
     public void playDeathAudio(){
         audioSource.clip = deathClip;
         audioSource.Play();
+    }
+
+    public void SpawnVanishFX()
+    {
+        Instantiate(vanishFxEffect, transform.position, Quaternion.identity);
     }
 }

@@ -10,6 +10,8 @@ public class PlayerSoundEffects : MonoBehaviour
     [SerializeField] private AudioClip _armorClip;
     [SerializeField] private AudioClip _deathClip;
 
+    [SerializeField] private GameObject healingFxEffect;
+
     private AudioSource _audioSource;
 
     void Start()
@@ -34,6 +36,7 @@ public class PlayerSoundEffects : MonoBehaviour
 
     public void playHealAudio(){
         if (_healClip == null) return;
+        SpawnHealingFX();
         _audioSource.PlayOneShot(_healClip);
     }
 
@@ -45,6 +48,11 @@ public class PlayerSoundEffects : MonoBehaviour
     public void playDeathAudio(){
         if (_deathClip == null) return;
         _audioSource.PlayOneShot(_deathClip);
+    }
+
+    public void SpawnHealingFX()
+    {
+        Instantiate(healingFxEffect, transform.position, Quaternion.identity);
     }
 
 }
