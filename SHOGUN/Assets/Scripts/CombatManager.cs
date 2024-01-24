@@ -87,14 +87,13 @@ public class CombatManager : MonoBehaviour
 
     private void SpawnBossStage()
     {
-        for (int i = 0; i < _bossStageEnemies.Length; i++)
-        {
-            GameObject newEnemy = Instantiate(_bossStageEnemies[i],
-                                              _spawnPoints[i].position,
+    
+            GameObject newEnemy = Instantiate(_bossStageEnemies[0],
+                                              _spawnPoints[1].position,
                                               Quaternion.identity);
 
             _aliveEnemies.Add(newEnemy.GetComponent<EnemyHealth>());
-        }
+        
     }
 
     private void Update()
