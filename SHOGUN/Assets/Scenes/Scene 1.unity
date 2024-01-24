@@ -14188,9 +14188,125 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6271311723539778851, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778851, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778851, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778851, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: _musicObject
+      value: 
+      objectReference: {fileID: 346911244}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGamePause.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGameResume.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGamePause.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGamePause.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGameResume.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGameResume.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGamePause.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGamePause.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGamePause.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StopTime
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGamePause.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: StopTime
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGameResume.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGameResume.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGameResume.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ResumeTime
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGameResume.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ResumeTime
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGamePause.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TimeMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGamePause.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: TimeMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGameResume.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TimeMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGameResume.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: TimeMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGameResume.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGameResume.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGamePause.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGamePause.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGameResume.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271311723539778852, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
+      propertyPath: onGameResume.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8775949720507498274, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
       propertyPath: _stages
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8775949720507498274, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
       propertyPath: _maxPaths
@@ -14234,15 +14350,15 @@ PrefabInstance:
       objectReference: {fileID: 1106577288549175103, guid: 2dcb64424126af344829a6ad33c9fb33, type: 3}
     - target: {fileID: 8775949720507498274, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
       propertyPath: _campfireChance
-      value: 0.01
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: 8775949720507498274, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
       propertyPath: _scoutingChance
-      value: 0.01
+      value: 0.012
       objectReference: {fileID: 0}
     - target: {fileID: 8775949720507498274, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
       propertyPath: _treasureChance
-      value: 0.15
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 8775949720507498274, guid: 0c0dac1d54d33b846b91d9202ea76efb, type: 3}
       propertyPath: _visionDistance
