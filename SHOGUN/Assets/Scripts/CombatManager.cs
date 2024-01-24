@@ -15,6 +15,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private GameObject _endTurnButton;
     [SerializeField] private GameObject _endTurnButtonBlocked;
     [SerializeField] private GameObject[] _bossStageEnemies;
+    [SerializeField] private GameObject _endGameMenu;
     [Space(5)]
     [Header("Stages")]
     [SerializeField] private EnemyGroupsScriptableObject enemyStages;
@@ -71,6 +72,7 @@ public class CombatManager : MonoBehaviour
         _aliveEnemies.Remove(deadEnemy);
         _handManager.ShuffleHandIntoDeck();
         //show endgameMenu
+        _endGameMenu.SetActive(true);
         Debug.Log("END");
     }
 
