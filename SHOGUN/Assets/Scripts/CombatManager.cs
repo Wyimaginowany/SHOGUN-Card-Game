@@ -98,16 +98,16 @@ public class CombatManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            EnemyHealth[] aliveEnemies = _aliveEnemies.ToArray();
-            foreach (EnemyHealth enemy in aliveEnemies)
-            {
-                _aliveEnemies.Remove(enemy);
-                Destroy(enemy.gameObject);
-            }
-            SpawnRandom();
-        }
+        // if (Input.GetKeyDown(KeyCode.R))
+        // {
+        //     EnemyHealth[] aliveEnemies = _aliveEnemies.ToArray();
+        //     foreach (EnemyHealth enemy in aliveEnemies)
+        //     {
+        //         _aliveEnemies.Remove(enemy);
+        //         Destroy(enemy.gameObject);
+        //     }
+        //     SpawnRandom();
+        // }
     }
 
     private void StartGame()
