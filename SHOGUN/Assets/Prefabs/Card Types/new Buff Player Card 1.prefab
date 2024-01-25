@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3796539575214855360, guid: cb2dbdf3ce09af649ac1bf33ad4b61b4, type: 3}
       propertyPath: m_Name
-      value: new Buff Player Card
+      value: new Buff Player Card 1
       objectReference: {fileID: 0}
     - target: {fileID: 3796539575214855367, guid: cb2dbdf3ce09af649ac1bf33ad4b61b4, type: 3}
       propertyPath: m_Pivot.x
@@ -122,7 +122,6 @@ MonoBehaviour:
   _returnTransitionTime: 0.3
   _beginTransitionTime: 0.8
   _drawTransitionTime: 4
-  CardData: {fileID: 11400000, guid: 74d24e62ef085d9438690cb2e38313d8, type: 2}
+  CardData: {fileID: 11400000, guid: 3e8d40f5b6f73df4cad8e30f25f7cbde, type: 2}
   _cardVisualDisplayPoint: {fileID: 1312546570839467973}
   _cardAnimation: 3
-  _hoverSound: {fileID: 8300000, guid: 06f3856eb235bb648bcb00d07f262bf9, type: 3}

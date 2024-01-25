@@ -32,9 +32,11 @@ public class SettingsMenu : MonoBehaviour
         float sound=PlayerPrefs.GetFloat("soundsVolume");
         
 
-        SetMusicVolume(music);
-        SetSoundsVolume(sound);
+
         gameObject.transform.Find("MusicSlider").GetComponent<Slider>().value=music;
         gameObject.transform.Find("SoundsSlider").GetComponent<Slider>().value=sound;
+
+        SetMusicVolume(music);
+        SetSoundsVolume(sound);
     }
 }
