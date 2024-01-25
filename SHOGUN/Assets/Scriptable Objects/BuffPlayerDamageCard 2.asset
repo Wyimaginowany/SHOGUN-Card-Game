@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6619d22e990afe94ea5b77854f56d8df, type: 3}
-  m_Name: BuffPlayerDamageCard 1
+  m_Name: BuffPlayerDamageCard 2
   m_EditorClassIdentifier: 
-  Value: 2
-  Cost: 6
+  Value: 1
+  Cost: 4
   CardColor: {r: 0.6886792, g: 0.49052152, b: 0.67437917, a: 1}
   Description: Increase your hand attack cards damage by +X
-  CardName: Harmony
+  CardName: Focus
   CardImage: {fileID: 21300000, guid: e50964a68687f9746bf5e1e566333fe9, type: 3}
