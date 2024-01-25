@@ -17,10 +17,10 @@ public class AreaHidder : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            SwitchHideState();
-        }
+        // if (Input.GetKeyDown(KeyCode.H))
+        // {
+        //     SwitchHideState();
+        // }
     }
 
     private void SwitchHideState()
