@@ -18,7 +18,7 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
     [SerializeField] private AudioClip _clip;
     private CombatManager _combatManager;
     private GridManager _gridManager;
-    private int _stageSceneChange=5;
+    private int _stageSceneChange=3;
     private GameObject _map;
 
     public static event Action OnNewStageStarted;
@@ -52,6 +52,7 @@ public class MapEvent : MonoBehaviour, IPointerClickHandler
         _eventPath=new List<MapEvent>();
         _combatManager=GameObject.Find("/Main Canvas/Card System Manager").GetComponent<CombatManager>();
         _gridManager=gameObject.GetComponentInParent<GridManager>();
+        _stageSceneChange=(GetComponentInParent<GridManager>().GetStages()/2)-1;
         
     }
 

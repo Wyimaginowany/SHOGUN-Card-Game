@@ -142,6 +142,9 @@ public class GridManager : MonoBehaviour
         if(visionBorder-1>_scouted) _scouted=visionBorder-1;
         if(_scouting) _scouting=false;
     }
+    public int GetStages(){
+        return _stages;
+    }
 
     //Entry Event Location
     private List<int> GenerateEntryLocation(){
