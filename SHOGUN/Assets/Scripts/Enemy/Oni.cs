@@ -143,13 +143,17 @@ public class Oni : EnemyCombat
 
     private void StunAttack()
     {
+        
+        if (playerHealth.GetPlayerShield() < _minShieldToBlockStun)
+        {
+            Debug.Log(playerHealth.GetPlayerShield());
+            _combatManager.StunPlayer();
+        }
+        
         int damage = UnityEngine.Random.Range(_stunAttackMinDmg, _stunAttackMaxDmg);
         DealDamage(damage);
 
-        if (playerHealth.GetPlayerShield() <= _minShieldToBlockStun)
-        {
-            _combatManager.StunPlayer();
-        }
+        
         
         Debug.Log("stunAttack");
     }

@@ -108,6 +108,22 @@ public class CombatManager : MonoBehaviour
         //     }
         //     SpawnRandom();
         // }
+        
+        
+        // if (Input.GetKeyDown(KeyCode.R))
+        // {
+        //     EnemyHealth[] aliveEnemies = _aliveEnemies.ToArray();
+        //     foreach (EnemyHealth enemy in aliveEnemies)
+        //     {
+        //         _aliveEnemies.Remove(enemy);
+        //         Destroy(enemy.gameObject);
+        //     }
+        //     GameObject newEnemy = Instantiate(_bossStageEnemies[0],
+        //         _spawnPoints[1].position,
+        //         Quaternion.identity);
+        //
+        //     _aliveEnemies.Add(newEnemy.GetComponent<EnemyHealth>());
+        // }
     }
 
     private void StartGame()
