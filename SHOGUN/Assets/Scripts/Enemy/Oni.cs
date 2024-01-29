@@ -143,7 +143,7 @@ public class Oni : EnemyCombat
 
     private void StunAttack()
     {
-        if (playerHealth.GetPlayerShield() <= _minShieldToBlockStun)
+        if (playerHealth.GetPlayerShield() < _minShieldToBlockStun)
         {
             _combatManager.StunPlayer();
         }
